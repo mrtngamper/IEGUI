@@ -1,5 +1,5 @@
 # IEGUI
-Image enhancement GUI using different AI tecnologies.
+Image enhancement GUI using different AI technologies.
 
 ...Screenshot
 
