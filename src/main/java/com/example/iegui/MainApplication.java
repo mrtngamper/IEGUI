@@ -17,7 +17,6 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-
         Context context = new Context(stage);
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);

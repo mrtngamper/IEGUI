@@ -1,5 +1,14 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.util.Alerts;
+import com.example.iegui.util.Context;
+import com.example.iegui.util.Controller;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
+
 public class SwinIR extends ImageEnhanceMethod{
 
 
@@ -9,8 +18,9 @@ public class SwinIR extends ImageEnhanceMethod{
      * @param location The model location
      * @param lang     The language which should be loaded
      */
-    public SwinIR(String location, String lang) {
+    public SwinIR(String location, String lang, Context context) {
         super(location, lang);
+
 
     }
 }

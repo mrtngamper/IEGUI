@@ -27,9 +27,11 @@ public class Context {
     private SimpleStringProperty lang = new SimpleStringProperty("en");
 
 
+    private SimpleStringProperty selectedFile = new SimpleStringProperty();
+
     public  Context(Stage stage){
         this.stage=stage;
-        methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue()));
+        methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue(),this));
     }
 
 

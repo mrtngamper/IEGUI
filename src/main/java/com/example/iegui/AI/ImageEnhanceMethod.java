@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -21,11 +22,10 @@ public abstract class ImageEnhanceMethod {
     private String name="";
     private String description="";
 
-    private final ArrayList<String> example_input= new ArrayList<>();
-    private final ArrayList<String> example_output= new ArrayList<>();
 
-    private String miniature_input="";
-    private String miniature_output="";
+    private final HashMap<String,String> examples = new HashMap<>();
+
+    private final HashMap<String, String> miniatures = new HashMap<>();
 
     private String location;
 
@@ -46,12 +46,12 @@ public abstract class ImageEnhanceMethod {
     }
 
 
-    public ArrayList<String> getExample_input() {
-        return example_input;
+    public HashMap<String, String> getExamples() {
+        return examples;
     }
 
-    public ArrayList<String> getExample_output() {
-        return example_output;
+    public HashMap<String, String> getMiniatures() {
+        return miniatures;
     }
 
     public String getName() {
@@ -70,21 +70,6 @@ public abstract class ImageEnhanceMethod {
         this.description = description;
     }
 
-    public String getMiniature_input() {
-        return miniature_input;
-    }
-
-    public void setMiniature_input(String miniature_input) {
-        this.miniature_input = miniature_input;
-    }
-
-    public String getMiniature_output() {
-        return miniature_output;
-    }
-
-    public void setMiniature_output(String miniature_output) {
-        this.miniature_output = miniature_output;
-    }
 
     public String getLocation() {
         return location;
@@ -109,39 +94,21 @@ public abstract class ImageEnhanceMethod {
             InputStream inputStream = new FileInputStream(file);
             Map<String, Object> map = yaml.load(inputStream);
 
-            Object ex_input = map.get("example_input");
+            Object ex_input = map.get("examples");
             if (ex_input != null) {
-                if (ex_input instanceof ArrayList) {
-                    example_input.addAll((ArrayList) ex_input);
+                if (ex_input instanceof HashMap) {
+                    examples.putAll((HashMap) ex_input);
                 } else {
-                    throw new YAMLTypeNotValidException(ArrayList.class.toString(), ex_input.getClass().toString(), "example_input", file);
+                    throw new YAMLTypeNotValidException(HashMap.class.toString(), ex_input.getClass().toString(), "miniatures", file);
                 }
             }
 
-            Object ex_output = map.get("example_output");
-            if (ex_output != null) {
-                if (ex_output instanceof ArrayList) {
-                    example_output.addAll((ArrayList) ex_output);
-                } else {
-                    throw new YAMLTypeNotValidException(ArrayList.class.toString(), ex_output.getClass().toString(), "example_output", file);
-                }
-            }
-
-            Object min_in = map.get("miniature_input");
+            Object min_in = map.get("miniatures");
             if (min_in != null) {
-                if (min_in instanceof String) {
-                    miniature_input = min_in.toString();
+                if (min_in instanceof HashMap) {
+                    miniatures.putAll((HashMap)min_in);
                 } else {
-                    throw new YAMLTypeNotValidException(String.class.toString(), min_in.getClass().toString(), "miniature_input", file);
-                }
-            }
-
-            Object min_out = map.get("miniature_output");
-            if (min_out != null) {
-                if (min_out instanceof String) {
-                    miniature_output = min_out.toString();
-                } else {
-                    throw new YAMLTypeNotValidException(String.class.toString(), min_out.getClass().toString(), "miniature_output", file);
+                    throw new YAMLTypeNotValidException(HashMap.class.toString(), min_in.getClass().toString(), "miniatures", file);
                 }
             }
 
@@ -162,6 +129,6 @@ public abstract class ImageEnhanceMethod {
                     throw new YAMLTypeNotValidException(String.class.toString(), description_yml.getClass().toString(), "description", file);
                 }
             }
-
     }
+
 }
