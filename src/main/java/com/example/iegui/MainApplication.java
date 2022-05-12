@@ -17,7 +17,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
 
-        SwinIR method = new SwinIR();
+       // SwinIR method = new SwinIR();
 
 
 
