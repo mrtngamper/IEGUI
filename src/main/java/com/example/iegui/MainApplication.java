@@ -1,5 +1,6 @@
 package com.example.iegui;
 
+import com.example.iegui.AI.SwinIR;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
@@ -14,6 +15,11 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+
+
+        SwinIR method = new SwinIR();
+
+
 
         Context context = new Context(stage);
         Controller controller = fxmlLoader.getController();
