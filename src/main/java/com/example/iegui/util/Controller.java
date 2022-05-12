@@ -3,7 +3,7 @@ package com.example.iegui.util;
 /**
  * The Controller class is extended by every JavaFX controller. It is an utility class which contains the context.
  */
-public class Controller {
+public abstract class Controller {
     protected Context context;
 
     /**
