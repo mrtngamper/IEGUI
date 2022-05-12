@@ -1,0 +1,11 @@
+name: "SwinIR"
+description: "An Image Enhance ToolBox"
+
+
+example_input:
+  - image1
+  - image2
+example_output:
+  - image1out
+  - image2out
+

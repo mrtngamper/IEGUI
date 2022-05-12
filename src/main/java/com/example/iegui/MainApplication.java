@@ -18,10 +18,6 @@ public class MainApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
 
-       // SwinIR method = new SwinIR();
-
-
-
         Context context = new Context(stage);
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
