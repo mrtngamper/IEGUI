@@ -1,6 +1,7 @@
 module com.example.iegui {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.yaml.snakeyaml;
 
 
     opens com.example.iegui.controller to javafx.fxml;
