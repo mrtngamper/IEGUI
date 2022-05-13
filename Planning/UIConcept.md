@@ -5,7 +5,7 @@
 1. [Idea](#Idea)
 2. [Crutial Code](#crutial-code)
     - [Basics](#basics)
-    - [Save Data](#setting-save-data)
+    - [Save Data](#save-data)
     - [Files and Folders](#files-and-folders)
 3. [GUI](#gui)
    - [Welcome View](#welcome-view)
