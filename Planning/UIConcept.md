@@ -3,10 +3,11 @@
 ### Contents
 
 1. [Idea](#Idea)
-2. [Crutial Code](#crutial-code)
+2. [General Information](#general-information)
     - [Basics](#basics)
     - [Save Data](#save-data)
     - [Files and Folders](#files-and-folders)
+    - [Language](#language)
 3. [GUI](#gui)
    - [Welcome View](#welcome-view)
    - [Main View](#main-view)
@@ -23,7 +24,7 @@ We would like to include the following options:
 - [Low-light-Image-Enhancement](https://github.com/pvnieo/Low-light-Image-Enhancement)
 - [Auto White-Balance Correction](https://github.com/mahmoudnafifi/mixedillWB)
 
-### Crutial Code
+### General Information
   - #### Basics
     The Context contains all Data shared between the different Controllers. It includes a List
     containing instances of ImageEnhanceMethods, which are initialised on creation of the Context.
@@ -44,6 +45,13 @@ We would like to include the following options:
     - #### Language (folder)
         This directory contains all language files. Files contained in this directory should
       be selectable in the Main View. All the data is saved using the yml format.
+  - #### Language
+    A language Class contains static *load(String filename)* method which can load language files ([Language (folder)](#language-folder))
+    from the disk, as well as other utilitarian methods which may be defined and documented during development. The load method
+    loads yaml properties into a HashMap with String keys and StringProperty values. If a key does already exist, the existing StringProperty will change
+    its value. A *get(String key)* can be called to get specific properties. **All texts in the finished UI should use bindings to specific elements of this
+    language HashMap!!**
+  - 
 ### GUI
 
 The GUI will be written using JAVA11 and JAVAFX.
