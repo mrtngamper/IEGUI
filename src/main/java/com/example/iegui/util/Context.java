@@ -5,6 +5,7 @@ import com.example.iegui.AI.SwinIR;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -31,6 +32,15 @@ public class Context {
 
     public  Context(Stage stage){
         this.stage=stage;
+
+
+
+        try {
+            Language.load("Language/"+lang.getValue()+".yml");
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue(),this));
     }
 
