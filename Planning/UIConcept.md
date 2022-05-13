@@ -51,7 +51,6 @@ We would like to include the following options:
     loads yaml properties into a HashMap with String keys and StringProperty values. If a key does already exist, the existing StringProperty will change
     its value. A *get(String key)* can be called to get specific properties. **All texts in the finished UI should use bindings to specific elements of this
     language HashMap!!**
-  - 
 ### GUI
 
 The GUI will be written using JAVA11 and JAVAFX.

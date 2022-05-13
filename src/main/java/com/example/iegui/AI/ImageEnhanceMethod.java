@@ -33,7 +33,7 @@ public abstract class ImageEnhanceMethod {
 
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
-     * @param location The model location
+     * @param location The method location
      * @param lang The language which should be loaded
      */
     public ImageEnhanceMethod(String location, String lang){
@@ -87,7 +87,12 @@ public abstract class ImageEnhanceMethod {
         this.settingWindow = settingWindow;
     }
 
-
+    /**
+     * Loads ImageEnhanceMethod options from file
+     * @param file filename of the yml file which contains the data
+     * @throws YAMLTypeNotValidException thrown, when yaml object type is wrong
+     * @throws FileNotFoundException thrown, when file does not exist
+     */
     public void loadYAML(String file) throws YAMLTypeNotValidException, FileNotFoundException {
 
             Yaml yaml = new Yaml();
