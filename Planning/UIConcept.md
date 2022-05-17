@@ -57,7 +57,7 @@ The GUI will be written using JAVA11 and JAVAFX.
 Hereafter, are listed some concept views of the different windows.
 - #### Welcome View
     The Welcome View will be displayed on startup. It lets the user explore the different
-Available algorithms and contains explanations, for what each module does. By default it will appear on avery startup.
+Available algorithms and contains explanations, for what each module does. By default it will appear on every startup.
 This behavior can be disabled using a checkbox. In the Main View it will be possible to enable the Welcome View again.
 The Main View will appear after clicking Ok.  
 
