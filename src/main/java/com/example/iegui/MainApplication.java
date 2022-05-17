@@ -19,7 +19,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Context context = new Context(stage);
+        Context context = new Context(stage,"Settings/settings.yml");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 

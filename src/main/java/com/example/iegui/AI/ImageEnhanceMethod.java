@@ -87,6 +87,10 @@ public abstract class ImageEnhanceMethod {
         this.settingWindow = settingWindow;
     }
 
+
+    public abstract void start(String inputfile, String outputfile);
+
+
     /**
      * Loads ImageEnhanceMethod options from file
      * @param file filename of the yml file which contains the data

@@ -23,4 +23,9 @@ public class SwinIR extends ImageEnhanceMethod{
 
 
     }
+
+    @Override
+    public void start(String inputfile, String outputfile) {
+
+    }
 }

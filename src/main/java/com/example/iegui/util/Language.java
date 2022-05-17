@@ -50,4 +50,7 @@ public abstract class Language {
     public static SimpleStringProperty get(String key){
         return lan.get(key);
     }
+
+
+
 }
