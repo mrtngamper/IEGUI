@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.welcomeController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.welcomeController">
    <bottom>
-      <HBox alignment="TOP_RIGHT" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox fx:id="HboxBottom" alignment="TOP_RIGHT" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox alignment="CENTER" mnemonicParsing="false" text="Show Again               " />
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="OK" />
+            <CheckBox fx:id="CheckBox" alignment="CENTER" mnemonicParsing="false" text="Show Again               " />
+            <Button onAction="#onOKButtonPressed" fx:id="buttonOK" alignment="CENTER_RIGHT" mnemonicParsing="false" text="OK" />
          </children>
       </HBox>
    </bottom>
    <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox fx:id="HboxPag" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Pagination prefHeight="575.0" prefWidth="662.0" />
+            <Pagination fx:id="pagination" prefHeight="575.0" prefWidth="662.0" />
          </children>
       </HBox>
    </center>
