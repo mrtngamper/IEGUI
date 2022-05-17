@@ -10,18 +10,18 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class welcomeController extends Controller implements Initializable  {
@@ -46,6 +46,42 @@ public class welcomeController extends Controller implements Initializable  {
         Text textFieldPage4 = new Text();
         Text textFieldPage5 = new Text();
 
+
+        ImageView imageView = new ImageView();
+        ImageView imageViewcooleTypn = new ImageView();
+
+        try {
+            FileInputStream inputstream = new FileInputStream("Planning/Images/MainView.png");
+            Image image = new Image(inputstream);
+            imageView.setImage(image);
+            imageView.setFitWidth(800);
+            imageView.setFitHeight(800);
+            imageView.setPreserveRatio(true);
+            imageView.setSmooth(true);
+            imageView.setCache(true);
+        } catch (Exception ex) {
+            ex.getMessage();
+        }
+
+        try{
+            FileInputStream inputstreamcooleTypn = new FileInputStream("Planning/Images/CooleTypen.jpg");
+            Image imagecooleTypn = new Image(inputstreamcooleTypn);
+            imageViewcooleTypn.setImage(imagecooleTypn);
+            imageViewcooleTypn.setFitWidth(800);
+            imageViewcooleTypn.setFitHeight(800);
+            imageViewcooleTypn.setPreserveRatio(true);
+            imageViewcooleTypn.setSmooth(true);
+            imageViewcooleTypn.setCache(true);
+        }catch(Exception e){
+            e.getMessage();
+        }
+        VBox pageBoxMain = new VBox();
+        VBox pagBoxWelcome = new VBox();
+        pageBoxMain.getChildren().add(textFieldPage2);
+        pageBoxMain.getChildren().add(imageView);
+
+        pagBoxWelcome.getChildren().add(textFieldPage1);
+        pagBoxWelcome.getChildren().add(imageViewcooleTypn);
 
         try {
             textFieldPage1.textProperty().bind(Language.get("welcome"));
@@ -85,8 +121,8 @@ public class welcomeController extends Controller implements Initializable  {
             @Override
             public Node call(Integer integer) {
                 switch (integer){
-                    case 0: return textFieldPage1;
-                    case 1: return textFieldPage2;
+                    case 0: return pagBoxWelcome;
+                    case 1: return pageBoxMain;
                     case 2: return textFieldPage3;
                     case 3: return textFieldPage4;
                     case 4: return textFieldPage5;
