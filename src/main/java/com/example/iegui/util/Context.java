@@ -113,6 +113,7 @@ public class Context {
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
 
+
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){
             System.out.println(e.getMessage());

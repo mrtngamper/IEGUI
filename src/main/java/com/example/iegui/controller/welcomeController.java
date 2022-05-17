@@ -81,7 +81,7 @@ public class welcomeController extends Controller implements Initializable  {
         textFieldPage4.setFont(new Font(20));
         textFieldPage5.setFont(new Font(20));
         if (CheckBox.isSelected()){
-            File file = new File("url");
+            File file = new File("Settings/settings.yml");
             try {
                 FileWriter fw = new FileWriter(file);
                 FileReader fr = new FileReader(file);
