@@ -13,6 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
 <BorderPane style="-fx-font-family: Arial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.MainViewController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -36,20 +42,12 @@
         <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                 <center>
-                    <GridPane BorderPane.alignment="CENTER">
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image Name" GridPane.columnIndex="1">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Text>
-                    </GridPane>
+                    <HBox fx:id="hbox" BorderPane.alignment="CENTER">
+                        <ImageView fx:id="image" />
+                        <VBox fx:id="vbox">
+                            <Text fx:id="imageName" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1"/>
+                        </VBox>
+                    </HBox>
                 </center>
             </BorderPane>
             <BorderPane prefHeight="200.0" prefWidth="200.0">

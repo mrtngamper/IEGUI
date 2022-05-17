@@ -2,6 +2,8 @@ ok: Ok
 abort: Abort
 file: File
 open: Open
+browse: choose a file
+browse2: slayy
 
 welcome : "Welcome to the Image enhance GUI:\n This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
 mainViewWelcome : "Main View:\n

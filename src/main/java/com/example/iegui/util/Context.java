@@ -3,6 +3,8 @@ package com.example.iegui.util;
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.AI.SwinIR;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -20,7 +22,7 @@ public class Context {
     /**
      * List containing instances of image enhance methods
      */
-    private ArrayList<ImageEnhanceMethod> methods = new ArrayList<>();
+    private ObservableList<ImageEnhanceMethod> methods = FXCollections.observableArrayList();
 
     /**
      * Current language
@@ -54,7 +56,7 @@ public class Context {
         this.stage = stage;
     }
 
-    public ArrayList<ImageEnhanceMethod> getMethods() {
+    public ObservableList<ImageEnhanceMethod> getMethods() {
         return methods;
     }
 

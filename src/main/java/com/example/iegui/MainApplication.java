@@ -1,13 +1,18 @@
 package com.example.iegui;
 
 
+import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.AI.SwinIR;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 
