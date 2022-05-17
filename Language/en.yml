@@ -2,3 +2,12 @@ ok: Ok
 abort: Abort
 file: File
 open: Open
+exit: Exit
+imageName: Image Name
+settingsSetting: Settings
+languageSetting: Language
+lanDeSetting: De
+lanEnSetting: En
+tutorialSetting: Tutorial on Startup
+helpSetting: Help
+aboutSetting: About

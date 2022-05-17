@@ -2,6 +2,7 @@ package com.example.iegui.util;
 
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.AI.SwinIR;
+import com.example.iegui.Exceptions.TextNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.stage.Stage;
 
@@ -16,6 +17,7 @@ public class Context {
      * The stage of the main window
      */
     private Stage stage;
+    private Language language = new Language();
 
     /**
      * List containing instances of image enhance methods
@@ -27,7 +29,6 @@ public class Context {
      */
     private SimpleStringProperty lang = new SimpleStringProperty("en");
 
-
     private SimpleStringProperty selectedFile = new SimpleStringProperty();
 
     public  Context(Stage stage){
@@ -36,7 +37,8 @@ public class Context {
 
 
         try {
-            Language.load("Language/"+lang.getValue()+".yml");
+            language.setContext(this);
+            language.load("Language/"+lang.getValue()+".yml");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -45,7 +47,14 @@ public class Context {
     }
 
 
-
+    public SimpleStringProperty getTextName(String key) {
+        try {
+            return language.get(key);
+        } catch (TextNotFoundException e) {
+            Alerts.Warning(e.getMessage());
+        }
+        return new SimpleStringProperty("");
+    }
     public Stage getStage() {
         return stage;
     }
