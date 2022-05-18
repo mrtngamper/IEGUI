@@ -55,4 +55,7 @@ public class Language extends Controller {
         return lan.get(key);
     }
 
+
+
+
 }
