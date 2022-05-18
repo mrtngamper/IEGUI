@@ -31,3 +31,12 @@ but when the time comes the displayed content will be specified further."
 
 finishViewWelcome: "This view contains a comparison input and the output image after the Loading View.\n
 It should contain a button to return to the Main View."
+exit: Exit
+imageName: Image Name
+settingsSetting: Settings
+languageSetting: Language
+lanDeSetting: De
+lanEnSetting: En
+tutorialSetting: Tutorial on Startup
+helpSetting: Help
+aboutSetting: About

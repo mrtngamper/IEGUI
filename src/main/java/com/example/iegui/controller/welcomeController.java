@@ -66,11 +66,11 @@ public class welcomeController extends Controller implements Initializable  {
         pageBoxSettings.getChildren().add(imageViewsettings);
 
         try {
-            textFieldPage1.textProperty().bind(Language.get("welcome"));
-            textFieldPage2.textProperty().bind(Language.get("mainViewWelcome"));
-            textFieldPage3.textProperty().bind(Language.get("settingsWelcome"));
-            textFieldPage4.textProperty().bind(Language.get("loadingViewWelcome"));
-            textFieldPage5.textProperty().bind(Language.get("finishViewWelcome"));
+            textFieldPage1.textProperty().bind(context.getTextName("welcome"));
+            textFieldPage2.textProperty().bind(context.getTextName("mainViewWelcome"));
+            textFieldPage3.textProperty().bind(context.getTextName("settingsWelcome"));
+            textFieldPage4.textProperty().bind(context.getTextName("loadingViewWelcome"));
+            textFieldPage5.textProperty().bind(context.getTextName("finishViewWelcome"));
         }catch (Exception e){
 
         }

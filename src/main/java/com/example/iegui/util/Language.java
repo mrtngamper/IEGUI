@@ -1,12 +1,14 @@
 package com.example.iegui.util;
 
 
+import com.example.iegui.Exceptions.TextNotFoundException;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import javafx.beans.property.SimpleStringProperty;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,12 +16,12 @@ import java.util.Map;
 /**
  * Utility Class to manage Languages and enable language change at runtime
  */
-public abstract class Language {
+public class Language extends Controller {
 
     /**
      * HashMap containing all the language data.
      */
-    private static HashMap<String, SimpleStringProperty> lan = new HashMap<>();
+    private HashMap<String, SimpleStringProperty> lan = new HashMap<>();
 
 
     /**
@@ -27,7 +29,7 @@ public abstract class Language {
      * @param filename Filename of the
      * @throws FileNotFoundException
      */
-    public static void load(String filename) throws FileNotFoundException {
+    public void load(String filename) throws FileNotFoundException {
         Yaml yaml = new Yaml();
         InputStream inputStream = new FileInputStream(filename);
         Map<String, Object> map = yaml.load(inputStream);
@@ -41,15 +43,18 @@ public abstract class Language {
         }
     }
 
-
     /**
      * Returns the corresponding value in the lan HashMap
      * @param key
      * @return
      */
-    public static SimpleStringProperty get(String key){
+    public SimpleStringProperty get(String key) throws TextNotFoundException {
+        if(!lan.containsKey(key)) {
+            throw new TextNotFoundException(key, context.getLang());
+        }
         return lan.get(key);
     }
+
 
 
 
