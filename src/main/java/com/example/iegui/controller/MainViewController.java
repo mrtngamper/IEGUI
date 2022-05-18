@@ -53,7 +53,7 @@ public class MainViewController extends Controller implements Initializable {
     @FXML
     private MenuItem aboutSetting;
     @FXML
-    private Text imageText;
+    private Text imageName;
     @FXML
     private Menu file;
     @FXML
@@ -62,10 +62,12 @@ public class MainViewController extends Controller implements Initializable {
     private MenuItem exit;
     @FXML
     private BorderPane borderPane;
-    public HBox hbox;
-    public ImageView image;
-    public VBox vbox;
-    public Text imageName;
+    @FXML
+    private HBox hbox;
+    @FXML
+    private ImageView image;
+    @FXML
+    private VBox vbox;
 
 
     @Override
@@ -75,7 +77,7 @@ public class MainViewController extends Controller implements Initializable {
         file.textProperty().bind(context.getTextName("file"));
         open.textProperty().bind(context.getTextName("open"));
         exit.textProperty().bind(context.getTextName("exit"));
-        imageText.textProperty().bind(context.getTextName("imageName"));
+        imageName.textProperty().bind(context.getTextName("imageName"));
         settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
         languageSetting.textProperty().bind(context.getTextName("languageSetting"));
         lanDeSetting.textProperty().bind(context.getTextName("lanDeSetting"));
@@ -84,15 +86,15 @@ public class MainViewController extends Controller implements Initializable {
         helpSetting.textProperty().bind(context.getTextName("helpSetting"));
         aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
         Button browse = new Button();
-        browse.textProperty().bind(Language.get("browse"));
+        browse.textProperty().bind(context.getTextName("browse"));
         vbox.getChildren().add(0, browse);
         imageName.setFont(Font.font(20));
-        imageName.textProperty().bind(Language.get("browse2"));
+        imageName.textProperty().bind(context.getTextName("browse2"));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageText.setFont(Font.font("Arial"));
+        imageName.setFont(Font.font("Arial"));
     }
 
 
