@@ -33,7 +33,9 @@ public class Language extends Controller {
         Yaml yaml = new Yaml();
         InputStream inputStream = new FileInputStream(filename);
         Map<String, Object> map = yaml.load(inputStream);
-
+        if(map==null){
+            throw new FileNotFoundException(filename);
+        }
         for (String i: map.keySet()) {
             if(lan.containsKey(i)){
                 lan.get(i).setValue(map.get(i).toString());

@@ -3,6 +3,7 @@ package com.example.iegui.util;
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.AI.SwinIR;
 import com.example.iegui.Exceptions.TextNotFoundException;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,11 @@ public class Context {
      * List containing instances of image enhance methods
      */
     private ObservableList<ImageEnhanceMethod> methods = FXCollections.observableArrayList();
+
+    /**
+     * If WelcomeView should be shown again
+     */
+    private SimpleBooleanProperty openWelcomeView;
 
     /**
      * Current language
@@ -103,7 +109,15 @@ public class Context {
 
             // Add properties if necessary
             if(map.containsKey("Language")){
-                setLang((String)map.get("Language"));
+                lang.setValue((String)map.get("Language"));
+            }
+
+            if(map.containsKey("OpenWelcomeView")){
+                try {
+                    openWelcomeView.setValue(Boolean.parseBoolean((String) map.get("OpenWelcomeView")));
+                }catch(Exception e){
+                    System.out.println("Could not find Key");
+                }
             }
 
 
@@ -122,7 +136,7 @@ public class Context {
 
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
-
+            buffer.append("Key: " + openWelcomeView.getValue() + '\n');
 
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){
@@ -130,5 +144,11 @@ public class Context {
         }
     }
 
+    public boolean isOpenWelcomeView() {
+        return openWelcomeView.get();
+    }
 
+    public SimpleBooleanProperty openWelcomeViewProperty() {
+        return openWelcomeView;
+    }
 }

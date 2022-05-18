@@ -7,8 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -21,7 +19,6 @@ import javafx.util.Callback;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class welcomeController extends Controller implements Initializable  {
@@ -80,24 +77,8 @@ public class welcomeController extends Controller implements Initializable  {
         textFieldPage3.setFont(new Font(20));
         textFieldPage4.setFont(new Font(20));
         textFieldPage5.setFont(new Font(20));
-        if (CheckBox.isSelected()){
-            File file = new File("Settings/settings.yml");
-            try {
-                FileWriter fw = new FileWriter(file);
-                FileReader fr = new FileReader(file);
-                int i;
-                while((i=fr.read())!=-1){
-                   if(Integer.toString(i).equals("s")){
-                       fw.write("t");
-                       break;
-                   }
-                }
-                fr.close();
-                fw.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
+
+        CheckBox.selectedProperty().bind(context.openWelcomeViewProperty());
 
         pagination.setPageFactory(new Callback<Integer, Node>() {
             @Override
