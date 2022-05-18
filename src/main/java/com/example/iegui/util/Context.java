@@ -34,7 +34,7 @@ public class Context {
     /**
      * If WelcomeView should be shown again
      */
-    private SimpleBooleanProperty openWelcomeView;
+    private SimpleBooleanProperty openWelcomeView= new SimpleBooleanProperty();
 
     /**
      * Current language

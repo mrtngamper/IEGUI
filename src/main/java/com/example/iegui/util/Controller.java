@@ -6,6 +6,8 @@ package com.example.iegui.util;
 public abstract class Controller {
     protected Context context;
 
+
+
     /**
      * After creation of a Controller, the setContext method should be called to pass the context of the parent window.
      * @param context An Object of Type Context which contains shared data

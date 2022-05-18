@@ -1,5 +1,6 @@
 package com.example.iegui.controller;
 
+import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import com.example.iegui.util.Language;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class welcomeController extends Controller implements Initializable  {
+public class welcomeController extends Controller  {
     public Button buttonOK;
     public javafx.scene.control.CheckBox CheckBox;
     public HBox HboxPag;
@@ -35,7 +36,8 @@ public class welcomeController extends Controller implements Initializable  {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void setContext(Context context) {
+        this.context=context;
 
         Text textFieldPage1 = new Text();
         Text textFieldPage2 = new Text();
