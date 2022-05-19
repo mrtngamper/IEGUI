@@ -65,6 +65,11 @@ public class Context {
     }
 
 
+    /**
+     * Returns the String of the specified hashmap key to import different languages
+     * @param key hashmap for the language
+     * @return the text of the hashmap
+     */
     public SimpleStringProperty getTextName(String key) {
         try {
             return language.get(key);

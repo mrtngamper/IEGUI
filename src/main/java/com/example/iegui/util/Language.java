@@ -33,7 +33,7 @@ public class Language extends Controller {
         Yaml yaml = new Yaml();
         InputStream inputStream = new FileInputStream(filename);
         Map<String, Object> map = yaml.load(inputStream);
-        if(map==null){
+        if(map == null){
             throw new FileNotFoundException(filename);
         }
         for (String i: map.keySet()) {
