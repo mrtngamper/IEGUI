@@ -1,9 +1,6 @@
 package com.example.iegui.controller;
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.util.Context;
-import com.example.iegui.Exceptions.TextNotFoundException;
-import com.example.iegui.util.Alerts;
-import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import com.example.iegui.util.Language;
 import javafx.fxml.Initializable;
@@ -11,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.example.iegui.util.Language;
@@ -74,17 +75,6 @@ public class MainViewController extends Controller implements Initializable {
     public void setContext(Context context) {
         super.setContext(context);
 
-        file.textProperty().bind(context.getTextName("file"));
-        open.textProperty().bind(context.getTextName("open"));
-        exit.textProperty().bind(context.getTextName("exit"));
-        imageName.textProperty().bind(context.getTextName("imageName"));
-        settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
-        languageSetting.textProperty().bind(context.getTextName("languageSetting"));
-        lanDeSetting.textProperty().bind(context.getTextName("lanDeSetting"));
-        lanEnSetting.textProperty().bind(context.getTextName("lanEnSetting"));
-        tutorialSetting.textProperty().bind(context.getTextName("tutorialSetting"));
-        helpSetting.textProperty().bind(context.getTextName("helpSetting"));
-        aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
         Button browse = new Button();
         browse.textProperty().bind(context.getTextName("browse"));
         vbox.getChildren().add(0, browse);
