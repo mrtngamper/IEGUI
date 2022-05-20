@@ -1,39 +1,25 @@
 package com.example.iegui.controller;
-import com.example.iegui.AI.ImageEnhanceMethod;
+import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
-import com.example.iegui.util.Language;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import com.example.iegui.util.Language;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-import java.net.URL;
-import java.security.AllPermission;
-import java.util.ResourceBundle;
 
 /**
  * Controller for main window which is displayed after application launch
@@ -78,13 +64,38 @@ public class MainViewController extends Controller implements Initializable {
         Button browse = new Button();
         browse.textProperty().bind(context.getTextName("browse"));
         vbox.getChildren().add(0, browse);
-        imageName.setFont(Font.font(20));
+        imageName.setFont(Font.font("Arial", 20));
         imageName.textProperty().bind(context.getTextName("browse2"));
+
+        vbox.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                File f = db.getFiles().get(0);
+
+                System.out.println(f.getAbsolutePath());
+                String[] splitter = f.getName().split("\\.");
+                String fileType = splitter[splitter.length - 1];
+                System.out.println(fileType);
+                if(!fileType.equals("png") && !fileType.equals("jpeg")) {
+                    Alerts.Error(context.getTextName("noFoto").getValue());
+                }
+            }
+        });
+
+        vbox.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != browse && event.getDragboard().hasFiles()) {
+                    event.acceptTransferModes(TransferMode.ANY);
+                }
+                event.consume();
+            }
+        });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageName.setFont(Font.font("Arial"));
     }
 
 
