@@ -29,10 +29,9 @@ public class MainApplication extends Application {
         Context context = new Context(stage,"Settings/settings.yml");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 320, 240);
+        Scene scene = new Scene(root, 500, 350);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        System.out.println(os);
         if (os.equals("mac os x")) {
             root.setStyle("-fx-font-family: Arial");
         }
