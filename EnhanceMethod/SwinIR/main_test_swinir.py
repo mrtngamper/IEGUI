@@ -1,3 +1,18 @@
+import pkg_resources
+from pkg_resources import DistributionNotFound, VersionConflict
+
+
+file = open("requirements.txt","r")
+req = file.read()
+
+
+s = req[1:len(req)-1].split("\n")
+
+try:
+    pkg_resources.require(s)
+except :
+    exit(132)
+
 import argparse
 import cv2
 import glob
@@ -12,6 +27,8 @@ from utils import util_calculate_psnr_ssim as util
 
 
 def main():
+
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, default='color_dn', help='classical_sr, lightweight_sr, real_sr, '
                                                                      'gray_dn, color_dn, jpeg_car')
