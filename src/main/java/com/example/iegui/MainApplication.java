@@ -39,6 +39,10 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
+
+       // context.getMethods().get(0).start("/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katze.jpg","/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katzeout.jpg");
+
+
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();

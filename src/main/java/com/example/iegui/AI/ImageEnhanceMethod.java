@@ -5,10 +5,7 @@ import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import com.example.iegui.util.Alerts;
 import org.yaml.snakeyaml.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +27,9 @@ public abstract class ImageEnhanceMethod {
     private String location;
 
     private  MethodSettingWindow settingWindow;
+
+
+    private String environment;
 
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
@@ -70,6 +70,9 @@ public abstract class ImageEnhanceMethod {
         this.description = description;
     }
 
+    public String getEnvironment() {
+        return environment;
+    }
 
     public String getLocation() {
         return location;
@@ -89,6 +92,7 @@ public abstract class ImageEnhanceMethod {
 
 
     public abstract void start(String inputfile, String outputfile);
+
 
 
     /**
@@ -138,6 +142,73 @@ public abstract class ImageEnhanceMethod {
                     throw new YAMLTypeNotValidException(String.class.toString(), description_yml.getClass().toString(), "description", file);
                 }
             }
+
+        Object environment = map.get("environment");
+        if (environment != null) {
+            if (environment instanceof String) {
+                this.environment = environment.toString();
+            } else {
+                throw new YAMLTypeNotValidException(String.class.toString(), environment.getClass().toString(), "environment", file);
+            }
+        }
     }
 
+    /**
+     * Tries to install all the dependencies found in the requirements.txt
+     * @throws Exception
+     */
+    public void installDependencies() throws Exception{
+        File file = new File("Environments"+"/"+environment);
+        if(file.exists()) {
+            String[] cmd = {
+                    "Environments/"+environment+"/bin/pip3",
+                    "install",
+                    "-r",
+                    "Environments"+"/"+environment+".txt"
+            };
+            ProcessBuilder pb = new ProcessBuilder(cmd);
+            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+            pb.redirectInput(ProcessBuilder.Redirect.INHERIT);
+
+
+            Process process = pb.start();
+            process.waitFor();
+            switch(process.exitValue()){
+                case 132:
+                    System.out.println("Dependencies not found");
+                    break;
+                default:
+                    Alerts.Error("Unerwarteter Fehler");
+            }
+
+
+            System.out.println("Python Virtual Environment Created");
+            return ;
+        }
+        System.out.println("Python Virtual Environment Does Not Exist");
+    }
+
+    /**
+     * Creates a python environment with the name environment in the location and installs the dependencies
+     * @throws Exception
+     */
+    public void createEnvironment() throws Exception {
+        File file = new File("Environments"+"/"+environment);
+        if(!file.exists()) {
+            String[] cmd = {
+                    "python",
+                    "-m",
+                    "venv",
+                    file.getAbsolutePath()
+            };
+            Process process = Runtime.getRuntime().exec(cmd);
+            process.waitFor();
+
+            System.out.println("Python Virtual Environment Created");
+            installDependencies();
+            return ;
+        }
+        System.out.println("Python Virtual Environment Does Exist");
+    }
 }
