@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 
+/**
+ * This Stream replaces the standard outputstream which writes to the consol on application startup
+ * It makes it possible to add Functions which can be invoked everytime a System.out operation is performed.
+ * It is used in the loading-view to show the console output in a TextArea.
+ */
 public class ExtendedOutputStream extends OutputStream {
     private ArrayList<Function<Integer,Object>> streams = new ArrayList<>();
 

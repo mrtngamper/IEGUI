@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import org.yaml.snakeyaml.*;
+import javax.imageio.ImageIO;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
@@ -163,10 +165,12 @@ public abstract class ImageEnhanceMethod {
                     pb.directory(new File(getLocation()));
 
 
-                    Path tempInput = Path.of(context.getTempdir() + "/input/input"+inputfile.substring(inputfile.lastIndexOf('.')));
-                    Path tempOutput= Path.of(context.getTempdir() + "/output/input"+inputfile.substring(inputfile.lastIndexOf('.')));
+                    Path tempInput = Path.of(context.getTempdir() + "/input/input.png");
+                    Path tempOutput= Path.of(context.getTempdir() + "/output/input.png");
 
-                    Files.copy(Path.of(inputfile),tempInput);
+                    BufferedImage image = ImageIO.read(new File(inputfile));
+                    ImageIO.write(image,"png",tempInput.toFile());
+
 
                     for(int i=0;i<2;i++) {
                         Process process = pb.start();
@@ -207,6 +211,7 @@ public abstract class ImageEnhanceMethod {
      * @return A string array containing the command parameters.
      */
     public abstract String[] getCMD();
+
 
     /**
      * Loads ImageEnhanceMethod options from file

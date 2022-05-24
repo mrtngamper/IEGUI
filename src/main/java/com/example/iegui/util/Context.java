@@ -1,7 +1,9 @@
 package com.example.iegui.util;
 
 import com.example.iegui.AI.ImageEnhanceMethod;
+import com.example.iegui.AI.LowLightImageEnhance;
 import com.example.iegui.AI.SwinIR;
+import com.example.iegui.AI.WhiteBalance;
 import com.example.iegui.Exceptions.TextNotFoundException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -97,6 +99,8 @@ public class Context {
         }
 
         methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue(),this));
+        methods.add(new LowLightImageEnhance("EnhanceMethod/Low-light-Image-Enhancement",lang.getValue(),this));
+        methods.add(new WhiteBalance("EnhanceMethod/mixedillWB2",lang.getValue(),this));
     }
 
 

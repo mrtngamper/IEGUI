@@ -48,10 +48,13 @@ public class MainApplication extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
-        //context.getMethods().get(0).start("/home/martin/Downloads/katze.png", "/home/martin/Downloads/katzeout.png"); // For Test purposes
+        // context.getMethods().get(0).start("/home/martin/ImageEnhance/mixedillWB2/results/output2_WB.png", "/home/martin/Downloads/output3.png"); // For Test purposes SwinIR
+        // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
+        //context.getMethods().get(2).start("/home/martin/Downloads/output2.png","/home/martin/Downloads/output4.png"); // For Testing purposes white balance
+
         stage.setTitle("IEGUI");
         stage.setScene(scene);
-        stage.show();
+       // stage.show();
     }
 
     public static void main(String[] args) {
