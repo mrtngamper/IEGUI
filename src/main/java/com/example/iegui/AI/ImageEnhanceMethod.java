@@ -2,13 +2,30 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
+import com.example.iegui.MainApplication;
+import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
+import com.example.iegui.util.Context;
+import com.example.iegui.util.Controller;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import org.yaml.snakeyaml.*;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -16,27 +33,53 @@ import java.util.stream.Stream;
  * An ImageEnhanceMethod Object contains Info about a Method (e.g. SwinIR).
  */
 public abstract class ImageEnhanceMethod {
+    /**
+     * The name of the method
+     */
     private String name="";
+
+    /**
+     * A description of the enhancement method
+     */
     private String description="";
 
-
+    /**
+     * Example images. Keys are the inputs, Values the outputs
+     */
     private final HashMap<String,String> examples = new HashMap<>();
 
+    /**
+     * Example miniatures for illustriation. Keys are the inputs, Values the outputs
+     */
     private final HashMap<String, String> miniatures = new HashMap<>();
 
+    /**
+     * Path of the enhancement method
+     */
     private String location;
 
+    /**
+     * A Node which allows to set some parameters of enhancement methods
+     */
     private  MethodSettingWindow settingWindow;
 
-
+    /**
+     * The Name of the python environment. The code will look for a [environment].txt file in the Environments folder.
+     * This file then contains the libraries which will be loaded into an environment
+     */
     private String environment;
+
+    protected Context context;
+
+
 
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
      * @param location The method location
      * @param lang The language which should be loaded
      */
-    public ImageEnhanceMethod(String location, String lang){
+    public ImageEnhanceMethod(String location, String lang, Context context){
+        this.context=context;
         this.location=location;
         try {
             loadYAML(location + "/" + "Config" + "/" + lang + ".yml");
@@ -82,6 +125,7 @@ public abstract class ImageEnhanceMethod {
         this.location = location;
     }
 
+
     public MethodSettingWindow getSettingWindow() {
         return settingWindow;
     }
@@ -90,10 +134,79 @@ public abstract class ImageEnhanceMethod {
         this.settingWindow = settingWindow;
     }
 
+    /**
+     * Start Method gets executed, when an enhancement should be performed. It is given an input string and an output
+     * string, which should correspond to the filenames. During the operation a loading screen is being displayed
+     * @param inputfile Input image path. (File should exist)
+     * @param outputfile Output image path.
+     */
+    public void start(String inputfile, String outputfile) {
 
-    public abstract void start(String inputfile, String outputfile);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+               LoadingView loadingView = new LoadingView();
+               loadingView.show();
+                try{
+                    createEnvironment();
+                }catch(Exception e){
+
+                    Alerts.Error(e.getMessage());
 
 
+                    return;
+                }
+                try {
+                    String[] cmd = getCMD();
+                    ProcessBuilder pb = new ProcessBuilder(cmd);
+                    pb.redirectErrorStream(true);
+                    pb.directory(new File(getLocation()));
+
+
+                    Path tempInput = Path.of(context.getTempdir() + "/input/input"+inputfile.substring(inputfile.lastIndexOf('.')));
+                    Path tempOutput= Path.of(context.getTempdir() + "/output/input"+inputfile.substring(inputfile.lastIndexOf('.')));
+
+                    Files.copy(Path.of(inputfile),tempInput);
+
+                    for(int i=0;i<2;i++) {
+                        Process process = pb.start();
+                        printProcessOutput(process);
+                        process.waitFor();
+                        switch (process.exitValue()) {
+                            case 0:
+                                if(Path.of(outputfile).toFile().exists()){
+                                    Files.delete(Path.of(outputfile));
+                                }
+                                Files.copy(tempOutput,Path.of(outputfile));
+                                Files.delete(tempInput);
+                                Files.delete(tempOutput);
+                                System.out.println(context.getTextName("success").getValue());
+                                loadingView.close();
+                                //TODO Show Finished View
+                                return;
+                            case 132:
+                                System.out.println(context.getTextName("nodependencies").getValue());
+                                installDependencies();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    Alerts.Error(context.getTextName("unexpectederror").getValue());
+
+                }catch(Exception e){
+                            Alerts.Error(e.getMessage());
+                }
+                loadingView.close();
+            }
+        }).start();
+    }
+
+    /**
+     * A function which returns the command which should be executed in the start function depending on method specific settings.
+     * @return A string array containing the command parameters.
+     */
+    public abstract String[] getCMD();
 
     /**
      * Loads ImageEnhanceMethod options from file
@@ -153,11 +266,34 @@ public abstract class ImageEnhanceMethod {
         }
     }
 
+
+    /**
+     * This method prints the output of a process to the standard output
+     * @param process A process containing its inputstream
+     */
+    private void printProcessOutput(Process process){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                StringBuilder builder = new StringBuilder();
+                String line = null;
+                try {
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                    String result = builder.toString();
+                }catch(Exception ignore){}
+            }
+        }).start();
+    }
+
     /**
      * Tries to install all the dependencies found in the requirements.txt
      * @throws Exception
      */
     public void installDependencies() throws Exception{
+        System.out.println(context.getTextName("installingdependencies").getValue());
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
@@ -167,31 +303,28 @@ public abstract class ImageEnhanceMethod {
                     "Environments"+"/"+environment+".txt"
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
-            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-            pb.redirectInput(ProcessBuilder.Redirect.INHERIT);
-
 
             Process process = pb.start();
+            printProcessOutput(process);
+
             process.waitFor();
-            switch(process.exitValue()){
+            switch(process.exitValue()) {
                 case 132:
-                    System.out.println("Dependencies not found");
+                    System.out.println(context.getTextName("nodependencies").getValue());
                     break;
                 default:
-                    Alerts.Error("Unerwarteter Fehler");
+
             }
 
-
-            System.out.println("Python Virtual Environment Created");
+            System.out.println(context.getTextName("depInstalled").getValue());
             return ;
         }
-        System.out.println("Python Virtual Environment Does Not Exist");
+        System.out.println(context.getTextName("envDoesNotExit").getValue());
     }
 
     /**
-     * Creates a python environment with the name environment in the location and installs the dependencies
-     * @throws Exception
+     * Creates a python environment in the Environments directory and installs the dependencies which can also be found there
+     * @throws Exception An Exception may be thrown when a environment file (specified in the environment attribute) does not exist, or python encounters an error (no internet connection, package unexistent etc.)
      */
     public void createEnvironment() throws Exception {
         File file = new File("Environments"+"/"+environment);
@@ -203,12 +336,95 @@ public abstract class ImageEnhanceMethod {
                     file.getAbsolutePath()
             };
             Process process = Runtime.getRuntime().exec(cmd);
+            printProcessOutput(process);
             process.waitFor();
 
-            System.out.println("Python Virtual Environment Created");
+            System.out.println(context.getTextName("envCreated").getValue());
             installDependencies();
             return ;
         }
-        System.out.println("Python Virtual Environment Does Exist");
+        System.out.println(context.getTextName("depInstalled").getValue());
+    }
+
+
+    /**
+     * Loading View which is displayed while an image is being processed.
+     */
+    private class LoadingView{
+        /**
+         * This method loads and displayes the loading view.
+         * @param context The context is given to the new Controller
+         * @return The stage containing the window is returned
+         */
+        private Stage  showLoadingView(Context context)  {
+            try {
+
+                Stage stage = new Stage();
+
+                URL fxmlLocation = getClass().getResource("/com/example/iegui/loading-view.fxml");
+                FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+
+                Parent root = fxmlLoader.load();
+                Scene scene =new Scene(root,500,300);
+
+                LoadingViewController controller = fxmlLoader.getController();
+                controller.setContext(context);
+                stage.setTitle("Loading ...");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.setScene(scene);
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent windowEvent) {
+                        windowEvent.consume();
+                    }
+                });
+
+
+                stage.resizableProperty().setValue(Boolean.FALSE);
+                stage.initStyle(StageStyle.DECORATED);
+                stage.show();
+                return stage;
+            }catch(Exception e){
+                Alerts.Error(e.getMessage());
+            }
+            return null;
+        }
+
+        private Stage stage;
+
+        public Stage getStage() {
+            return stage;
+        }
+
+        /**
+         * Displayes the view
+         */
+        public void show(){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    stage = showLoadingView(context);
+                    if(stage==null || !stage.isShowing()){
+                        stage=null;
+                    }
+                }
+            });
+        }
+
+        /**
+         * Closes the window if it is opened
+         */
+        public void close() {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    if(stage!=null){
+                        stage.close();
+                        context.getOutputStream().clearStreams();
+                    }
+                }
+            });
+
+        }
     }
 }

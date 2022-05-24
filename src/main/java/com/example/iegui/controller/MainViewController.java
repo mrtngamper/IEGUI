@@ -127,6 +127,8 @@ public class MainViewController extends Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
     public void onBrowseButton(ActionEvent actionEvent) {
+
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
@@ -136,9 +138,6 @@ public class MainViewController extends Controller implements Initializable {
             System.out.println("Suppi");
         }
     }
-
-
-
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
 

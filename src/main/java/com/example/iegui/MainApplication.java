@@ -7,6 +7,7 @@ import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import com.example.iegui.util.Language;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,14 +19,17 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Locale;
 
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+
         Context context = new Context(stage,"Settings/settings.yml");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
@@ -40,9 +44,7 @@ public class MainApplication extends Application {
         controller.setContext(context);
 
 
-       // context.getMethods().get(0).start("/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katze.jpg","/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katzeout.jpg");
-
-
+        context.getMethods().get(0).start("/home/martin/Downloads/katze.png", "/home/martin/Downloads/katzeout.png");
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();

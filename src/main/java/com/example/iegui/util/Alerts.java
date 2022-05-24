@@ -1,5 +1,6 @@
 package com.example.iegui.util;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 
@@ -12,10 +13,16 @@ public class Alerts {
      * @param message Header message
      */
     public static void Warning(String message){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText(message);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(message);
 
-        alert.showAndWait();
+                alert.showAndWait();
+            }
+        });
+
     }
 
     /**
@@ -23,9 +30,15 @@ public class Alerts {
      * @param message Header message
      */
     public static void Error(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(message);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(message);
 
-        alert.showAndWait();
+                alert.showAndWait();
+            }
+        });
+
     }
 }

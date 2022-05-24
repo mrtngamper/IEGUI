@@ -50,7 +50,6 @@ public class welcomeController extends Controller  {
         ImageView imageView = addimage("Planning/Images/MainView.png");
         ImageView imageViewsettings = addimage("Planning/Images/SettingView.png");
 
-
         VBox pageBoxMain = new VBox();
         VBox pagBoxWelcome = new VBox();
         VBox pageBoxSettings = new VBox();
