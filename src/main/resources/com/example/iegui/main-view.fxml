@@ -16,8 +16,8 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu fx:id="file" mnemonicParsing="false">
-                <MenuItem fx:id="open" mnemonicParsing="false" />
-                <MenuItem fx:id="exit" mnemonicParsing="false" />
+                <MenuItem fx:id="open" onAction="#onBrowseButton" mnemonicParsing="false" />
+                <MenuItem fx:id="exit" onAction="#onExitButton" mnemonicParsing="false" />
             </Menu>
             <Menu fx:id="settingsSetting" mnemonicParsing="false">
                 <Menu fx:id="languageSetting" mnemonicParsing="false">
