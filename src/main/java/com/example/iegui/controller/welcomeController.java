@@ -2,6 +2,8 @@ package com.example.iegui.controller;
 
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
@@ -41,6 +43,9 @@ public class welcomeController extends Controller  {
 
         this.context=context;
 
+        CheckBox.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
+        context.openWelcomeViewProperty().bind(CheckBox.selectedProperty());
+
         Text textFieldPage1Title = new Text();
         Text textFieldPage1Text = new Text();
         Text textFieldPage2Title = new Text();
@@ -52,12 +57,14 @@ public class welcomeController extends Controller  {
         Text textFieldPage5Title = new Text();
         Text textFieldPage5Text = new Text();
 
-        ImageView imageViewcooleTypn = addimage("Planning/Images/human-enhancement.jpg");
+        ImageView imageViewcooleTypn = addimage("Planning/Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
         ImageView imageView = addimage("Planning/Images/MainView.png");
         ImageView imageViewsettings = addimage("Planning/Images/SettingView.png");
 
+
         imageViewcooleTypn.setFitHeight(800);
         imageViewcooleTypn.setFitWidth(800);
+
 
         imageView.setFitWidth(500);
         imageView.setFitHeight(500);
@@ -81,7 +88,13 @@ public class welcomeController extends Controller  {
         VBox pagBoxWelcome = new VBox();
         VBox pageBoxSettings = new VBox();
         VBox pageBoxLoading = new VBox();
-        VBox pageBoxFinsih = new VBox();
+        VBox pageBoxFinish = new VBox();
+
+        pageBoxFinish.setAlignment(Pos.CENTER);
+        pageBoxLoading.setAlignment(Pos.CENTER);
+        pageBoxSettings.setAlignment(Pos.CENTER);
+        pagBoxWelcome.setAlignment(Pos.CENTER);
+        pageBoxMain.setAlignment(Pos.CENTER);
 
         pageBoxMain.getChildren().add(textFieldPage2Title);
         pageBoxMain.getChildren().add(textFieldPage2Text);
@@ -98,8 +111,8 @@ public class welcomeController extends Controller  {
         pageBoxLoading.getChildren().add(textFieldPage4Title);
         pageBoxLoading.getChildren().add(textFieldPage4Text);
 
-        pageBoxFinsih.getChildren().add(textFieldPage5Title);
-        pageBoxFinsih.getChildren().add(textFieldPage5Text);
+        pageBoxFinish.getChildren().add(textFieldPage5Title);
+        pageBoxFinish.getChildren().add(textFieldPage5Text);
 
         try {
             textFieldPage1Title.textProperty().bind(context.getTextName("welcomeTitle"));
@@ -116,7 +129,7 @@ public class welcomeController extends Controller  {
             e.getMessage();
         }
 
-        CheckBox.selectedProperty().bind(context.openWelcomeViewProperty());
+
 
         pagination.setPageFactory(new Callback<Integer, Node>() {
             @Override
@@ -126,7 +139,7 @@ public class welcomeController extends Controller  {
                     case 1: return pageBoxMain;
                     case 2: return pageBoxSettings;
                     case 3: return pageBoxLoading;
-                    case 4: return pageBoxFinsih;
+                    case 4: return pageBoxFinish;
                     default: return null;
                 }
             }
@@ -159,5 +172,10 @@ public class welcomeController extends Controller  {
             e.getMessage();
         }
         return imageView;
+    }
+
+    public void onCheckBoxPressed() {
+        context.storeSettings();
+
     }
 }

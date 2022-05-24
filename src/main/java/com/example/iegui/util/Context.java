@@ -133,13 +133,13 @@ public class Context {
     /**
      * Stores settings contained in a context.
      */
-    private void storeSettings(){
+    public void storeSettings(){
         try {
             StringBuffer buffer = new StringBuffer();
 
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
-            buffer.append("Key: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
+            buffer.append("OpenWelcomeView: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
 
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){

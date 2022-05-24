@@ -40,7 +40,7 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
