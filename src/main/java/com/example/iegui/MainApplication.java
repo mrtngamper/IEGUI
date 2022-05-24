@@ -16,6 +16,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -43,6 +44,9 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
+        stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setResizable(false);
 
         context.getMethods().get(0).start("/home/martin/Downloads/katze.png", "/home/martin/Downloads/katzeout.png");
         stage.setTitle("IEGUI");
