@@ -28,7 +28,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Context context = new Context(stage,"Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("welcome-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("finished-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 1024, 768);
 

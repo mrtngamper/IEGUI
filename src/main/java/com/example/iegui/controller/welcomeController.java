@@ -65,7 +65,6 @@ public class welcomeController extends Controller  {
         imageViewcooleTypn.setFitHeight(800);
         imageViewcooleTypn.setFitWidth(800);
 
-
         imageView.setFitWidth(500);
         imageView.setFitHeight(500);
 
