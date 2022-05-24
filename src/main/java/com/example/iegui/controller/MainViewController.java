@@ -1,16 +1,15 @@
 package com.example.iegui.controller;
+import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
-import com.example.iegui.util.Language;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -21,31 +20,26 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Callback;
 
-import java.io.*;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import com.example.iegui.util.Language;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import javafx.util.Callback;
 
-import java.net.URL;
-import java.security.AllPermission;
-import java.util.ResourceBundle;
 
 /**
  * Controller for main window which is displayed after application launch
  */
 public class MainViewController extends Controller implements Initializable {
+    @FXML
+    private BorderPane bP;
+    @FXML
+    private SplitPane splitPane;
+    @FXML
+    private BorderPane subBorderPane;
     @FXML
     private Menu settingsSetting;
     @FXML
@@ -76,6 +70,7 @@ public class MainViewController extends Controller implements Initializable {
     private ImageView image;
     @FXML
     private VBox vbox;
+    private SimpleStringProperty imageFile = new SimpleStringProperty("");
 
 
     @Override
@@ -85,6 +80,12 @@ public class MainViewController extends Controller implements Initializable {
         Button browse = new Button();
         browse.textProperty().bind(context.getTextName("browse"));
         vbox.getChildren().add(0, browse);
+
+        bP.maxHeightProperty().bind(splitPane.heightProperty().multiply(0.25));
+        bP.minHeightProperty().bind(splitPane.heightProperty().multiply(0.25));
+
+        imageFile.setValue("Images/browse.png");
+        image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
 
         browse.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -106,8 +107,10 @@ public class MainViewController extends Controller implements Initializable {
                 String[] splitter = f.getName().split("\\.");
                 String fileType = splitter[splitter.length - 1];
                 System.out.println(fileType);
-                if(!fileType.equals("png") && !fileType.equals("jpeg")) {
+                if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
                     Alerts.Error(context.getTextName("noFoto").getValue());
+                } else {
+                    imageFile.setValue(f.getAbsolutePath());
                 }
             }
         });
@@ -121,19 +124,52 @@ public class MainViewController extends Controller implements Initializable {
                 event.consume();
             }
         });
+
+        imageFile.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if(!newValue.equals("")) {
+                    vbox.getChildren().remove(browse);
+                    imageName.textProperty().unbind();
+                    String[] splitter = imageFile.getValue().split("/");
+                    String fileName = splitter[splitter.length - 1];
+                    image.fitHeightProperty().bind(hbox.heightProperty());
+                    image.fitWidthProperty().bind(hbox.heightProperty());
+
+                    image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
+
+                    imageName.setText(fileName);
+                }
+            }
+        });
+
+        /*ListView<ImageEnhanceMethod> list = new ListView();
+
+        list.setItems(context.getMethods());
+
+        list.setCellFactory(new Callback<ListView<ImageEnhanceMethod>, ListCell<ImageEnhanceMethod>>() {
+            @Override
+            public ListCell<ImageEnhanceMethod> call(ListView<ImageEnhanceMethod> imageEnhanceMethodListView) {
+                ListCell cell = new ListCell();
+
+            }
+        });
+        subBorderPane.setCenter(list);
+        */
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+
     public void onBrowseButton(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpeg", "*.jpg", "*.gif"));
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jps", "*.mpo"));
         File selectedFile = fileChooser.showOpenDialog(context.getStage());
         if (selectedFile != null) {
-            System.out.println("Suppi");
+            imageFile.setValue(selectedFile.getAbsolutePath());
         }
     }
 
