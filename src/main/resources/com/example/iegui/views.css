@@ -1,0 +1,53 @@
+{
+accent1: #E5C1BD;
+background-normal: #D2D0BA;
+background-darker: #B6BE9C;
+accent2: #7B9E87;
+accent3: #5E747F;
+
+}
+#HboxBottom{
+   -fx-background-color: background-normal;
+}
+
+#HboxPag{
+   -fx-background-color: background-normal;
+}
+
+
+.root{
+    -fx-background-color: background-normal;
+}
+
+.button{
+    -fx-background-color: accent2;
+        -fx-background-insets: 0,1,2;
+        -fx-background-radius: 3,2,1;
+        -fx-padding: 3 30 3 30;
+        -fx-text-fill: black;
+        -fx-font-size: 14px;
+}
+
+.pagination > .pagination-control > .control-box > .number-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .left-arrow-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination .pagination-control .toggle-button:selected {
+    -fx-background-color: accent1;
+}
+
+.pagination .pagination-control .toggle-button:hover, .pagination .pagination-control .button:hover  {
+    -fx-background-color: accent2;
+}
+
