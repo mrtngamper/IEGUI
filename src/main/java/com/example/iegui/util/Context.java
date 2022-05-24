@@ -65,6 +65,11 @@ public class Context {
     }
 
 
+    /**
+     * Returns the String of the specified hashmap key to import different languages
+     * @param key hashmap for the language
+     * @return the text of the hashmap
+     */
     public SimpleStringProperty getTextName(String key) {
         try {
             return language.get(key);
@@ -113,14 +118,12 @@ public class Context {
             }
 
             if(map.containsKey("OpenWelcomeView")){
-                try {
-                    openWelcomeView.setValue(Boolean.parseBoolean((String) map.get("OpenWelcomeView")));
-                }catch(Exception e){
-                    System.out.println("Could not find Key");
+                if((Boolean) map.get("OpenWelcomeView")) {
+                    openWelcomeView.setValue((Boolean) map.get("OpenWelcomeView"));
+                } else {
+                    System.out.println("Could not find OpenWelcomeView key");
                 }
             }
-
-
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -136,7 +139,7 @@ public class Context {
 
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
-            buffer.append("Key: " + openWelcomeView.getValue() + '\n');
+            buffer.append("Key: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
 
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){

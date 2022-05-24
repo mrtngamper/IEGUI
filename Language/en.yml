@@ -4,7 +4,7 @@ file: File
 open: Open
 
 browse: choose a file
-browse2: slayy
+browse2: or drag file here
 
 welcomeTitle : "Welcome to the Image enhance GUI:\n"
 welcomeText : "This project is a GUI for different AI supported image enhance algorithms.\nYou can scroll through the Pagination to get more detailed information!"
@@ -44,3 +44,4 @@ lanEnSetting: En
 tutorialSetting: Tutorial on Startup
 helpSetting: Help
 aboutSetting: About
+noFoto: Image file expected

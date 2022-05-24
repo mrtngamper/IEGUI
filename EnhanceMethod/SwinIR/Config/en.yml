@@ -8,3 +8,5 @@ examples:
 
 miniatures:
    input: output
+
+environment: standard

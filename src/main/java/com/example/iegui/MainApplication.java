@@ -15,9 +15,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -31,13 +33,19 @@ public class MainApplication extends Application {
         Scene scene = new Scene(root, 1024, 768);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        System.out.println(os);
         if (os.equals("mac os x")) {
             root.setStyle("-fx-font-family: Arial");
         }
 
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
+
+        stage.setFullScreen(true);
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setResizable(false);
+
+       // context.getMethods().get(0).start("/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katze.jpg","/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katzeout.jpg");
+
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
