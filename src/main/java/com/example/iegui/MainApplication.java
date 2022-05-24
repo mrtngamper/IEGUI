@@ -48,7 +48,7 @@ public class MainApplication extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
-        context.getMethods().get(0).start("/home/martin/Downloads/katze.png", "/home/martin/Downloads/katzeout.png");
+        //context.getMethods().get(0).start("/home/martin/Downloads/katze.png", "/home/martin/Downloads/katzeout.png"); // For Test purposes
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();
