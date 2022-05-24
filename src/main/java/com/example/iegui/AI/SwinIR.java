@@ -20,8 +20,7 @@ import java.util.ArrayList;
 
 public class SwinIR extends ImageEnhanceMethod{
       private String task="super-resolution";
-      private int denoisingLevel;
-      private int jpegArtifactRemovalLevel;
+      private int denoisingLevel=25;
       private int scaleFactor=4;
 
 
@@ -32,7 +31,7 @@ public class SwinIR extends ImageEnhanceMethod{
 
     @Override
        public String[] getCMD(){
-          String environment =  new File(getLocation()+"/"+"environment").getAbsolutePath();
+          String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
             switch(task) {
                 case "super-resolution":
                     return new String[]{
@@ -45,6 +44,21 @@ public class SwinIR extends ImageEnhanceMethod{
                             "--large_model",
                             "--model_path",
                             "model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth",
+                            "--input",
+                            context.getTempdir()+"/input",
+                            "--output",
+                            context.getTempdir()+"/output",
+                    };
+                case "denoising":
+                    return new String[]{
+                            environment + "/bin/python3",
+                            "main_test_swinir.py",
+                            "--task",
+                            "color_dn",
+                            "--noise",
+                            String.valueOf(denoisingLevel),
+                            "--model_path",
+                            "model_zoo/swinir/005_colorDN_DFWB_s128w8_SwinIR-M_noise"+String.valueOf(denoisingLevel)+".pth",
                             "--input",
                             context.getTempdir()+"/input",
                             "--output",
