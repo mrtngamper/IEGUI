@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -27,9 +26,9 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Context context = new Context(stage,"Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("welcome-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 320, 240);
+        Scene scene = new Scene(root, 1024, 768);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         System.out.println(os);
