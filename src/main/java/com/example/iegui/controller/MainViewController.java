@@ -3,6 +3,7 @@ import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -79,6 +80,18 @@ public class MainViewController extends Controller implements Initializable {
 
         Button browse = new Button();
         browse.textProperty().bind(context.getTextName("browse"));
+        exit.textProperty().bind(context.getTextName("exit"));
+        imageName.textProperty().bind(context.getTextName("imageName"));
+        settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
+        languageSetting.textProperty().bind(context.getTextName("languageSetting"));
+        lanDeSetting.textProperty().bind(context.getTextName("lanDeSetting"));
+        lanEnSetting.textProperty().bind(context.getTextName("lanEnSetting"));
+        tutorialSetting.textProperty().bind(context.getTextName("tutorialSetting"));
+        helpSetting.textProperty().bind(context.getTextName("helpSetting"));
+        aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
+        open.textProperty().bind(context.getTextName("open"));
+        file.textProperty().bind(context.getTextName("file"));
+
         vbox.getChildren().add(0, browse);
 
         bP.maxHeightProperty().bind(splitPane.heightProperty().multiply(0.25));
@@ -173,7 +186,9 @@ public class MainViewController extends Controller implements Initializable {
         }
     }
 
-
+    public void onExitButton(ActionEvent actionEvent) {
+        Platform.exit();
+    }
 
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
