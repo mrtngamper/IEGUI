@@ -73,6 +73,8 @@ public class MainViewController extends Controller implements Initializable {
     private VBox vbox;
     private SimpleStringProperty imageFile = new SimpleStringProperty("");
 
+    private float ratio;
+
 
     @Override
     public void setContext(Context context) {
@@ -120,6 +122,8 @@ public class MainViewController extends Controller implements Initializable {
                 String[] splitter = f.getName().split("\\.");
                 String fileType = splitter[splitter.length - 1];
                 System.out.println(fileType);
+                Image foto = new Image(f.toURI().toString());
+                ratio = (float) (foto.getWidth() / foto.getHeight());
                 if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
                     Alerts.Error(context.getTextName("noFoto").getValue());
                 } else {
@@ -146,8 +150,11 @@ public class MainViewController extends Controller implements Initializable {
                     imageName.textProperty().unbind();
                     String[] splitter = imageFile.getValue().split("/");
                     String fileName = splitter[splitter.length - 1];
+
                     image.fitHeightProperty().bind(hbox.heightProperty());
-                    image.fitWidthProperty().bind(hbox.heightProperty());
+                    image.fitWidthProperty().unbind();
+
+                    image.setFitWidth(ratio * image.getFitHeight());
 
                     image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
 
