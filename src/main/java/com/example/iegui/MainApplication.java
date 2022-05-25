@@ -4,12 +4,24 @@ package com.example.iegui;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Locale;
 
 public class MainApplication extends Application {
@@ -33,12 +45,12 @@ public class MainApplication extends Application {
         controller.setContext(context);
 
 
-        // context.getMethods().get(0).start("/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katze.jpg","/home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI/EnhanceMethod/SwinIR/katzeout.jpg");
+            stage.setResizable(false);
 
+        // context.getMethods().get(0).start("/home/martin/ImageEnhance/mixedillWB2/results/output2_WB.png", "/home/martin/Downloads/output3.png"); // For Test purposes SwinIR
+        // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
+        //context.getMethods().get(2).start("/home/martin/Downloads/output2.png","/home/martin/Downloads/output4.png"); // For Testing purposes white balance
 
-        //stage.setFullScreen(true);
-        //stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setResizable(false);
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();

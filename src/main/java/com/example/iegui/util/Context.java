@@ -1,12 +1,15 @@
 package com.example.iegui.util;
 
 import com.example.iegui.AI.ImageEnhanceMethod;
+import com.example.iegui.AI.LowLightImageEnhance;
 import com.example.iegui.AI.SwinIR;
+import com.example.iegui.AI.WhiteBalance;
 import com.example.iegui.Exceptions.TextNotFoundException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.yaml.snakeyaml.Yaml;
 
@@ -24,6 +27,15 @@ public class Context {
      * The stage of the main window
      */
     private Stage stage;
+
+    /**
+     * Temporary directory for input and output images
+     */
+    private Path tempdir;
+
+    /**
+     * Language Object which contains all the language Data
+     */
     private Language language = new Language();
 
     /**
@@ -48,11 +60,36 @@ public class Context {
 
     private SimpleStringProperty selectedFile = new SimpleStringProperty();
 
-    public  Context(Stage stage,String settings){
+
+    /**
+     * New Output Stream for System.out to enable printing to TextArea
+     */
+    private ExtendedOutputStream outputStream = new ExtendedOutputStream();
+
+    public ExtendedOutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    public Path getTempdir() {
+        return tempdir;
+    }
+
+    public  Context(Stage stage, String settings){
         this.stage=stage;
         this.settings_file_name=settings;
         loadSettings();
 
+
+        System.setOut(new PrintStream(outputStream));
+
+        try {
+            tempdir=Files.createTempDirectory("IEGUI");
+            new File(tempdir.toFile().getAbsolutePath()+"/input").mkdirs();
+            new File(tempdir.toFile().getAbsolutePath()+"/output").mkdirs();
+        } catch (IOException e) {
+            Alerts.Error(e.getMessage());
+            return;
+        }
 
         try {
             language.setContext(this);
@@ -62,6 +99,8 @@ public class Context {
         }
 
         methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue(),this));
+        methods.add(new LowLightImageEnhance("EnhanceMethod/Low-light-Image-Enhancement",lang.getValue(),this));
+        methods.add(new WhiteBalance("EnhanceMethod/mixedillWB2",lang.getValue(),this));
     }
 
 

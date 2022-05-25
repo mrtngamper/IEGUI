@@ -41,3 +41,11 @@ tutorialSetting: Tutorial on Startup
 helpSetting: Help
 aboutSetting: About
 noFoto: Image file expected
+success: Operation was Successful
+nodependencies: Dependencies not found
+error: Unexpected Error
+installingdependencies: Installing Dependencies
+unexpectederror: Unexpected error during execution in python environment
+envCreated: Python Virtual Environment Created
+envDoesNotExist: Python Virtual Environment Does Not Exist
+depInstalled: Dependencies have been installed

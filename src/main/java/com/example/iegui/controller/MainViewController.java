@@ -197,6 +197,8 @@ public class MainViewController extends Controller implements Initializable {
     }
 
     public void onBrowseButton(ActionEvent actionEvent) {
+
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(

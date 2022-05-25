@@ -1,0 +1,12 @@
+name: "Automatic White Balance"
+description: "An automatic white balance"
+
+
+examples:
+   image1: image1out
+   image2: image2out
+
+miniatures:
+   input: output
+
+environment: whitebalance
