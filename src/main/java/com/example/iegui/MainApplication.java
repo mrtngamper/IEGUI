@@ -32,9 +32,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         Context context = new Context(stage,"Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("finished-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 500, 350);
+        Scene scene = new Scene(root, 1024, 768);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.equals("mac os x")) {
@@ -44,7 +44,7 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
@@ -54,7 +54,7 @@ public class MainApplication extends Application {
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
-       // stage.show();
+        stage.show();
     }
 
     public static void main(String[] args) {
