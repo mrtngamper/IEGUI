@@ -31,10 +31,10 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Context context = new Context(stage, "Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        Context context = new Context(stage,"Settings/settings.yml");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("finished-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 768, 500);
+        Scene scene = new Scene(root, 1024, 768);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.equals("mac os x")) {
@@ -45,7 +45,8 @@ public class MainApplication extends Application {
         controller.setContext(context);
 
 
-            stage.setResizable(false);
+        stage.setResizable(false);
+
 
         // context.getMethods().get(0).start("/home/martin/ImageEnhance/mixedillWB2/results/output2_WB.png", "/home/martin/Downloads/output3.png"); // For Test purposes SwinIR
         // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
