@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" stylesheets="@views.css" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.FinishedViewController">
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@views.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.FinishedViewController">
    <children>
       <BorderPane prefHeight="768.0" prefWidth="1024.0">
          <bottom>
@@ -23,12 +23,12 @@
          <top>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text layoutX="124.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Before" wrappingWidth="90.388671875">
+                  <Text fx:id="textBefore" layoutX="124.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Before" wrappingWidth="112.388671875">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Text>
-                  <Text layoutX="800.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="After">
+                  <Text fx:id="textAfter" layoutX="800.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="After">
                      <font>
                         <Font size="30.0" />
                      </font>

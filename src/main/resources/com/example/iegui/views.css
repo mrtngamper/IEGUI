@@ -6,6 +6,21 @@ accent2: #7B9E87;
 accent3: #5E747F;
 
 }
+#textBefore{
+ -fx-font-smoothing-type: lcd;
+  -fx-fill: accent3;
+  -fx-font-family: "Arial Black";
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#textAfter{
+ -fx-font-smoothing-type: lcd;
+ -fx-fill: accent3;
+ -fx-font-family: "Arial Black";
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+
 #HboxBottom{
    -fx-background-color: background-normal;
 }
