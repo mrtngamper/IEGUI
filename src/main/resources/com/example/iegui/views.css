@@ -20,6 +20,13 @@ accent3: #5E747F;
   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
 
+#imageName{
+ -fx-font-smoothing-type: lcd;
+ -fx-fill: accent3;
+ -fx-font-family: "Arial Black";
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
 
 #HboxBottom{
    -fx-background-color: background-normal;
@@ -29,6 +36,17 @@ accent3: #5E747F;
    -fx-background-color: background-normal;
 }
 
+#subBorderPane{
+   -fx-background-color: background-normal;
+}
+
+#hbox{
+   -fx-background-color: background-darker;
+}
+
+.split-pane-divider{
+   -fx-background-color: accent3;
+}
 
 .root{
     -fx-background-color: background-normal;
