@@ -46,7 +46,7 @@ public abstract class ImageEnhanceMethod {
     private String description="";
 
     /**
-     * Example images. Keys are the inputs, Values the outputs
+     * Example images. Keys are the input file paths, Values the output file paths
      */
     private final HashMap<String,String> examples = new HashMap<>();
 
@@ -154,11 +154,10 @@ public abstract class ImageEnhanceMethod {
                 }catch(Exception e){
 
                     Alerts.Error(e.getMessage());
-
-
                     return;
                 }
                 try {
+                    boolean error = false;
                     String[] cmd = getCMD();
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
@@ -193,11 +192,14 @@ public abstract class ImageEnhanceMethod {
                                 installDependencies();
                                 break;
                             default:
+                                error=true;
                                 break;
+                        }
+                        if(error) {
+                            break;
                         }
                     }
                     Alerts.Error(context.getTextName("unexpectederror").getValue());
-
                 }catch(Exception e){
                             Alerts.Error(e.getMessage());
                 }
@@ -302,7 +304,7 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    "Environments/"+environment+"/bin/pip3",
+                    getEnvDir()+"pip3",
                     "install",
                     "-r",
                     "Environments"+"/"+environment+".txt"
@@ -349,6 +351,16 @@ public abstract class ImageEnhanceMethod {
             return ;
         }
         System.out.println(context.getTextName("depInstalled").getValue());
+    }
+
+
+    public String getEnvDir(){
+        String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
+        String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
+        if (os.equals("windows")) {
+            return environment + "/Scripts/";
+        }
+        return   environment + "/bin/";
     }
 
 
@@ -415,6 +427,11 @@ public abstract class ImageEnhanceMethod {
                 }
             });
         }
+
+
+
+
+
 
         /**
          * Closes the window if it is opened

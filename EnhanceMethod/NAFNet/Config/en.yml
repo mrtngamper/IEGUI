@@ -1,0 +1,12 @@
+name: "NAFNet"
+description: "Noise Reduction and Image Deblurring"
+
+
+examples:
+   image1: image1out
+   image2: image2out
+
+miniatures:
+   input: output
+
+environment: nafnet

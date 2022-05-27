@@ -7,7 +7,7 @@ import javafx.scene.control.Alert;
 /**
  * Easy method to display graphical error messages.
  */
-public class Alerts {
+public class Alerts { // TODO Error Only Executable In Event Thread
     /**
      * Displays warning alert
      * @param message Header message
