@@ -81,6 +81,9 @@ public class MainViewController extends Controller implements Initializable {
         super.setContext(context);
 
         Button browse = new Button();
+        browse.setStyle("-fx-font-smoothing-type: lcd;\n" +
+                " -fx-fill: accent3;\n" +
+                " -fx-font-family: \"Arial Black\";\n" );
         browse.textProperty().bind(context.getTextName("browse"));
         exit.textProperty().bind(context.getTextName("exit"));
         imageName.textProperty().bind(context.getTextName("imageName"));

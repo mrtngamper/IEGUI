@@ -1,9 +1,6 @@
 package com.example.iegui.util;
 
-import com.example.iegui.AI.ImageEnhanceMethod;
-import com.example.iegui.AI.LowLightImageEnhance;
-import com.example.iegui.AI.SwinIR;
-import com.example.iegui.AI.WhiteBalance;
+import com.example.iegui.AI.*;
 import com.example.iegui.Exceptions.TextNotFoundException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -101,6 +98,8 @@ public class Context {
         methods.add(new SwinIR("EnhanceMethod/SwinIR",lang.getValue(),this));
         methods.add(new LowLightImageEnhance("EnhanceMethod/Low-light-Image-Enhancement",lang.getValue(),this));
         methods.add(new WhiteBalance("EnhanceMethod/mixedillWB2",lang.getValue(),this));
+        methods.add(new LLFlow("EnhanceMethod/LLFlow/code",lang.getValue(),this));
+        methods.add(new NAFNet("EnhanceMethod/NAFNet",lang.getValue(),this));
     }
 
 
@@ -172,13 +171,13 @@ public class Context {
     /**
      * Stores settings contained in a context.
      */
-    private void storeSettings(){
+    public void storeSettings(){
         try {
             StringBuffer buffer = new StringBuffer();
 
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
-            buffer.append("Key: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
+            buffer.append("OpenWelcomeView: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
 
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){

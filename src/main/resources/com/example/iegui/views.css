@@ -1,0 +1,86 @@
+{
+accent1: #E5C1BD;
+background-normal: #D2D0BA;
+background-darker: #B6BE9C;
+accent2: #7B9E87;
+accent3: #5E747F;
+
+}
+#textBefore{
+ -fx-font-smoothing-type: lcd;
+  -fx-fill: accent3;
+  -fx-font-family: "Arial Black";
+   -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#textAfter{
+ -fx-font-smoothing-type: lcd;
+ -fx-fill: accent3;
+ -fx-font-family: "Arial Black";
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+#imageName{
+ -fx-font-smoothing-type: lcd;
+ -fx-fill: accent3;
+ -fx-font-family: "Arial Black";
+  -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
+
+
+#HboxBottom{
+   -fx-background-color: background-normal;
+}
+
+#HboxPag{
+   -fx-background-color: background-normal;
+}
+
+#subBorderPane{
+   -fx-background-color: background-normal;
+}
+
+#hbox{
+   -fx-background-color: background-darker;
+}
+
+.split-pane-divider{
+   -fx-background-color: accent3;
+}
+
+.root{
+    -fx-background-color: background-normal;
+}
+
+.button{
+    -fx-background-color: accent2;
+        -fx-background-insets: 0,1,2;
+        -fx-background-radius: 3,2,1;
+        -fx-padding: 3 30 3 30;
+        -fx-text-fill: black;
+        -fx-font-size: 14px;
+}
+
+.pagination > .pagination-control > .control-box > .number-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .left-arrow-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination > .pagination-control > .control-box > .right-arrow-button {
+    -fx-min-width: 40;
+    -fx-min-height: 30;
+}
+
+.pagination .pagination-control .toggle-button:selected {
+    -fx-background-color: accent1;
+}
+
+.pagination .pagination-control .toggle-button:hover, .pagination .pagination-control .button:hover  {
+    -fx-background-color: accent2;
+}
+

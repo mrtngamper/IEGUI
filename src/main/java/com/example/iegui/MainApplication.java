@@ -32,9 +32,9 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
 
         Context context = new Context(stage,"Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("finished-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 500, 350);
+        Scene scene = new Scene(root, 1024, 768);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.equals("mac os x")) {
@@ -44,17 +44,19 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
-        stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
-        // context.getMethods().get(0).start("/home/martin/ImageEnhance/mixedillWB2/results/output2_WB.png", "/home/martin/Downloads/output3.png"); // For Test purposes SwinIR
-        // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
-        //context.getMethods().get(2).start("/home/martin/Downloads/output2.png","/home/martin/Downloads/output4.png"); // For Testing purposes white balance
+        // context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR
+       // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
+       // context.getMethods().get(2).start("/home/martin/Downloads/output11.png","/home/martin/Downloads/output12.png"); // For Testing purposes white balance
+        //context.getMethods().get(3).start("/home/martin/Downloads/input2.png","/home/martin/Downloads/output11.png"); // For Testing purposes white balance
+        //context.getMethods().get(4).start("/home/martin/Downloads/IMG_20220525_214007.jpg","/home/martin/Downloads/output14.png"); // For Testing purposes white balance
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
-       // stage.show();
+        stage.show();
     }
 
     public static void main(String[] args) {

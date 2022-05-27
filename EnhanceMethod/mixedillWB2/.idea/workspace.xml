@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9b467415-adfe-43f0-8242-1bb4b9012cc3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/data/test_images/IMG-7784_D_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/IMG-7784_S_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/IMG-7784_T_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_AUTO.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_C_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_D_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_F_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_S_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/test_images/a0033-KE_-2590_T_CS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/IMG-7784__WB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/IMG-7784__weight_D.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/IMG-7784__weight_S.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/IMG-7784__weight_T.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/a0033-KE_-2590__WB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/a0033-KE_-2590__weight_D.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/a0033-KE_-2590__weight_S.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/results/a0033-KE_-2590__weight_T.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="29cjGajLzv9luQZLAydm2xgPlfR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/martin/ImageEnhance/mixedillWB2/data/test_images",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data/test_images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9b467415-adfe-43f0-8242-1bb4b9012cc3" name="Changes" comment="" />
+      <created>1653419172935</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653419172935</updated>
+      <workItem from="1653419175381" duration="2973000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
