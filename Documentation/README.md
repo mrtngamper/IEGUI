@@ -133,6 +133,8 @@ The language backend was implemented.
 - __Commit: Settings__ <br>
 A Settings implementation has been made. It provided the option to store and load data contained
 in an instance of context.
+- __Commit: Welcomeview + Mainview merged <br>
+The two views and their affiliated controllers have been merged. The main application has also been adapted
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
