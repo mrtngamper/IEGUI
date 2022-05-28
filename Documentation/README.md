@@ -133,7 +133,7 @@ The language backend was implemented.
 - __Commit: Settings__ <br>
 A Settings implementation has been made. It provided the option to store and load data contained
 in an instance of context.
-- __Commit: Welcomeview + Mainview merged__ <br>
+- __Commit: WelcomeView + MainView merged__ <br>
 The two views and their affiliated controllers have been merged. The main application has also been adapted
 
 #### 18-05-22
@@ -141,6 +141,9 @@ The two views and their affiliated controllers have been merged. The main applic
 Fixed bug which resulted in a NullPointerException
 
 #### 19-05-22
+- __Commit: MainView upload picture feature__ <br>
+A button to choose a the picture to process with an additional drag and drop option and picture display has
+been implemented
 
 #### 20-05-22
 - __Commit: Create and setup python environment__ <br>
