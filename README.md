@@ -1,10 +1,3 @@
-<style>
-    .heatMap th {
-        background: #555555;
-        word-wrap: break-word;
-         border-right-color: #999999;
-    }
-</style>
 
 
 # Image Enhance GUI (IEGUI)
