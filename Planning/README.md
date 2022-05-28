@@ -14,6 +14,8 @@
    - [Setting View](#setting-view)
    - [Loading View](#loading-view)
    - [Finished View](#finished-view)
+
+
 ### Idea
 
 The goal of this project is to provide a GUI for different AI supported image enhance algorithms.
