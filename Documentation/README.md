@@ -134,7 +134,7 @@ The language backend was implemented.
 A Settings implementation has been made. It provided the option to store and load data contained
 in an instance of context.
 - __Commit: WelcomeView + MainView merged__ <br>
-The two views and their affiliated controllers have been merged. The main application has also been adapted
+The two views and their affiliated controllers have been merged. The main application has also been adapted.
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
@@ -143,17 +143,23 @@ Fixed bug which resulted in a NullPointerException
 #### 19-05-22
 - __Commit: MainView upload picture feature__ <br>
 A button to choose a the picture to process with an additional drag and drop option and picture display has
-been implemented
+been implemented.
 
 #### 20-05-22
 - __Commit: Create and setup python environment__ <br>
 Code to setup an environment for SwinIR was added to ImageEnhanceMethod.java as well as SwinIR.java
+- __Commit: Fix: Drag and Drop__ <br>
+Fixed the feature so it behaved exactly like the button.
 
 #### 24-05-22
 - __Commits by mrtngmaper up to Low-light enhancement, SwinIR, Auto-white-balance working__ <br>
 Additional enhance-methods were added to the project, a standard implementation of start() was moved
 from SwinIR to ImageEnhanceMethod, as the other enhance-methods could use the same backend, while using
 different execution commands, which could be added via the getCMD() method, every ImageEnhanceMethod must implement.
+
+#### 25-05-22
+- __Commit: Method display__ <br>
+First version of the display of all available methods with title and short description.
 
 #### 26-05-22
 
