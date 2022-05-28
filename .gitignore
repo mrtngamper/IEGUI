@@ -12,6 +12,7 @@ target/
 *.iml
 *.ipr
 
+__pychache__
 LLFlow_large.pth
 LOLv2.pth
 
@@ -46,4 +47,3 @@ build/
 /Environments/standard/
 /Environments/nafnet/
 
-__pychache__
