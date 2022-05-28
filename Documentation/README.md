@@ -1,4 +1,4 @@
-**# Documentation for Image Enhance GUI (IEGUI)
+# Documentation for Image Enhance GUI (IEGUI)
 
 By [Kilian Kier](https://github.com/kilian-kier), [Martin Gamper](https://github.com/mrtngamper), [Manuel Mitterrutzner](https://github.com/TubaComic), [Maximilian Perathoner](https://github.com/Maxnboy), [Michael Volgger](https://github.com/michaelV04)
 
@@ -14,6 +14,7 @@ TFO Fallmerayer 2022
    - [Development process](#development-process)
       - [Waterfall model](#waterfall-model)
 3. [Design](#design)
+4. [Daily Documentation](#daily-documentation)
 
 
 ## Participants
@@ -52,19 +53,23 @@ The team chose to implement the following options
 
 The team also chose to use these programming languages and frameworks. 
 
-| Task              | Language          |
-|:------------------|:------------------|
-| GUI               | JavaFX            |  
-| Backend           | Java              |   
-| Image enhancement | Preferably python |
-| Tests             | JUnit             |
+| Task              | Language/Frameworks/Tools |
+|:------------------|:--------------------------|
+| GUI               | JavaFX                    |  
+| Backend           | Java                      |   
+| Image enhancement | Preferably python         |
+| Tests             | JUnit                     |
+| Documentation     | Markdown + Java Docs      |
+| Collaboration     | WhatsApp                  |
+| Diagram creation  | StarUML                   |
+| VCS               | Git on GitHub             |
 
 ### Development process
 As a development process the team chose to use the __*waterfall model*__. Since it was given very little
-time a linear approach seems appropriate.
+time a linear approach seemed appropriate.
 
 #### Waterfall model
-The basic waterfall model breaks a development process down into five phases with respective results.
+The basic waterfall model breaks down a development process into five phases with their respective results.
 
 - System and software requirements ->  requirements document
 - Desing -> software architecture
@@ -78,3 +83,55 @@ Furthermore, the model was mainly used as a reference. The team decided to allow
 development process if the whole team was informed.
 
 ## Design
+
+
+
+
+## Daily Documentation
+
+
+#### 09-05-22
+- __Up to Commit: Update README.md__ <br> 
+A GitHub repository was created and a basic README was uploaded. Collaborators
+were added to the repository and each collaborator was prepared a branch.
+
+#### 10-05-22
+- Requirements were established and a basic Use Case Diagram was created.
+
+#### 11-05-22
+- __Commit: JavaFX Setup__ <br>
+A basic JavaFX project folder was uploaded to the repository
+
+#### 12-05-22
+- Basic classes were defined and a basic class diagram was created
+
+- __Up to Commit: Further Preparation and Experimentation__ <br>
+An updated JavaFX project folder was uploaded with a basic class and
+folder design including JavaDoc documentation. The SwinIR project folder was embedded into
+the IEGUI folder structure. A settings file was added to the config folder in SwinIR as well as an implementation of
+a reader for the settings as a proof of concept to test the yaml file format.
+
+- __Commit: Concept__ <br>
+The UIConcept.md file was added to the repository. It contained basic information about the UI design with reference images.
+
+#### 13-05-22
+- __Commit: Concept__ <br>
+The UIConcept.md was extended with detailed descriptions for the different views as well as the basic folder and class structure.
+
+#### 17-05-22
+
+#### 18-05-22
+
+#### 19-05-22
+
+#### 20-05-22
+
+#### 24-05-22
+
+#### 26-05-22
+
+
+
+
+
+## Resume
