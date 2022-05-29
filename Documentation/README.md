@@ -51,7 +51,7 @@ the class 4BT.
 ## Requirements
 The team was given the task to develop a program using an object-oriented programming language
 wich has a graphical user interface. The team should provide documentation, select a software development process, 
-document daily changes, use git as a version control system and use a testing environment. The development was set to three weeks.
+document daily changes, use git as a version control system and use a testing environment. The development time was set to three weeks.
 
 The team decided to create a GUI  which allows the user to open
 image files, select an artificial-intelligence supported enhance-algorithm 
@@ -180,8 +180,8 @@ should provide, was proposed.
 
 - #### Loading View
   The Loading View should be displayed while calculating the output image. It should first and foremost provide
-a graphical indication, that the enhancement process is running. The implementation is free to the responsible
-team member.
+a graphical indication, that the enhancement process is running. The responsible team member is free to implement this view as they wish.
+
 
 - #### Finished View
   This view should contain a comparison between the input and the output image after the enhancement process has been finished
@@ -214,24 +214,24 @@ and contains all the data, which can be stored and loaded into the settings.yml 
     </p>
 
 The AI package should contain the abstract class ImageEnhanceMethod which loads data from config files. 
-Every enhancement-method should have its own class which extends ImageEnhanceMethod and implements the getCMD() method.
+Every enhancement-method should have its own class which extends ImageEnhanceMethod and implement the getCMD() method.
 
 <p align="center">
       <img src="Images/ai.png" width="80%" title="hover text">
     </p>
 
-Additionally, some classes may be added to the CustomNodes or Exceptions package when needed by an implementation.
+Additionally, some classes may be added to the CustomNodes or Exceptions package if needed by an implementation.
 <p align="center">
       <img src="Images/extra.png" width="80%" title="hover text">
     </p>
 
 ### File structure
-Also, a basic file structure was specified. The enhancement-methods should be in its corresponding folder and contain
+The team also specified a basic file structure. The enhancement-methods should be in their corresponding folders and contain
 a config file. This file should contain, the values of the attributes of ImageEnhanceMethod, including
 the environment in which this method should be executed. The environment requirements should be 
 contained in the Environments folder. The environments should be created in the same folder.
 Other important folders are the Settings folder and the Language folder. Both should contain a yml
-file which contain a map of the stored data. The packages found in the iegui subdirectory of main have already been explained 
+file which contains a map of the stored data. The packages found in the iegui subdirectory of main have already been descrbed 
 above. JavaFX fxml files, as well as css files should be in the iegui subdirectory of resources.
 ```
 ├── Documentation
@@ -331,7 +331,7 @@ A Settings implementation was made. It provided the option to store and load dat
 in an instance of context.
 - __Commit: WelcomeView + MainView merged__ <br>
 The two views and their affiliated controllers have been merged. The main application has also been adapted.
-- Commit: WelcomeView updated__ <br>
+- __Commit: WelcomeView updated__ <br>
 A pagination and a button were added and implemented. 
 - __Commit: Main-View layout__ <br>
 The layout of the main-view was changed
@@ -340,16 +340,16 @@ A controller for the main-view was included
 - __Commit: Main-View added list view__ <br>
 A list- view for the main view was added
 - __Commit: Context changed, language exception__ <br>
-getText method added in Context 
+getText method added in Context. 
 Text-not-found-Exception has been added, to report a failure if some text is not existing 
-Language setting was included, so that we can set the language in a file and take the needed text from it 
+Language setting was included, so that we can set the language in a file and take the needed text from it.
 Some text for the interface was set in the MainViewController 
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
 Fixed bug which resulted in a NullPointerException
 - __Commit: errors fixed, caused by max__ <br>
-Everything was set on the new Language setting feature 
+Everything was set to use the new Language setting feature 
 
 #### 19-05-22
 - __Commit: MainView upload picture feature__ <br>
@@ -363,7 +363,7 @@ Code to set-up an environment for SwinIR was added to ImageEnhanceMethod.java as
 - __Commit: Fix: Drag and Drop__ <br>
 Changed the feature that it behaved exactly like the button.
 - __Commit: mistakes from Michael solved__ <br>
-Controll if the setting of the Tutorial is set on true or false
+Controll if the tutorial setting is set to true or false. 
 FileChooser was added
 
 #### 24-05-22
