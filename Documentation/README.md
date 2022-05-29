@@ -333,20 +333,38 @@ in an instance of context.
 The two views and their affiliated controllers have been merged. The main application has also been adapted.
 - Commit: WelcomeView updated__ <br>
 A pagination and a button were added and implemented. 
+- __Commit: Main-View layout__ <br>
+The layout of the main-view was changed
+- __Commit: Main-View controller included__ <br>
+A controller for the main-view was included
+- __Commit: Main-View added list view__ <br>
+A list- view for the main view was added
+- __Commit: Context changed, language exception__ <br>
+getText method added in Context 
+Text-not-found-Exception has been added, to report a failure if some text is not existing 
+Language setting was included, so that we can set the language in a file and take the needed text from it 
+Some text for the interface was set in the MainViewController 
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
 Fixed bug which resulted in a NullPointerException
+- __Commit: errors fixed, caused by max__ <br>
+Everything was set on the new Language setting feature 
 
 #### 19-05-22
 - __Commit: MainView upload picture feature__ <br>
 A button to choose a picture to process with an additional drag and drop option and picture display was implemented.
+- __Commit: javaDoc__ <br>
+Added some documentation
 
 #### 20-05-22
 - __Commit: Create and setup python environment__ <br>
 Code to set-up an environment for SwinIR was added to ImageEnhanceMethod.java as well as SwinIR.java
 - __Commit: Fix: Drag and Drop__ <br>
 Changed the feature that it behaved exactly like the button.
+- __Commit: mistakes from Michael solved__ <br>
+Controll if the setting of the Tutorial is set on true or false
+FileChooser was added
 
 #### 24-05-22
 - __Commits by mrtngmaper up to Low-light enhancement, SwinIR, Auto-white-balance working__ <br>
@@ -357,6 +375,15 @@ different execution commands, which could be gathered via the getCMD() method, e
 WelcomeView got a visual update 
 - __FinishedView added__ <br>
 Finished View was added and implemented.
+- __Commit: added fullscreen + resizable false__ <br>
+Frame was set on fullscreen and the resize function has been removed
+Imported Image was shown on screen 
+Some mistakes have been solved 
+- __Commit: exit button + button labels imported__ <br>
+Exit button was added and button labels that have been, which were deleted for whatever reason
+- __Commit: Image scaling updated__ <br>
+The scaling of the imported Image was fixed, so that the image rescales with the window
+
 
 #### 25-05-22
 - __Commit: Method display__ <br>
