@@ -13,6 +13,8 @@ TFO Fallmerayer 2022
    - [Programming languages and frameworks](#programming-languages-and-frameworks)
    - [Development process](#development-process)
       - [Waterfall model](#waterfall-model)
+   - [File structure](#file-structure)
+   - [About testing](#about-testing)
 3. [Design](#design)
     - [Use Case](#use-case)
     - [UI Concept](#ui-concept)
@@ -24,8 +26,6 @@ TFO Fallmerayer 2022
     - [Sequence](#sequence)
     - [Enhancement process](#enhancement-process) 
     - [Classes](#classes)
-    - [File structure](#file-structure)
-    - [About testing](#about-testing)
 4. [Daily documentation](#daily-documentation)
     - [Design phase](#design-phase)
     - [Code phase](#end-of-design-phase-and-start-of-coding-phase)
@@ -101,6 +101,15 @@ The downside of this process is the lack of flexibility. As the requirements wer
 model would not be necessary.
 Furthermore, the model was mainly used as a reference. The team decided to allow minimal changes of the design during the
 development process if the whole team was informed.
+
+### About testing
+Test cases may be implemented using JUnit for critical processes, as needed.
+As the team's development process is mostly linear, testing may also be
+implemented to simplify later modifications to the project after the deadline.
+
+### Code documentation
+The team decided to document the code using Java Docs. A render of this documentation will
+be added after finishing the project to simplify modifications in the future.
 
 ## Design
 
@@ -255,14 +264,6 @@ file which contain a map of the stored data.
                             └── views.css
 ```
 
-### About testing
-Test cases may be implemented using JUnit for critical processes, as needed.
-As the team's development process is mostly linear, testing may also be 
-implemented to simplify later modifications to the project after the deadline.
-
-### Code documentation
-The team decided to document the code using Java Docs. A render of this documentation will
-be added after finishing the project to simplify modifications in the future.
 
 ## Daily documentation
 
