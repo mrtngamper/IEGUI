@@ -13,8 +13,8 @@ TFO Fallmerayer 2022
    - [Programming languages and frameworks](#programming-languages-and-frameworks)
    - [Development process](#development-process)
       - [Waterfall model](#waterfall-model)
-   - [File structure](#file-structure)
    - [About testing](#about-testing)
+   - [Code documentation](#code-documentation)
 3. [Design](#design)
     - [Use Case](#use-case)
     - [UI Concept](#ui-concept)
@@ -26,6 +26,8 @@ TFO Fallmerayer 2022
     - [Sequence](#sequence)
     - [Enhancement process](#enhancement-process) 
     - [Classes](#classes)
+    - [File structure](#file-structure)
+    - [Task distribution](#task-distribution)
 4. [Daily documentation](#daily-documentation)
     - [Design phase](#design-phase)
     - [Code phase](#end-of-design-phase-and-start-of-coding-phase)
@@ -49,12 +51,12 @@ the class 4BT.
 ## Requirements
 The team was given the task to develop a program using an object-oriented programming language
 wich has a graphical user interface. The team should provide documentation, select a software development process, 
-document daily changes, use git as a version control system and use a test environment. The development was set to three weeks.
+document daily changes, use git as a version control system and use a testing environment. The development was set to three weeks.
 
 The team decided to create a GUI  which allows the user to open
-image files, select an artificial-intelligence-supported enhance-algorithm 
+image files, select an artificial-intelligence supported enhance-algorithm 
 and store the output into a new file.
-These algorithms are mostly state-of-the-art algorithms in their respective field and released on GitHub.
+The selected algorithms are mostly state-of-the-art algorithms in their respective field and released on GitHub.
 The team also chose to enable the program to switch language during runtime and include a tutorial.
 
 ### Enhance algorithms
@@ -71,7 +73,7 @@ The team chose to implement the following options
 
 ### Programming languages and frameworks
 
-The team also chose to use these programming languages and frameworks. 
+These programming languages and frameworks were chosen.
 
 | Task              | Language/Frameworks/Tools |
 |:------------------|:--------------------------|
@@ -83,9 +85,10 @@ The team also chose to use these programming languages and frameworks.
 | Collaboration     | WhatsApp                  |
 | Diagram creation  | StarUML                   |
 | VCS               | Git on GitHub             |
+| Save files        | SnakeYAML                 |
 
 ### Development process
-For development the team chose to use the __*waterfall model*__. Since it was given very little
+For development, the team chose to use the __*waterfall model*__. Since it was given very little
 time a linear approach seemed appropriate.
 
 #### Waterfall model
@@ -109,7 +112,7 @@ implemented to simplify later modifications to the project after the deadline.
 
 ### Code documentation
 The team decided to document the code using Java Docs. A render of this documentation will
-be added after finishing the project to simplify modifications in the future.
+be added after finishing the project to help future developers.
 
 ## Design
 
@@ -125,7 +128,7 @@ A user should be able to do the following actions:
 - Close the program
 - Change the language
 - Select an image file, or drag and drop a file into the program
-- Select the enhance method
+- Select an enhance method
 - Start the enhancement
 
 The UI, on the other hand should enable these interactions.
@@ -147,7 +150,7 @@ should provide, was proposed.
 
 - #### Main View
   The Main View should provide the option to select an image and then select an image-enhance-option.
-  At the top a Menu Bar should be displayed with the Items File, Settings and Help. With the following options.
+  At the top a Menu Bar should be displayed, containing these options:
     - File
         - Open (file dialog)
         - Exit (quit program)
@@ -157,26 +160,26 @@ should provide, was proposed.
     - Help
         - About <br /><br />
 
-  Under the Menu Bar should be a miniature version of an opened image its file name.
+  Under the Menu Bar a miniature version of an opened image should be displayed beside its file name.
   It should be possible to drag and drop other files into this area.
-  The most important element of this view should be a List View containing the names and example images of
-  different enhance methods. On click a Setting View should replace the List View. <br /><br />
+  The most important element of this view will be a List View containing the names and example images of
+  different enhance methods. On-click a Setting View should replace the List View. <br /><br />
    <p align="center">
       <img src="Images/MainView.png" width="80%" title="hover text">
     </p>
   
 - #### Setting View
   The Setting View should provide detailed
-  information about a selected image enhance method and an option to return to the Main View. 
+  information about a selected image-enhance method and the option to return to the Main View. 
   The methods description and examples should be contained in a List View.
   At the bottom or the top of this List View a method specific field for options should be displayed.
-  At the bottom of the whole View a button should be provided to start the enhance process.<br /><br />
+  At the bottom of the whole View a button should be provided to start the enhancement process.<br /><br />
    <p align="center">
       <img src="Images/SettingView.png" width="80%" title="hover text">
     </p>
 
 - #### Loading View
-  The Loading View should be displayed while calculating the output image. It should mostly provide
+  The Loading View should be displayed while calculating the output image. It should first and foremost provide
 a graphical indication, that the enhancement process is running. The implementation is free to the responsible
 team member.
 
@@ -185,7 +188,7 @@ team member.
   It should contain a button to return to the Main View.
 
 These are guidelines which may help team members responsible for a specific View during the implementation process, but
-they are not obligatory and the design may change, as long as the same functionality is provided.
+they are not obligatory and the design can be changed, as long as the same functionality is provided.
 
 
 ### Sequence
@@ -211,7 +214,7 @@ and contains all the data, which can be stored and loaded into the settings.yml 
     </p>
 
 The AI package should contain the abstract class ImageEnhanceMethod which loads data from config files. 
-Every enhancement-method should have its on class which extends ImageEnhanceMethod and implements the getCMD() method.
+Every enhancement-method should have its own class which extends ImageEnhanceMethod and implements the getCMD() method.
 
 <p align="center">
       <img src="Images/ai.png" width="80%" title="hover text">
@@ -223,12 +226,13 @@ Additionally, some classes may be added to the CustomNodes or Exceptions package
     </p>
 
 ### File structure
-Also, a file structure was specified. The enhancement-methods should be in its corresponding folder and contain
+Also, a basic file structure was specified. The enhancement-methods should be in its corresponding folder and contain
 a config file. This file should contain, the values of the attributes of ImageEnhanceMethod, including
 the environment in which this method should be executed. The environment requirements should be 
 contained in the Environments folder. The environments should be created in the same folder.
 Other important folders are the Settings folder and the Language folder. Both should contain a yml
-file which contain a map of the stored data.
+file which contain a map of the stored data. The packages found in the iegui subdirectory of main have already been explained 
+above. JavaFX fxml files, as well as css files should be in the iegui subdirectory of resources.
 ```
 ├── Documentation
 │   ├── Images
@@ -264,6 +268,21 @@ file which contain a map of the stored data.
                             └── views.css
 ```
 
+### Task distribution
+After the design phase the tasks each team member should work on were specified.
+
+| Task/Implementation      | Team member                                 |
+|:-------------------------|:--------------------------------------------|
+| Main View                | Maximilian Perathoner, Manuel Mitterrutzner |  
+| Setting View             | Maximilian Perathoner, Manuel Mitterrutzner |   
+| Loading View             | Martin Gamper                               |
+| Finished View            | Michael Volgger                             |
+| Welcome View             | Michael Volgger                             |
+| Java- Python integration | Martin Gamper                               |
+| AI research / Marketing  | Kilian Kier                                 |
+| Installer                | Kilian Kier                                 |
+| Styling                  | Michael Volgger                             |
+
 
 ## Daily documentation
 
@@ -296,24 +315,24 @@ The UIConcept.md file was added to the repository. It contained basic informatio
 ### End of design phase and start of coding phase
 
 #### 13-05-22
-- During that day the coding phase began after the basic inner workings of IEGUI were defined. Before the Tasks for each developer were specified.
+- During that day the coding phase began after the basic inner workings of IEGUI were defined. Beforehand the tasks for each developer were specified.
 - __Commit: Concept__ <br>
-The UIConcept.md was extended with detailed descriptions for the different views as well as a basic folder and class structure.
+The UIConcept.md was extended with detailed descriptions of the different views as well as a basic folder and class structure.
 - __Commit: Language__ <br>
 The language backend was defined in the UIConcept.md file
 - __Commit: Language backend__ <br>
 The language backend was implemented.
 - __Commit: Welcome view added__ <br>
-The fxml File and the Controller got added and updated.
+The fxml files and controllers were added and updated.
 
 #### 17-05-22
 - __Commit: Settings__ <br>
-A Settings implementation has been made. It provided the option to store and load data contained
+A Settings implementation was made. It provided the option to store and load data contained
 in an instance of context.
 - __Commit: WelcomeView + MainView merged__ <br>
 The two views and their affiliated controllers have been merged. The main application has also been adapted.
 - Commit: WelcomeView updated__ <br>
-A pagination and a button got added and implemented. 
+A pagination and a button were added and implemented. 
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
@@ -321,32 +340,31 @@ Fixed bug which resulted in a NullPointerException
 
 #### 19-05-22
 - __Commit: MainView upload picture feature__ <br>
-A button to choose a the picture to process with an additional drag and drop option and picture display has
-been implemented.
+A button to choose a picture to process with an additional drag and drop option and picture display was implemented.
 
 #### 20-05-22
 - __Commit: Create and setup python environment__ <br>
-Code to setup an environment for SwinIR was added to ImageEnhanceMethod.java as well as SwinIR.java
+Code to set-up an environment for SwinIR was added to ImageEnhanceMethod.java as well as SwinIR.java
 - __Commit: Fix: Drag and Drop__ <br>
-Fixed the feature so it behaved exactly like the button.
+Changed the feature that it behaved exactly like the button.
 
 #### 24-05-22
 - __Commits by mrtngmaper up to Low-light enhancement, SwinIR, Auto-white-balance working__ <br>
 Additional enhance-methods were added to the project, a standard implementation of start() was moved
 from SwinIR to ImageEnhanceMethod, as the other enhance-methods could use the same backend, while using
-different execution commands, which could be added via the getCMD() method, every ImageEnhanceMethod must implement.
+different execution commands, which could be gathered via the getCMD() method, every ImageEnhanceMethod must implement.
 - __WelcomeView Visual Update__ <br>
-WelcomeView got a Visual update 
+WelcomeView got a visual update 
 - __FinishedView added__ <br>
-Finished View got added and implemented.
+Finished View was added and implemented.
 
 #### 25-05-22
 - __Commit: Method display__ <br>
-First version of the display of all available methods with title and short description.
+First version of the display of all available methods with title and short description was added.
 
 #### 26-05-22
 - __Commit: Visual Update__ <br>
-.css file got added to all fxml files.
+.css file was added to all fxml files.
 
 
 #### 27-05-22
@@ -376,7 +394,7 @@ Languages other than english were still not available.
 It seemed to be possible to finish the project during the following week, even though
 there might not be left much time. The right development process was chosen, as only very few
 design specifications had to be changed, the most sever being the need for an installer, 
-because of the size of some model and the GitHub file size limitation.
+because of the size of some PyTorch models and the GitHub file size limitation.
 
 ## Resume
-The project is still under development
+This section will be added in after release :warning:
