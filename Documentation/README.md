@@ -128,6 +128,8 @@ The UIConcept.md was extended with detailed descriptions for the different views
 The language backend was defined in the UIConcept.md file
 - __Commit: Language backend__ <br>
 The language backend was implemented.
+- __Commit: Welcome view added__ <br>
+The fxml File and the Controller got added and updated.
 
 #### 17-05-22
 - __Commit: Settings__ <br>
@@ -135,6 +137,8 @@ A Settings implementation has been made. It provided the option to store and loa
 in an instance of context.
 - __Commit: WelcomeView + MainView merged__ <br>
 The two views and their affiliated controllers have been merged. The main application has also been adapted.
+- Commit: WelcomeView updated__ <br>
+A pagination and a button got added and implemented. 
 
 #### 18-05-22
 - __Commit: Fix WelcomeView__ <br>
@@ -156,12 +160,18 @@ Fixed the feature so it behaved exactly like the button.
 Additional enhance-methods were added to the project, a standard implementation of start() was moved
 from SwinIR to ImageEnhanceMethod, as the other enhance-methods could use the same backend, while using
 different execution commands, which could be added via the getCMD() method, every ImageEnhanceMethod must implement.
+- __WelcomeView Visual Update__ <br>
+WelcomeView got a Visual update 
+- __FinishedView added__ <br>
+Finished View got added and implemented.
 
 #### 25-05-22
 - __Commit: Method display__ <br>
 First version of the display of all available methods with title and short description.
 
 #### 26-05-22
+- __Commit: Visual Update__ <br>
+.css file gotr added to all fxml files.
 
 
 #### 27-05-22
