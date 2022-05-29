@@ -14,8 +14,25 @@ TFO Fallmerayer 2022
    - [Development process](#development-process)
       - [Waterfall model](#waterfall-model)
 3. [Design](#design)
+    - [Use Case](#use-case)
+    - [UI Concept](#ui-concept)
+      - [Welcome View](#welcome-view)
+      - [Main View](#main-view)
+      - [Setting View](#setting-view)
+      - [Loading View](#loading-view)
+      - [Finished View](#finished-view)
+    - [Sequence](#sequence)
+    - [Enhancement process](#enhancement-process) 
+    - [Classes](#classes)
+    - [File structure](#file-structure)
+    - [About testing](#about-testing)
 4. [Daily documentation](#daily-documentation)
+    - [Design phase](#design-phase)
+    - [Code phase](#end-of-design-phase-and-start-of-coding-phase)
 5. [Temporary resume](#temporary-resume)
+    - [What worked](#what-worked)
+    - [What did not](#what-did-not)
+    - [Prospect](#prospect)
 6. [Resume](#resume)
 
 
@@ -43,14 +60,14 @@ The team also chose to enable the program to switch language during runtime and 
 ### Enhance algorithms
 The team chose to implement the following options
 
-| Name                                               | Tasks (usable in IEGUI)             | GitHub                                                                       | License                                                                                          |
-|:---------------------------------------------------|:------------------------------------|:-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| SwinIR                                             | - super-resolution<br/> - denoising | [link](https://github.com/JingyunLiang/SwinIR)                               | [Apache](./EnhanceMethod/SwinIR/LICENSE)                                                         |  
-| NAFNet                                             | - denoising<br/> - deblurring       | [link](https://github.com/megvii-research/NAFNet)                            | [MIT](./EnhanceMethod/NAFNet/LICENSE)                                                            |   
-| mixedillWB                                         | - white balance                     | [link](https://github.com/yanxiang-wang/mixedillWB)                          | [Attribution-NonCommercial-ShareAlike 4.0 International](./EnhanceMethod/mixedillWB2/LICENSE.md) |  
-| Low-light-Image-Enhancement                        | - low light enhancement             | [link](https://github.com/pvnieo/Low-light-Image-Enhancement)                | [MIT](./EnhanceMethod/Low-light-Image-Enhancement/LICENSE)                                       | 
-| GAN Prior Embedded Network                         | - face enhancement                  | [link](https://github.com/yangxy/GPEN)                                       | © Alibaba, 2021. For academic and non-commercial use only.                                       |
-| Low-Light Image Enhancement with Normalizing Flow  | - low light enhancement             | [link](https://github.com/wyf0912/LLFlow)                                    | [Attribution-NonCommercial-ShareAlike 4.0 International](./EnhanceMethod/LLFlow/LICENSE)         |
+| Name                                               | Tasks (usable in IEGUI)             | GitHub                                                                       | License                                                                                           |
+|:---------------------------------------------------|:------------------------------------|:-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| SwinIR                                             | - super-resolution<br/> - denoising | [link](https://github.com/JingyunLiang/SwinIR)                               | [Apache](../EnhanceMethod/SwinIR/LICENSE)                                                         |  
+| NAFNet                                             | - denoising<br/> - deblurring       | [link](https://github.com/megvii-research/NAFNet)                            | [MIT](../EnhanceMethod/NAFNet/LICENSE)                                                            |   
+| mixedillWB                                         | - white balance                     | [link](https://github.com/yanxiang-wang/mixedillWB)                          | [Attribution-NonCommercial-ShareAlike 4.0 International](../EnhanceMethod/mixedillWB2/LICENSE.md) |  
+| Low-light-Image-Enhancement                        | - low light enhancement             | [link](https://github.com/pvnieo/Low-light-Image-Enhancement)                | [MIT](../EnhanceMethod/Low-light-Image-Enhancement/LICENSE)                                       | 
+| GAN Prior Embedded Network                         | - face enhancement                  | [link](https://github.com/yangxy/GPEN)                                       | © Alibaba, 2021. For academic and non-commercial use only.                                        |
+| Low-Light Image Enhancement with Normalizing Flow  | - low light enhancement             | [link](https://github.com/wyf0912/LLFlow)                                    | [Attribution-NonCommercial-ShareAlike 4.0 International](../EnhanceMethod/LLFlow/LICENSE)         |
 
 ### Programming languages and frameworks
 
@@ -88,11 +105,168 @@ development process if the whole team was informed.
 ## Design
 
 
+### Use Case
+During the design phase the team defined a basic use case.
+ <p align="center">
+      <img src="Images/useCase.png" width="80%" title="hover text">
+    </p>
+A user should be able to do the following actions:
 
+- Enable the help on startup
+- Close the program
+- Change the language
+- Select an image file, or drag and drop a file into the program
+- Select the enhance method
+- Start the enhancement
+
+The UI, on the other hand should enable these interactions.
+
+A logic thread should only be active once, during the enhancement process.
+
+### UI Concept
+In addition to the use case, an initial design layout of the different views, the user interface 
+should provide, was proposed.
+
+- #### Welcome View
+  The Welcome View should be displayed on startup. It should provide a tutorial on how to use
+ the program. Additionally, there should be a checkmark to disable the startup behaviour. <br /><br />
+
+   <p align="center">
+      <img src="Images/WelcomeView.png" width="50%" title="hover text">
+    </p>
+
+
+- #### Main View
+  The Main View should provide the option to select an image and then select an image-enhance-option.
+  At the top a Menu Bar should be displayed with the Items File, Settings and Help. With the following options.
+    - File
+        - Open (file dialog)
+        - Exit (quit program)
+    - Settings
+        - Language (select language)
+        - Tutorial on Startup (enable or disable Welcome View)
+    - Help
+        - About <br /><br />
+
+  Under the Menu Bar should be a miniature version of an opened image its file name.
+  It should be possible to drag and drop other files into this area.
+  The most important element of this view should be a List View containing the names and example images of
+  different enhance methods. On click a Setting View should replace the List View. <br /><br />
+   <p align="center">
+      <img src="Images/MainView.png" width="80%" title="hover text">
+    </p>
+  
+- #### Setting View
+  The Setting View should provide detailed
+  information about a selected image enhance method and an option to return to the Main View. 
+  The methods description and examples should be contained in a List View.
+  At the bottom or the top of this List View a method specific field for options should be displayed.
+  At the bottom of the whole View a button should be provided to start the enhance process.<br /><br />
+   <p align="center">
+      <img src="Images/SettingView.png" width="80%" title="hover text">
+    </p>
+
+- #### Loading View
+  The Loading View should be displayed while calculating the output image. It should mostly provide
+a graphical indication, that the enhancement process is running. The implementation is free to the responsible
+team member.
+
+- #### Finished View
+  This view should contain a comparison between the input and the output image after the enhancement process has been finished
+  It should contain a button to return to the Main View.
+
+These are guidelines which may help team members responsible for a specific View during the implementation process, but
+they are not obligatory and the design may change, as long as the same functionality is provided.
+
+
+### Sequence
+The interactions between the different Views should be as follows.
+  <p align="center">
+      <img src="Images/sequence.png" width="80%" title="hover text">
+    </p>
+
+### Enhancement process
+To enhance an image after a user selected a method, java will need to interact with different python projects.
+Because of that, an environment has to be set up before execution.
+ <p align="center">
+      <img src="Images/activity.png" width="80%" title="hover text">
+    </p>
+
+### Classes
+The following classes and packages were defined. The main package should be the util package. This package should contain
+the language implementation as well as the Context, which is accessible to every JavaFX controller
+and contains all the data, which can be stored and loaded into the settings.yml file.
+
+<p align="center">
+      <img src="Images/util.png" width="80%" title="hover text">
+    </p>
+
+The AI package should contain the abstract class ImageEnhanceMethod which loads data from config files. 
+Every enhancement-method should have its on class which extends ImageEnhanceMethod and implements the getCMD() method.
+
+<p align="center">
+      <img src="Images/ai.png" width="80%" title="hover text">
+    </p>
+
+Additionally, some classes may be added to the CustomNodes or Exceptions package when needed by an implementation.
+<p align="center">
+      <img src="Images/extra.png" width="80%" title="hover text">
+    </p>
+
+### File structure
+Also, a file structure was specified. The enhancement-methods should be in its corresponding folder and contain
+a config file. This file should contain, the values of the attributes of ImageEnhanceMethod, including
+the environment in which this method should be executed. The environment requirements should be 
+contained in the Environments folder. The environments should be created in the same folder.
+Other important folders are the Settings folder and the Language folder. Both should contain a yml
+file which contain a map of the stored data.
+```
+├── Documentation
+│   ├── Images
+│   └── README.md
+├── EnhanceMethod
+│   └── ExampleMethod
+│       └── Config
+│           └── en.yml
+├── Environments
+│   └── environment_file.txt
+├── Language
+│   └── en.yml
+├── README.md
+├── Settings
+│   └── settings.yml
+└── src
+    ├── java
+    └── src
+        └── main
+            ├── java
+            │   └── com
+            │       └── example
+            │           └── iegui
+            │               ├── AI
+            │               ├── controller
+            │               ├── CustomNodes
+            │               ├── Exceptions
+            │               └── util
+            └── resources
+                └── com
+                    └── example
+                        └── iegui
+                            └── views.css
+```
+
+### About testing
+Test cases may be implemented using JUnit for critical processes, as needed.
+As the team's development process is mostly linear, testing may also be 
+implemented to simplify later modifications to the project after the deadline.
+
+### Code documentation
+The team decided to document the code using Java Docs. A render of this documentation will
+be added after finishing the project to simplify modifications in the future.
 
 ## Daily documentation
 
-### Design
+### Design phase
 #### 09-05-22
 - __Up to Commit: Update README.md__ <br> 
 A GitHub repository was created and a basic README was uploaded. Collaborators
@@ -118,7 +292,7 @@ a reader for the settings as a proof of concept to test the yaml file format.
 The UIConcept.md file was added to the repository. It contained basic information about the UI design with reference images.
 
 
-### Finished design and start of coding phase
+### End of design phase and start of coding phase
 
 #### 13-05-22
 - During that day the coding phase began after the basic inner workings of IEGUI were defined. Before the Tasks for each developer were specified.
@@ -171,7 +345,7 @@ First version of the display of all available methods with title and short descr
 
 #### 26-05-22
 - __Commit: Visual Update__ <br>
-.css file gotr added to all fxml files.
+.css file got added to all fxml files.
 
 
 #### 27-05-22
@@ -189,7 +363,7 @@ First version of the display of all available methods with title and short descr
 Up until June 28th, one week from the deadline, the development team was able
 to create basic implementations of the different views wich were previously specified.
 The WelcomeView was implemented, it was possible to select or drag & drop images 
-into the MainView. It was also possible to run enhance images using a simple interface in jave.
+into the MainView. It was also possible to run enhance images using a simple interface in java.
 
 #### What did not
 It was still not possible to select an image-enhance-method from the GUI and descriptions
@@ -197,10 +371,11 @@ for the different algorithms were still missing, as well as settings nodes for t
 The overall design of the different views could still be improved.
 Languages other than english were still not available.
 
-#### Perspective
+#### Prospect
 It seemed to be possible to finish the project during the following week, even though
 there might not be left much time. The right development process was chosen, as only very few
-design specifications had to be changed, the most server being the need for an installer, because of the GitHub file size limitation.
+design specifications had to be changed, the most sever being the need for an installer, 
+because of the size of some model and the GitHub file size limitation.
 
 ## Resume
 The project is still under development

@@ -76,7 +76,6 @@ public class Context {
         this.settings_file_name=settings;
         loadSettings();
 
-
         System.setOut(new PrintStream(outputStream));
 
         try {
@@ -144,7 +143,7 @@ public class Context {
     /**
      * Loads settings contained in a context.
      */
-    private void loadSettings(){
+    public void loadSettings(){
         Yaml yaml = new Yaml();
         try {
             InputStream inputStream = new FileInputStream(settings_file_name);

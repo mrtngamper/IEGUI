@@ -152,7 +152,6 @@ public abstract class ImageEnhanceMethod {
                 try{
                     createEnvironment();
                 }catch(Exception e){
-
                     Alerts.Error(e.getMessage());
                     return;
                 }
