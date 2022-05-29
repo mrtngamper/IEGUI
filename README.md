@@ -37,7 +37,7 @@ These are the available algorithms that can be used.
 | Low-Light Image Enhancement with Normalizing Flow  | - low light enhancement             | [link](https://github.com/wyf0912/LLFlow)                                    | [Attribution-NonCommercial-ShareAlike 4.0 International](./EnhanceMethod/LLFlow/LICENSE)         |
 
 </div>
-All of these are copies from there respective GitHub 
+All of these are copies from their respective GitHub 
 repositories and may have the following changes:
 
 - The arguments __*input*__ and __*output*__ folders may have been added to the parser.

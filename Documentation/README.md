@@ -397,4 +397,4 @@ design specifications had to be changed, the most sever being the need for an in
 because of the size of some PyTorch models and the GitHub file size limitation.
 
 ## Resume
-This section will be added in after release :warning:
+This section will be added after release :warning:
