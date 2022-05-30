@@ -24,6 +24,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -197,6 +198,13 @@ public class MainViewController extends Controller implements Initializable {
         Platform.exit();
     }
 
+    public void onLanguagePressed(ActionEvent actionEvent) {
+        if(Objects.equals(context.getLang(), "de")) {
+            context.setLang("en");
+        } else {
+            context.setLang("de");
+        }
+    }
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
 
