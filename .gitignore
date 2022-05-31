@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+__pychache__
+LLFlow_large.pth
+LOLv2.pth
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -37,3 +41,9 @@ build/
 ### Mac OS ###
 .DS_Store
 /Environments/lowlight/
+/Environments/lowlight2/
+/Environments/null/
+/Environments/whitebalance/
+/Environments/standard/
+/Environments/nafnet/
+
