@@ -219,6 +219,7 @@ public class MainViewController extends Controller implements Initializable {
 
     public void onExitButton(ActionEvent actionEvent) {
         Platform.exit();
+        System.exit(0);
     }
 
     public void onLanguagePressed(ActionEvent actionEvent) {
