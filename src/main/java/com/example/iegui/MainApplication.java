@@ -37,11 +37,6 @@ public class MainApplication extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
 
-        String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        if (os.equals("mac os x")) {
-            root.setStyle("-fx-font-family: Arial");
-        }
-
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 

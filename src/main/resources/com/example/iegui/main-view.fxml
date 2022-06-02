@@ -21,8 +21,8 @@
             </Menu>
             <Menu fx:id="settingsSetting" mnemonicParsing="false">
                 <Menu fx:id="languageSetting" mnemonicParsing="false">
-                    <MenuItem fx:id="lanDeSetting" mnemonicParsing="false" />
-                    <MenuItem fx:id="lanEnSetting" mnemonicParsing="false" />
+                    <MenuItem fx:id="lanDeSetting" onAction="#onLanguagePressed" mnemonicParsing="false" />
+                    <MenuItem fx:id="lanEnSetting" onAction="#onLanguagePressed" mnemonicParsing="false" />
                 </Menu>
                 <CheckMenuItem fx:id="tutorialSetting" mnemonicParsing="false" />
             </Menu>
