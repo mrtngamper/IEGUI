@@ -1,11 +1,8 @@
 package com.example.iegui;
 
 
-import com.example.iegui.AI.ImageEnhanceMethod;
-import com.example.iegui.AI.SwinIR;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
-import com.example.iegui.util.Language;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -29,13 +26,16 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class MainApplication extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
-
-        Context context = new Context(stage,"Settings/settings.yml");
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("finished-view.fxml"));
+        Context context = new Context(stage, "Settings/settings.yml");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root, 1024, 768);
+        Scene scene = new Scene(root, 768, 500);
 
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.equals("mac os x")) {
@@ -45,9 +45,8 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
-        //stage.setFullScreen(true);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setResizable(false);
+
+            stage.setResizable(false);
 
 
         //context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR
@@ -59,9 +58,5 @@ public class MainApplication extends Application {
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

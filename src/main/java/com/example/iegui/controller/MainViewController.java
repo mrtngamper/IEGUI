@@ -166,19 +166,33 @@ public class MainViewController extends Controller implements Initializable {
             }
         });
 
-        /*ListView<ImageEnhanceMethod> list = new ListView();
+        ListView<ImageEnhanceMethod> list = new ListView();
 
         list.setItems(context.getMethods());
 
         list.setCellFactory(new Callback<ListView<ImageEnhanceMethod>, ListCell<ImageEnhanceMethod>>() {
             @Override
             public ListCell<ImageEnhanceMethod> call(ListView<ImageEnhanceMethod> imageEnhanceMethodListView) {
-                ListCell cell = new ListCell();
+                return new ListCell<>(){
+                    @Override
+                    protected void updateItem(ImageEnhanceMethod imageEnhanceMethod, boolean b) {
+                        super.updateItem(imageEnhanceMethod, b);
+                        if(imageEnhanceMethod!=null){
+                            VBox methodWindow = new VBox();
+                            Label name = new Label(imageEnhanceMethod.getName());
+                            name.setFont(new Font("Arial", 20));
+                            Label description = new Label(imageEnhanceMethod.getDescription());
+                            methodWindow.getChildren().addAll(name, description);
+                            setGraphic(methodWindow);
+                        }
+                    }
+                };
 
             }
+
         });
         subBorderPane.setCenter(list);
-        */
+
     }
 
     @Override

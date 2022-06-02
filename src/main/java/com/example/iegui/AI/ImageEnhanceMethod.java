@@ -214,6 +214,7 @@ public abstract class ImageEnhanceMethod {
     public abstract String[] getCMD();
 
 
+
     /**
      * Loads ImageEnhanceMethod options from file
      * @param file filename of the yml file which contains the data
