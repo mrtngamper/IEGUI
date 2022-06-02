@@ -18,8 +18,9 @@ public class LLFlow extends ImageEnhanceMethod{
 
     @Override
     public String[] getCMD() {
+        String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         return new String[]{
-              getEnvDir()+"python3",
+                environment + "/bin/python3",
                 "test_unpaired.py",
                 "--opt",
                 "confs/LOLv2-pc.yml",
