@@ -20,9 +20,8 @@ public class WhiteBalance extends ImageEnhanceMethod{
 
     @Override
     public String[] getCMD() {
-        String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         return new String[]{
-                environment + "/bin/python3",
+                getEnvDir()+"python3",
                 "test.py",
                 "--wb-settings",
                 "D",

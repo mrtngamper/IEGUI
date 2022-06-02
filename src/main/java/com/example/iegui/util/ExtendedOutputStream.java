@@ -15,7 +15,6 @@ import java.util.function.Function;
  */
 public class ExtendedOutputStream extends OutputStream {
     private ArrayList<Function<Integer,Object>> streams = new ArrayList<>();
-
     private PrintStream origout;
 
     public ExtendedOutputStream(){

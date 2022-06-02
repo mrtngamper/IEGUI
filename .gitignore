@@ -12,6 +12,10 @@ target/
 *.iml
 *.ipr
 
+__pychache__
+LLFlow_large.pth
+LOLv2.pth
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -43,3 +47,4 @@ build/
 /EnhanceMethod/GPEN/weights/
 /EnhanceMethod/LLFlow/code/confs/LOL_smallNet.pth
 /EnhanceMethod/LLFlow/code/confs/LOLv2.pth
+/Environments/standard/
