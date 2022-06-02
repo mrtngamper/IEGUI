@@ -4,6 +4,7 @@ import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -105,6 +106,9 @@ public class MainViewController extends Controller implements Initializable {
 
         imageFile.setValue("Images/browse.png");
         image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
+
+        tutorialSetting.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
+        Bindings.bindBidirectional(context.openWelcomeViewProperty(),tutorialSetting.selectedProperty());
 
         browse.setOnAction(new EventHandler<ActionEvent>() {
             @Override
