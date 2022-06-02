@@ -4,6 +4,7 @@ import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +25,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -105,6 +107,9 @@ public class MainViewController extends Controller implements Initializable {
         imageFile.setValue("Images/browse.png");
         image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
 
+        tutorialSetting.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
+        Bindings.bindBidirectional(context.openWelcomeViewProperty(),tutorialSetting.selectedProperty());
+
         browse.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -166,19 +171,33 @@ public class MainViewController extends Controller implements Initializable {
             }
         });
 
-        /*ListView<ImageEnhanceMethod> list = new ListView();
+        ListView<ImageEnhanceMethod> list = new ListView();
 
         list.setItems(context.getMethods());
 
         list.setCellFactory(new Callback<ListView<ImageEnhanceMethod>, ListCell<ImageEnhanceMethod>>() {
             @Override
             public ListCell<ImageEnhanceMethod> call(ListView<ImageEnhanceMethod> imageEnhanceMethodListView) {
-                ListCell cell = new ListCell();
+                return new ListCell<>(){
+                    @Override
+                    protected void updateItem(ImageEnhanceMethod imageEnhanceMethod, boolean b) {
+                        super.updateItem(imageEnhanceMethod, b);
+                        if(imageEnhanceMethod!=null){
+                            VBox methodWindow = new VBox();
+                            Label name = new Label(imageEnhanceMethod.getName());
+                            name.setFont(new Font("Arial", 20));
+                            Label description = new Label(imageEnhanceMethod.getDescription());
+                            methodWindow.getChildren().addAll(name, description);
+                            setGraphic(methodWindow);
+                        }
+                    }
+                };
 
             }
+
         });
         subBorderPane.setCenter(list);
-        */
+
     }
 
     @Override
@@ -202,6 +221,13 @@ public class MainViewController extends Controller implements Initializable {
         Platform.exit();
     }
 
+    public void onLanguagePressed(ActionEvent actionEvent) {
+        if(Objects.equals(context.getLang(), "de")) {
+            context.setLang("en");
+        } else {
+            context.setLang("de");
+        }
+    }
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
 

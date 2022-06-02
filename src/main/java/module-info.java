@@ -8,4 +8,5 @@ module com.example.iegui {
     opens com.example.iegui to javafx.fxml;
     opens com.example.iegui.AI to javafx.fxml;
     exports com.example.iegui;
+    opens com.example.iegui.CustomNodes to javafx.fxml;
 }

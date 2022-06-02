@@ -53,3 +53,4 @@ unexpectederror: Unexpected error during execution in python environment
 envCreated: Python Virtual Environment Created
 envDoesNotExist: Python Virtual Environment Does Not Exist
 depInstalled: Dependencies have been installed
+welcome: Welcome

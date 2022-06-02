@@ -2,6 +2,7 @@ package com.example.iegui.controller;
 
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,6 +34,8 @@ public class welcomeController extends Controller  {
     public BorderPane borderPane;
     public HBox HboxBottom;
 
+
+
     public void onOKButtonPressed() {
         Stage stage = (Stage) buttonOK.getScene().getWindow();
         stage.close();
@@ -44,7 +47,7 @@ public class welcomeController extends Controller  {
         this.context=context;
 
         CheckBox.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
-        context.openWelcomeViewProperty().bind(CheckBox.selectedProperty());
+        Bindings.bindBidirectional(context.openWelcomeViewProperty(),CheckBox.selectedProperty());
 
         Text textFieldPage1Title = new Text();
         Text textFieldPage1Text = new Text();
@@ -174,7 +177,6 @@ public class welcomeController extends Controller  {
     }
 
     public void onCheckBoxPressed() {
-        context.storeSettings();
 
     }
 }
