@@ -23,6 +23,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -190,9 +191,18 @@ public abstract class ImageEnhanceMethod {
                                 if (Path.of(outputfile).toFile().exists()) {
                                     Files.delete(Path.of(outputfile));
                                 }
-                                Files.copy(tempOutput, Path.of(outputfile));
-                                Files.delete(tempInput);
-                                Files.delete(tempOutput);
+
+                                for (File file: new File(context.getTempdir().toFile().getAbsolutePath()+"/output").listFiles()) {
+                                    String extension = file.getName().replaceAll(".*\\.","");
+                                    if(extension.equals("png")){
+                                        Files.copy(Path.of(file.getAbsolutePath()), Path.of(outputfile));
+                                        break;
+                                    }
+                                }
+
+                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/input"));
+                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/output"));
+
                                 System.out.println(context.getTextName("success").getValue());
                                 loadingView.close();
                                 //TODO Show Finished View
@@ -216,6 +226,23 @@ public abstract class ImageEnhanceMethod {
                 loadingView.close();
             }
         }).start();
+    }
+
+    /**
+     * Deletes all elements from directory recursively
+     * @param file Root directory
+     */
+    private void recursiveDelete(File file){
+        if(file.isDirectory()){
+            for (File f:file.listFiles() ) {
+                if(f.isDirectory()){
+                    recursiveDelete(f);
+                    f.delete();
+                }else{
+                    f.delete();
+                }
+            }
+        }
     }
 
     /**
@@ -440,9 +467,6 @@ public abstract class ImageEnhanceMethod {
                 }
             });
         }
-
-
-
 
 
 

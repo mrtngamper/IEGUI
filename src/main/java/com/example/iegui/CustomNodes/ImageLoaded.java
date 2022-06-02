@@ -23,6 +23,12 @@ import java.net.URI;
  */
 public class ImageLoaded extends BorderPane {
 
+    /**
+     * Displays an Image and its name in this HBox.
+     * @param imageFile The iamge file
+     * @param context The context is needed for error messages in different languages
+     * @throws Exception
+     */
     public void setNewImage(File imageFile, Context context) throws Exception {
         if(imageFile.exists()){
             HBox hbox = new HBox();
