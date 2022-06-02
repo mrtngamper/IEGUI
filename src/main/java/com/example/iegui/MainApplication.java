@@ -37,11 +37,11 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
+        stage.setMinHeight(480);
+        stage.setMinWidth(640);
 
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
-
-        stage.setResizable(false);
 
 
         //context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR

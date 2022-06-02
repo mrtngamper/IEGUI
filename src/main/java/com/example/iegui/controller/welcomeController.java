@@ -164,11 +164,7 @@ public class welcomeController extends Controller  {
 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-
         return scrollPane;
     }
 
-    public void onCheckBoxPressed() {
-
-    }
 }

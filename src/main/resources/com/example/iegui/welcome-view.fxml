@@ -10,7 +10,7 @@
    <bottom>
       <HBox fx:id="HboxBottom" alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
          <children>
-            <CheckBox onAction="#onCheckBoxPressed" fx:id="CheckBox" alignment="CENTER" mnemonicParsing="false" selected="true" text="Show Again               " />
+            <CheckBox  fx:id="CheckBox" alignment="CENTER" mnemonicParsing="false" selected="true" text="Show Again               " />
             <Button fx:id="buttonOK" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onOKButtonPressed" text="OK" />
          </children>
       </HBox>

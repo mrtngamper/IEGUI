@@ -1,5 +1,7 @@
 package com.example.iegui.controller;
 import com.example.iegui.AI.ImageEnhanceMethod;
+import com.example.iegui.CustomNodes.DragAndDrop;
+import com.example.iegui.CustomNodes.ImageLoaded;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
@@ -17,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -27,6 +28,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -57,37 +60,40 @@ public class MainViewController extends Controller implements Initializable {
     private Menu helpSetting;
     @FXML
     private MenuItem aboutSetting;
-    @FXML
-    private Text imageName;
+
     @FXML
     private Menu file;
     @FXML
     private MenuItem open;
     @FXML
     private MenuItem exit;
-    @FXML
-    private BorderPane borderPane;
-    @FXML
-    private HBox hbox;
-    @FXML
-    private ImageView image;
-    @FXML
-    private VBox vbox;
+
     private SimpleStringProperty imageFile = new SimpleStringProperty("");
 
     private float ratio;
 
+    @FXML
+    private MenuItem close;
+
+    private DragAndDrop dragAndDrop ;
+
+    private ImageLoaded imageLoaded;
 
     @Override
     public void setContext(Context context) {
         super.setContext(context);
 
         Button browse = new Button();
-        browse.setStyle("-fx-font-smoothing-type: lcd;\n" +
-                " -fx-fill: accent3;\n" +
-                " -fx-font-family: \"Arial Black\";\n" );
-        browse.textProperty().bind(context.getTextName("browse"));
+        browse.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                onBrowseButton(actionEvent);
+            }
+        });
+
+
         exit.textProperty().bind(context.getTextName("exit"));
+        Label imageName = new Label();
         imageName.textProperty().bind(context.getTextName("imageName"));
         settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
         languageSetting.textProperty().bind(context.getTextName("languageSetting"));
@@ -98,49 +104,54 @@ public class MainViewController extends Controller implements Initializable {
         aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
         open.textProperty().bind(context.getTextName("open"));
         file.textProperty().bind(context.getTextName("file"));
-
-        vbox.getChildren().add(0, browse);
+        close.textProperty().bind(context.getTextName("close"));
 
         bP.maxHeightProperty().bind(splitPane.heightProperty().multiply(0.25));
         bP.minHeightProperty().bind(splitPane.heightProperty().multiply(0.25));
 
-        imageFile.setValue("Images/browse.png");
-        image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
+
+
+        dragAndDrop= new DragAndDrop(context,browse);
+        imageLoaded = new ImageLoaded();
+        bP.setCenter(dragAndDrop);
+
 
         tutorialSetting.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
         Bindings.bindBidirectional(context.openWelcomeViewProperty(),tutorialSetting.selectedProperty());
 
-        browse.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                onBrowseButton(actionEvent);
-            }
-        });
+
 
         imageName.setFont(Font.font(20));
         imageName.textProperty().bind(context.getTextName("browse2"));
 
-        vbox.setOnDragDropped(new EventHandler<DragEvent>() {
+        bP.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 File f = db.getFiles().get(0);
+                imageFile.setValue(f.getAbsolutePath());
+            }
+        });
 
-                System.out.println(f.getAbsolutePath());
-                String[] splitter = f.getName().split("\\.");
-                String fileType = splitter[splitter.length - 1];
-                System.out.println(fileType);
-                Image foto = new Image(f.toURI().toString());
-                ratio = (float) (foto.getWidth() / foto.getHeight());
-                if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
-                    Alerts.Error(context.getTextName("noFoto").getValue());
-                } else {
-                    imageFile.setValue(f.getAbsolutePath());
+
+        imageFile.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                try {
+                    if(t1.equals("")){
+                        throw new Exception();
+                    }
+                    bP.setCenter(imageLoaded);
+                    imageLoaded.setNewImage(new File(t1),context);
+                } catch (Exception e) {
+                    imageFile.setValue("");
+                    bP.setCenter(dragAndDrop);
                 }
             }
         });
 
-        vbox.setOnDragOver(new EventHandler<DragEvent>() {
+
+        bP.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != browse && event.getDragboard().hasFiles()) {
@@ -150,26 +161,21 @@ public class MainViewController extends Controller implements Initializable {
             }
         });
 
-        imageFile.addListener(new ChangeListener<String>() {
+        final String[] oldStyle = {""};
+        bP.setOnDragEntered(new EventHandler<DragEvent>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                if(!newValue.equals("")) {
-                    vbox.getChildren().remove(browse);
-                    imageName.textProperty().unbind();
-                    String[] splitter = imageFile.getValue().split("/");
-                    String fileName = splitter[splitter.length - 1];
-
-                    image.fitHeightProperty().bind(hbox.heightProperty());
-                    image.fitWidthProperty().unbind();
-
-                    image.setFitWidth(ratio * image.getFitHeight());
-
-                    image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
-
-                    imageName.setText(fileName);
-                }
+            public void handle(DragEvent dragEvent) {
+                oldStyle[0] =bP.getStyle();
+                bP.setStyle("-fx-background-color: #D2D0BA");
             }
         });
+        bP.setOnDragExited(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent dragEvent) {
+                bP.setStyle(oldStyle[0]);
+            }
+        });
+
 
         ListView<ImageEnhanceMethod> list = new ListView();
 
@@ -194,7 +200,6 @@ public class MainViewController extends Controller implements Initializable {
                 };
 
             }
-
         });
         subBorderPane.setCenter(list);
 
@@ -205,8 +210,6 @@ public class MainViewController extends Controller implements Initializable {
     }
 
     public void onBrowseButton(ActionEvent actionEvent) {
-
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
@@ -228,6 +231,10 @@ public class MainViewController extends Controller implements Initializable {
         } else {
             context.setLang("de");
         }
+    }
+
+    public void onCloseButton(ActionEvent actionEvent) {
+        imageFile.setValue("");
     }
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
