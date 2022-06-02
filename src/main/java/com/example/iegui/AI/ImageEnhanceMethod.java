@@ -2,90 +2,84 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
-import com.example.iegui.MainApplication;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
-import com.example.iegui.util.Controller;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
-import org.yaml.snakeyaml.*;
-import javax.imageio.ImageIO;
+import org.yaml.snakeyaml.Yaml;
 
+import javax.imageio.ImageIO;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * An ImageEnhanceMethod Object contains Info about a Method (e.g. SwinIR).
  */
 public abstract class ImageEnhanceMethod {
     /**
-     * The name of the method
-     */
-    private String name="";
-
-    /**
-     * A description of the enhancement method
-     */
-    private String description="";
-
-    /**
      * Example images. Keys are the input file paths, Values the output file paths
      */
-    private final HashMap<String,String> examples = new HashMap<>();
-
+    private final HashMap<String, String> examples = new HashMap<>();
     /**
      * Example miniatures for illustriation. Keys are the inputs, Values the outputs
      */
     private final HashMap<String, String> miniatures = new HashMap<>();
-
+    /**
+     * The factor of how much the input image will be downscaled before processing
+     */
+    private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(0.2);
+    protected Context context;
+    /**
+     * The name of the method
+     */
+    private String name = "";
+    /**
+     * A description of the enhancement method
+     */
+    private String description = "";
     /**
      * Path of the enhancement method
      */
     private String location;
-
     /**
      * A Node which allows to set some parameters of enhancement methods
      */
-    private  MethodSettingWindow settingWindow;
-
+    private MethodSettingWindow settingWindow;
     /**
      * The Name of the python environment. The code will look for a [environment].txt file in the Environments folder.
      * This file then contains the libraries which will be loaded into an environment
      */
     private String environment;
 
-    protected Context context;
-
-
-
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
+     *
      * @param location The method location
-     * @param lang The language which should be loaded
+     * @param lang     The language which should be loaded
      */
-    public ImageEnhanceMethod(String location, String lang, Context context){
-        this.context=context;
-        this.location=location;
+    public ImageEnhanceMethod(String location, String lang, Context context) {
+        this.context = context;
+        this.location = location;
         try {
             loadYAML(location + "/" + "Config" + "/" + lang + ".yml");
-        }catch(Exception e){
+        } catch (Exception e) {
             Alerts.Warning(e.getMessage());
         }
     }
@@ -127,6 +121,10 @@ public abstract class ImageEnhanceMethod {
         this.location = location;
     }
 
+    public DoubleProperty getDownscaleFactor() {
+        return downscaleFactor;
+    }
+
 
     public MethodSettingWindow getSettingWindow() {
         return settingWindow;
@@ -139,7 +137,8 @@ public abstract class ImageEnhanceMethod {
     /**
      * Start Method gets executed, when an enhancement should be performed. It is given an input string and an output
      * string, which should correspond to the filenames. During the operation a loading screen is being displayed
-     * @param inputfile Input image path. (File should exist)
+     *
+     * @param inputfile  Input image path. (File should exist)
      * @param outputfile Output image path.
      */
     public void start(String inputfile, String outputfile) {
@@ -147,9 +146,9 @@ public abstract class ImageEnhanceMethod {
         new Thread(new Runnable() {
             @Override
             public void run() {
-               LoadingView loadingView = new LoadingView();
-               loadingView.show();
-                try{
+                LoadingView loadingView = new LoadingView();
+                loadingView.show();
+                try {
                     createEnvironment();
                 }catch(Exception e){
                     Alerts.Error(e.getMessage());
@@ -164,22 +163,33 @@ public abstract class ImageEnhanceMethod {
 
 
                     Path tempInput = Path.of(context.getTempdir() + "/input/input.png");
-                    Path tempOutput= Path.of(context.getTempdir() + "/output/input.png");
+                    Path tempOutput = Path.of(context.getTempdir() + "/output/input.png");
 
-                    BufferedImage image = ImageIO.read(new File(inputfile));
-                    ImageIO.write(image,"png",tempInput.toFile());
+                    BufferedImage before = ImageIO.read(new File(inputfile));
+                    int w = before.getWidth();
+                    int h = before.getHeight();
+                    BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                    AffineTransform at = new AffineTransform();
+                    at.scale(downscaleFactor.get(), downscaleFactor.get());
+                    AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+                    after = scaleOp.filter(before, after);
+
+                    BufferedImage image = new BufferedImage((int) (w * downscaleFactor.get()), (int) (h * downscaleFactor.get()), BufferedImage.TYPE_INT_ARGB);
+                    image.setData(after.getData());
+
+                    ImageIO.write(image, "png", tempInput.toFile());
 
 
-                    for(int i=0;i<2;i++) {
+                    for (int i = 0; i < 2; i++) {
                         Process process = pb.start();
                         printProcessOutput(process);
                         process.waitFor();
                         switch (process.exitValue()) {
                             case 0:
-                                if(Path.of(outputfile).toFile().exists()){
+                                if (Path.of(outputfile).toFile().exists()) {
                                     Files.delete(Path.of(outputfile));
                                 }
-                                Files.copy(tempOutput,Path.of(outputfile));
+                                Files.copy(tempOutput, Path.of(outputfile));
                                 Files.delete(tempInput);
                                 Files.delete(tempOutput);
                                 System.out.println(context.getTextName("success").getValue());
@@ -199,8 +209,8 @@ public abstract class ImageEnhanceMethod {
                         }
                     }
                     Alerts.Error(context.getTextName("unexpectederror").getValue());
-                }catch(Exception e){
-                            Alerts.Error(e.getMessage());
+                } catch (Exception e) {
+                    Alerts.Error(e.getMessage());
                 }
                 loadingView.close();
             }
@@ -209,6 +219,7 @@ public abstract class ImageEnhanceMethod {
 
     /**
      * A function which returns the command which should be executed in the start function depending on method specific settings.
+     *
      * @return A string array containing the command parameters.
      */
     public abstract String[] getCMD();
@@ -217,51 +228,52 @@ public abstract class ImageEnhanceMethod {
 
     /**
      * Loads ImageEnhanceMethod options from file
+     *
      * @param file filename of the yml file which contains the data
      * @throws YAMLTypeNotValidException thrown, when yaml object type is wrong
-     * @throws FileNotFoundException thrown, when file does not exist
+     * @throws FileNotFoundException     thrown, when file does not exist
      */
     public void loadYAML(String file) throws YAMLTypeNotValidException, FileNotFoundException {
 
-            Yaml yaml = new Yaml();
-            InputStream inputStream = new FileInputStream(file);
-            Map<String, Object> map = yaml.load(inputStream);
+        Yaml yaml = new Yaml();
+        InputStream inputStream = new FileInputStream(file);
+        Map<String, Object> map = yaml.load(inputStream);
 
-            Object ex_input = map.get("examples");
-            if (ex_input != null) {
-                if (ex_input instanceof HashMap) {
-                    examples.putAll((HashMap) ex_input);
-                } else {
-                    throw new YAMLTypeNotValidException(HashMap.class.toString(), ex_input.getClass().toString(), "miniatures", file);
-                }
+        Object ex_input = map.get("examples");
+        if (ex_input != null) {
+            if (ex_input instanceof HashMap) {
+                examples.putAll((HashMap) ex_input);
+            } else {
+                throw new YAMLTypeNotValidException(HashMap.class.toString(), ex_input.getClass().toString(), "miniatures", file);
             }
+        }
 
-            Object min_in = map.get("miniatures");
-            if (min_in != null) {
-                if (min_in instanceof HashMap) {
-                    miniatures.putAll((HashMap)min_in);
-                } else {
-                    throw new YAMLTypeNotValidException(HashMap.class.toString(), min_in.getClass().toString(), "miniatures", file);
-                }
+        Object min_in = map.get("miniatures");
+        if (min_in != null) {
+            if (min_in instanceof HashMap) {
+                miniatures.putAll((HashMap) min_in);
+            } else {
+                throw new YAMLTypeNotValidException(HashMap.class.toString(), min_in.getClass().toString(), "miniatures", file);
             }
+        }
 
-            Object name_yml = map.get("name");
-            if (name_yml != null) {
-                if (name_yml instanceof String) {
-                    name = name_yml.toString();
-                } else {
-                    throw new YAMLTypeNotValidException(String.class.toString(), name_yml.getClass().toString(), "name", file);
-                }
+        Object name_yml = map.get("name");
+        if (name_yml != null) {
+            if (name_yml instanceof String) {
+                name = name_yml.toString();
+            } else {
+                throw new YAMLTypeNotValidException(String.class.toString(), name_yml.getClass().toString(), "name", file);
             }
+        }
 
-            Object description_yml = map.get("description");
-            if (description_yml != null) {
-                if (description_yml instanceof String) {
-                    description = description_yml.toString();
-                } else {
-                    throw new YAMLTypeNotValidException(String.class.toString(), description_yml.getClass().toString(), "description", file);
-                }
+        Object description_yml = map.get("description");
+        if (description_yml != null) {
+            if (description_yml instanceof String) {
+                description = description_yml.toString();
+            } else {
+                throw new YAMLTypeNotValidException(String.class.toString(), description_yml.getClass().toString(), "description", file);
             }
+        }
 
         Object environment = map.get("environment");
         if (environment != null) {
@@ -276,9 +288,10 @@ public abstract class ImageEnhanceMethod {
 
     /**
      * This method prints the output of a process to the standard output
+     *
      * @param process A process containing its inputstream
      */
-    private void printProcessOutput(Process process){
+    private void printProcessOutput(Process process) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -290,16 +303,18 @@ public abstract class ImageEnhanceMethod {
                         System.out.println(line);
                     }
                     String result = builder.toString();
-                }catch(Exception ignore){}
+                } catch (Exception ignore) {
+                }
             }
         }).start();
     }
 
     /**
      * Tries to install all the dependencies found in the requirements.txt
+     *
      * @throws Exception
      */
-    public void installDependencies() throws Exception{
+    public void installDependencies() throws Exception {
         System.out.println(context.getTextName("installingdependencies").getValue());
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
@@ -315,7 +330,7 @@ public abstract class ImageEnhanceMethod {
             printProcessOutput(process);
 
             process.waitFor();
-            switch(process.exitValue()) {
+            switch (process.exitValue()) {
                 case 132:
                     System.out.println(context.getTextName("nodependencies").getValue());
                     break;
@@ -324,31 +339,27 @@ public abstract class ImageEnhanceMethod {
             }
 
             System.out.println(context.getTextName("depInstalled").getValue());
-            return ;
+            return;
         }
         System.out.println(context.getTextName("envDoesNotExit").getValue());
     }
 
     /**
      * Creates a python environment in the Environments directory and installs the dependencies which can also be found there
+     *
      * @throws Exception An Exception may be thrown when a environment file (specified in the environment attribute) does not exist, or python encounters an error (no internet connection, package unexistent etc.)
      */
     public void createEnvironment() throws Exception {
-        File file = new File("Environments"+"/"+environment);
-        if(!file.exists()) {
-            String[] cmd = {
-                    "python",
-                    "-m",
-                    "venv",
-                    file.getAbsolutePath()
-            };
+        File file = new File("Environments" + "/" + environment);
+        if (!file.exists()) {
+            String[] cmd = {"python", "-m", "venv", file.getAbsolutePath()};
             Process process = Runtime.getRuntime().exec(cmd);
             printProcessOutput(process);
             process.waitFor();
 
             System.out.println(context.getTextName("envCreated").getValue());
             installDependencies();
-            return ;
+            return;
         }
         System.out.println(context.getTextName("depInstalled").getValue());
     }
@@ -367,13 +378,16 @@ public abstract class ImageEnhanceMethod {
     /**
      * Loading View which is displayed while an image is being processed.
      */
-    private class LoadingView{
+    private class LoadingView {
+        private Stage stage;
+
         /**
          * This method loads and displayes the loading view.
+         *
          * @param context The context is given to the new Controller
          * @return The stage containing the window is returned
          */
-        private Stage  showLoadingView(Context context)  {
+        private Stage showLoadingView(Context context) {
             try {
 
                 Stage stage = new Stage();
@@ -382,7 +396,7 @@ public abstract class ImageEnhanceMethod {
                 FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
 
                 Parent root = fxmlLoader.load();
-                Scene scene =new Scene(root,500,300);
+                Scene scene = new Scene(root, 500, 300);
 
                 LoadingViewController controller = fxmlLoader.getController();
                 controller.setContext(context);
@@ -401,13 +415,11 @@ public abstract class ImageEnhanceMethod {
                 stage.initStyle(StageStyle.DECORATED);
                 stage.show();
                 return stage;
-            }catch(Exception e){
+            } catch (Exception e) {
                 Alerts.Error(e.getMessage());
             }
             return null;
         }
-
-        private Stage stage;
 
         public Stage getStage() {
             return stage;
@@ -416,13 +428,13 @@ public abstract class ImageEnhanceMethod {
         /**
          * Displayes the view
          */
-        public void show(){
+        public void show() {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
                     stage = showLoadingView(context);
-                    if(stage==null || !stage.isShowing()){
-                        stage=null;
+                    if (stage == null || !stage.isShowing()) {
+                        stage = null;
                     }
                 }
             });
@@ -440,7 +452,7 @@ public abstract class ImageEnhanceMethod {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    if(stage!=null){
+                    if (stage != null) {
                         stage.close();
                         context.getOutputStream().clearStreams();
                     }

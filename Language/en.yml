@@ -53,4 +53,9 @@ unexpectederror: Unexpected error during execution in python environment
 envCreated: Python Virtual Environment Created
 envDoesNotExist: Python Virtual Environment Does Not Exist
 depInstalled: Dependencies have been installed
+task: Task
+faceEnhancement: Face Enhancement
+faceColorization: Face Colorization
+faceInpainting: Face Inpainting
+segmentation2Face: Segmentation to Face
 welcome: Welcome
