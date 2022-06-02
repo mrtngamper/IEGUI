@@ -150,14 +150,12 @@ public abstract class ImageEnhanceMethod {
                 loadingView.show();
                 try {
                     createEnvironment();
-                } catch (Exception e) {
-
+                }catch(Exception e){
                     Alerts.Error(e.getMessage());
-
-
                     return;
                 }
                 try {
+                    boolean error = false;
                     String[] cmd = getCMD();
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
@@ -203,11 +201,14 @@ public abstract class ImageEnhanceMethod {
                                 installDependencies();
                                 break;
                             default:
+                                error=true;
                                 break;
+                        }
+                        if(error) {
+                            break;
                         }
                     }
                     Alerts.Error(context.getTextName("unexpectederror").getValue());
-
                 } catch (Exception e) {
                     Alerts.Error(e.getMessage());
                 }
@@ -222,6 +223,7 @@ public abstract class ImageEnhanceMethod {
      * @return A string array containing the command parameters.
      */
     public abstract String[] getCMD();
+
 
 
     /**
@@ -314,9 +316,14 @@ public abstract class ImageEnhanceMethod {
      */
     public void installDependencies() throws Exception {
         System.out.println(context.getTextName("installingdependencies").getValue());
-        File file = new File("Environments" + "/" + environment);
-        if (file.exists()) {
-            String[] cmd = {"Environments/" + environment + "/bin/pip3", "install", "-r", "Environments" + "/" + environment + ".txt"};
+        File file = new File("Environments"+"/"+environment);
+        if(file.exists()) {
+            String[] cmd = {
+                    getEnvDir()+"pip3",
+                    "install",
+                    "-r",
+                    "Environments"+"/"+environment+".txt"
+            };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
             Process process = pb.start();
@@ -355,6 +362,16 @@ public abstract class ImageEnhanceMethod {
             return;
         }
         System.out.println(context.getTextName("depInstalled").getValue());
+    }
+
+
+    public String getEnvDir(){
+        String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
+        String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
+        if (os.equals("windows")) {
+            return environment + "/Scripts/";
+        }
+        return   environment + "/bin/";
     }
 
 
@@ -422,6 +439,11 @@ public abstract class ImageEnhanceMethod {
                 }
             });
         }
+
+
+
+
+
 
         /**
          * Closes the window if it is opened

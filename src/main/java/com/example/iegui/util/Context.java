@@ -4,6 +4,8 @@ import com.example.iegui.AI.*;
 import com.example.iegui.Exceptions.TextNotFoundException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
@@ -72,10 +74,18 @@ public class Context {
     }
 
     public  Context(Stage stage, String settings){
+        Context context = this;
+
+        openWelcomeViewProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                context.storeSettings();
+            }
+        });
+
         this.stage=stage;
         this.settings_file_name=settings;
         loadSettings();
-
 
         System.setOut(new PrintStream(outputStream));
 
@@ -100,6 +110,7 @@ public class Context {
         methods.add(new WhiteBalance("EnhanceMethod/mixedillWB2",lang.getValue(),this));
         methods.add(new LLFlow("EnhanceMethod/LLFlow/code",lang.getValue(),this));
         methods.add(new GPEN("EnhanceMethod/GPEN", lang.getValue(), this));
+        methods.add(new NAFNet("EnhanceMethod/NAFNet",lang.getValue(),this));
     }
 
 
@@ -144,7 +155,7 @@ public class Context {
     /**
      * Loads settings contained in a context.
      */
-    private void loadSettings(){
+    public void loadSettings(){
         Yaml yaml = new Yaml();
         try {
             InputStream inputStream = new FileInputStream(settings_file_name);
@@ -156,7 +167,7 @@ public class Context {
             }
 
             if(map.containsKey("OpenWelcomeView")){
-                if((Boolean) map.get("OpenWelcomeView")) {
+                if( map.containsKey("OpenWelcomeView")) {
                     openWelcomeView.setValue((Boolean) map.get("OpenWelcomeView"));
                 } else {
                     System.out.println("Could not find OpenWelcomeView key");
@@ -171,13 +182,13 @@ public class Context {
     /**
      * Stores settings contained in a context.
      */
-    private void storeSettings(){
+    public void storeSettings(){
         try {
             StringBuffer buffer = new StringBuffer();
 
             //Add properties if necessary
             buffer.append("Language: "+lang.getValue()+"\n");
-            buffer.append("Key: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
+            buffer.append("OpenWelcomeView: " + openWelcomeView.getValue().toString().toLowerCase() + '\n');
 
             Files.writeString(Path.of(settings_file_name),buffer.toString());
         }catch(Exception e){

@@ -32,11 +32,11 @@ public class SwinIR extends ImageEnhanceMethod{
 
     @Override
        public String[] getCMD(){
-          String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
+
             switch(task) {
                 case "super-resolution":
                     return new String[]{
-                            environment + "/bin/python3",
+                            getEnvDir()+"python3",
                             "main_test_swinir.py",
                             "--task",
                             "real_sr",
@@ -52,7 +52,7 @@ public class SwinIR extends ImageEnhanceMethod{
                     };
                 case "denoising":
                     return new String[]{
-                            environment + "/bin/python3",
+                            getEnvDir()+"python3",
                             "main_test_swinir.py",
                             "--task",
                             "color_dn",

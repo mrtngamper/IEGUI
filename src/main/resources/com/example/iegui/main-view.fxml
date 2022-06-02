@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.MainViewController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@views.css" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.MainViewController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu fx:id="file" mnemonicParsing="false">
@@ -21,8 +21,8 @@
             </Menu>
             <Menu fx:id="settingsSetting" mnemonicParsing="false">
                 <Menu fx:id="languageSetting" mnemonicParsing="false">
-                    <MenuItem fx:id="lanDeSetting" mnemonicParsing="false" />
-                    <MenuItem fx:id="lanEnSetting" mnemonicParsing="false" />
+                    <MenuItem fx:id="lanDeSetting" onAction="#onLanguagePressed" mnemonicParsing="false" />
+                    <MenuItem fx:id="lanEnSetting" onAction="#onLanguagePressed" mnemonicParsing="false" />
                 </Menu>
                 <CheckMenuItem fx:id="tutorialSetting" mnemonicParsing="false" />
             </Menu>

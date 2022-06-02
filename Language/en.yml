@@ -6,9 +6,10 @@ open: Open
 browse: choose a file
 browse2: or drag file here
 
-welcome: "Welcome to the Image enhance GUI:\n This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
-mainViewWelcome: "Main View:\n
-In the Main View your able to select an image and then select an Image Enhance Option.\n
+welcomeTitle : "Welcome to the Image enhance GUI:\n"
+welcomeText : "This project is a GUI for different AI supported image enhance algorithms.\nYou can scroll through the Pagination to get more detailed information!"
+mainViewWelcomeTitle : "Main View:\n"
+mainViewWelcomeText : "In the Main View your able to select an image and then select an Image Enhance Option.\n
 At the top there is the Menu Bar with the Items File, Settings and Help. With these Options.\n
   - File\n
   - Open (file dialog)\n
@@ -19,17 +20,20 @@ At the top there is the Menu Bar with the Items File, Settings and Help. With th
   - Help\n
   - About <br /><br />"
 
-settingsWelcome: "The Setting View display's detailed
+settingsWelcomeTitle: "Settings View:\n"
+settingsWelcomeText: "The Setting View display's detailed
 information of a selected image enhance method.\n It displays the name a description and example Images of the Method.\n
 It should also be possible to return to the Main View. The description and examples should be contained in a List View.\n
 At the bottom of which a method specific field for Options should be displayed. It is contained in the ImageEnhanceMethod\n
-Class and can be accessed via the *getSettingWindow()* method. At the bottom a start button should be displayed. On click the\n
-start method of the corresponding ImageEnhanceMethod should be called, after displaying file dialog."
+Class and can be accessed via the *getSettingWindow()* method. At the bottom a start button should be displayed.\n 
+On click the start method of the corresponding ImageEnhanceMethod should be called, after displaying file dialog."
 
-loadingViewWelcome: "The Loading View will be displayed while calculating the output image.\n No progressbar will be displayed
+loadingViewWelcomeTitle: "Loading View:\n"
+loadingViewWelcomeText: "The Loading View will be displayed while calculating the output image.\n No progressbar will be displayed
 but when the time comes the displayed content will be specified further."
 
-finishViewWelcome: "This view contains a comparison input and the output image after the Loading View.\n
+finishViewWelcomeTitle: "Finish View:\n"
+finishViewWelcomeText: "This view contains a comparison input and the output image after the Loading View.\n
 It should contain a button to return to the Main View."
 exit: Exit
 imageName: Image Name
@@ -54,3 +58,4 @@ faceEnhancement: Face Enhancement
 faceColorization: Face Colorization
 faceInpainting: Face Inpainting
 segmentation2Face: Segmentation to Face
+welcome: Welcome
