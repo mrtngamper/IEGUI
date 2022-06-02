@@ -43,3 +43,4 @@ build/
 /EnhanceMethod/GPEN/weights/
 /EnhanceMethod/LLFlow/code/confs/LOL_smallNet.pth
 /EnhanceMethod/LLFlow/code/confs/LOLv2.pth
+/EnhanceMethod/SwinIR/model_zoo/swinir/
