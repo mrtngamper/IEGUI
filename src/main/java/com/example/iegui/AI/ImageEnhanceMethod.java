@@ -347,10 +347,10 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    getEnvDir()+"pip3",
+                    new File(getEnvDir()+"/pip3").getAbsolutePath(),
                     "install",
                     "-r",
-                    "Environments"+"/"+environment+".txt"
+                    new File("Environments"+"/"+environment+".txt").getAbsolutePath()
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -396,10 +396,10 @@ public abstract class ImageEnhanceMethod {
     public String getEnvDir(){
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        if (os.equals("windows")) {
-            return environment + "/Scripts/";
+        if (os.contains("windows")) {
+            return new File(environment + "/Scripts/").getAbsolutePath();
         }
-        return   environment + "/bin/";
+        return   new File(environment + "/bin/").getAbsolutePath();
     }
 
 

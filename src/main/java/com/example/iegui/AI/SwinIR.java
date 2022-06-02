@@ -4,6 +4,7 @@ import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
+import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,11 +33,10 @@ public class SwinIR extends ImageEnhanceMethod{
 
     @Override
        public String[] getCMD(){
-
             switch(task) {
                 case "super-resolution":
                     return new String[]{
-                            getEnvDir()+"python3",
+                            paths.independent(getEnvDir()+"/"+"python"),
                             "main_test_swinir.py",
                             "--task",
                             "real_sr",
@@ -44,11 +44,11 @@ public class SwinIR extends ImageEnhanceMethod{
                             String.valueOf(scaleFactor),
                             "--large_model",
                             "--model_path",
-                            "model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth",
+                            paths.independent("model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth"),
                             "--input",
-                            context.getTempdir()+"/input",
+                            paths.independent(context.getTempdir()+"/input"),
                             "--output",
-                            context.getTempdir()+"/output",
+                            paths.independent(context.getTempdir()+"/output"),
                     };
                 case "denoising":
                     return new String[]{
