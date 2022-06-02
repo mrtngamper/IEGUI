@@ -17,6 +17,7 @@
         <MenuBar BorderPane.alignment="CENTER">
             <Menu fx:id="file" mnemonicParsing="false">
                 <MenuItem fx:id="open" onAction="#onBrowseButton" mnemonicParsing="false" />
+                <MenuItem fx:id="close" onAction="#onCloseButton" mnemonicParsing="false" />
                 <MenuItem fx:id="exit" onAction="#onExitButton" mnemonicParsing="false" />
             </Menu>
             <Menu fx:id="settingsSetting" mnemonicParsing="false">
@@ -32,18 +33,9 @@
         </MenuBar>
     </top>
     <center>
-        <SplitPane fx:id="splitPane" dividerPositions="0.14439946018893388" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-            <BorderPane fx:id="bP" prefHeight="200.0" prefWidth="200.0">
-                <center>
-                    <HBox fx:id="hbox" BorderPane.alignment="CENTER">
-                        <ImageView fx:id="image" fitHeight="50" fitWidth="50" />
-                        <VBox fx:id="vbox">
-                            <Text fx:id="imageName" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" />
-                        </VBox>
-                    </HBox>
-                </center>
-            </BorderPane>
-            <BorderPane fx:id="subBorderPane" prefHeight="200.0" prefWidth="200.0" />
+        <SplitPane fx:id="splitPane" dividerPositions="0.14439946018893388" orientation="VERTICAL" BorderPane.alignment="CENTER">
+            <BorderPane fx:id="bP" > </BorderPane>
+            <BorderPane fx:id="subBorderPane" />
         </SplitPane>
     </center>
 </BorderPane>

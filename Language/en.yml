@@ -5,6 +5,7 @@ open: Open
 
 browse: choose a file
 browse2: or drag file here
+imageNotFound: Image not found
 
 welcomeTitle : "Welcome to the Image enhance GUI:\n"
 welcomeText : "This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
@@ -59,3 +60,4 @@ faceColorization: Face Colorization
 faceInpainting: Face Inpainting
 segmentation2Face: Segmentation to Face
 welcome: Welcome
+close: Close
