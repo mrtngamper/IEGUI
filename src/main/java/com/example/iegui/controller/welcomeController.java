@@ -1,26 +1,27 @@
 package com.example.iegui.controller;
 
+import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -29,7 +30,6 @@ import java.io.*;
 public class welcomeController extends Controller  {
     public Button buttonOK;
     public javafx.scene.control.CheckBox CheckBox;
-    public HBox HboxPag;
     public Pagination pagination;
     public BorderPane borderPane;
     public HBox HboxBottom;
@@ -43,94 +43,17 @@ public class welcomeController extends Controller  {
 
     @Override
     public void setContext(Context context) {
-
         this.context=context;
+        int pagecount=5;
 
         CheckBox.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
         Bindings.bindBidirectional(context.openWelcomeViewProperty(),CheckBox.selectedProperty());
 
-        Text textFieldPage1Title = new Text();
-        Text textFieldPage1Text = new Text();
-        Text textFieldPage2Title = new Text();
-        Text textFieldPage2Text = new Text();
-        Text textFieldPage3Title = new Text();
-        Text textFieldPage3Text = new Text();
-        Text textFieldPage4Title = new Text();
-        Text textFieldPage4Text = new Text();
-        Text textFieldPage5Title = new Text();
-        Text textFieldPage5Text = new Text();
-
-        ImageView imageViewcooleTypn = addimage("Planning/Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
-        ImageView imageView = addimage("Planning/Images/MainView.png");
-        ImageView imageViewsettings = addimage("Planning/Images/SettingView.png");
-
-
-        imageViewcooleTypn.setFitHeight(800);
-        imageViewcooleTypn.setFitWidth(800);
-
-        imageView.setFitWidth(500);
-        imageView.setFitHeight(500);
-
-        imageViewsettings.setFitWidth(500);
-        imageViewsettings.setFitHeight(500);
-
-        setTitlefont(textFieldPage1Title);
-        setTitlefont(textFieldPage2Title);
-        setTitlefont(textFieldPage3Title);
-        setTitlefont(textFieldPage4Title);
-        setTitlefont(textFieldPage5Title);
-
-        setTextFond(textFieldPage1Text);
-        setTextFond(textFieldPage2Text);
-        setTextFond(textFieldPage3Text);
-        setTextFond(textFieldPage4Text);
-        setTextFond(textFieldPage5Text);
-
-        VBox pageBoxMain = new VBox();
-        VBox pagBoxWelcome = new VBox();
-        VBox pageBoxSettings = new VBox();
-        VBox pageBoxLoading = new VBox();
-        VBox pageBoxFinish = new VBox();
-
-        pageBoxFinish.setAlignment(Pos.CENTER);
-        pageBoxLoading.setAlignment(Pos.CENTER);
-        pageBoxSettings.setAlignment(Pos.CENTER);
-        pagBoxWelcome.setAlignment(Pos.CENTER);
-        pageBoxMain.setAlignment(Pos.CENTER);
-
-        pageBoxMain.getChildren().add(textFieldPage2Title);
-        pageBoxMain.getChildren().add(textFieldPage2Text);
-        pageBoxMain.getChildren().add(imageView);
-
-        pagBoxWelcome.getChildren().add(textFieldPage1Title);
-        pagBoxWelcome.getChildren().add(textFieldPage1Text);
-        pagBoxWelcome.getChildren().add(imageViewcooleTypn);
-
-        pageBoxSettings.getChildren().add(textFieldPage3Title);
-        pageBoxSettings.getChildren().add(textFieldPage3Text);
-        pageBoxSettings.getChildren().add(imageViewsettings);
-
-        pageBoxLoading.getChildren().add(textFieldPage4Title);
-        pageBoxLoading.getChildren().add(textFieldPage4Text);
-
-        pageBoxFinish.getChildren().add(textFieldPage5Title);
-        pageBoxFinish.getChildren().add(textFieldPage5Text);
-
-        try {
-            textFieldPage1Title.textProperty().bind(context.getTextName("welcomeTitle"));
-            textFieldPage1Text.textProperty().bind(context.getTextName("welcomeText"));
-            textFieldPage2Title.textProperty().bind(context.getTextName("mainViewWelcomeTitle"));
-            textFieldPage2Text.textProperty().bind(context.getTextName("mainViewWelcomeText"));
-            textFieldPage3Title.textProperty().bind(context.getTextName("settingsWelcomeTitle"));
-            textFieldPage3Text.textProperty().bind(context.getTextName("settingsWelcomeText"));
-            textFieldPage4Title.textProperty().bind(context.getTextName("loadingViewWelcomeTitle"));
-            textFieldPage4Text.textProperty().bind(context.getTextName("loadingViewWelcomeText"));
-            textFieldPage5Title.textProperty().bind(context.getTextName("finishViewWelcomeTitle"));
-            textFieldPage5Text.textProperty().bind(context.getTextName("finishViewWelcomeText"));
-        }catch (Exception e){
-            e.getMessage();
-        }
-
+        ScrollPane pageBoxMain = createView(context.getTextName("welcomeTitle"),context.getTextName("welcomeText"),"Planning/Images/MainView.png");
+        ScrollPane pageBoxSettings = createView(context.getTextName("settingsWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Planning/Images/SettingView.png");
+        ScrollPane pagBoxWelcome = createView(context.getTextName("mainViewWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Planning/Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
+        ScrollPane pageBoxLoading = createView(context.getTextName("loadingViewWelcomeTitle"),context.getTextName("loadingViewWelcomeText"),null);
+        ScrollPane pageBoxFinish = createView(context.getTextName("finishViewWelcomeTitle"),context.getTextName("finishViewWelcomeText"),null);
 
 
         pagination.setPageFactory(new Callback<Integer, Node>() {
@@ -146,6 +69,8 @@ public class welcomeController extends Controller  {
                 }
             }
         });
+        pagination.setPageCount(pagecount);
+        pagination.maxPageIndicatorCountProperty().bind(pagination.pageCountProperty());
     }
 
     private void setTextFond(Text text) {
@@ -157,16 +82,15 @@ public class welcomeController extends Controller  {
         textField.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
         Color colorTitle = Color.web("#5E747F");
         textField.setFill(colorTitle);
+        textField.setTextAlignment(TextAlignment.CENTER);
     }
 
-    public ImageView addimage(String url){
+    private ImageView addimage(String url){
         ImageView imageView = new ImageView();
         try{
             FileInputStream inputstream = new FileInputStream(url);
             Image image = new Image(inputstream);
             imageView.setImage(image);
-            imageView.setFitWidth(600);
-            imageView.setFitHeight(600);
             imageView.setPreserveRatio(true);
             imageView.setSmooth(true);
             imageView.setCache(true);
@@ -174,6 +98,74 @@ public class welcomeController extends Controller  {
             e.getMessage();
         }
         return imageView;
+    }
+
+
+    private ScrollPane createView(SimpleStringProperty title, SimpleStringProperty text, String imagePath){
+        VBox vbox = new VBox();
+        vbox.setAlignment(Pos.CENTER);
+        ScrollPane scrollPane = new ScrollPane();
+
+        ImageView image =null;
+        if(imagePath!=null){
+             image = addimage(imagePath);
+        }
+
+        Text titletext = new Text();
+        Text texttext = new Text();
+
+
+        setTitlefont(titletext);
+        setTextFond(texttext);
+
+        scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> observableValue, Bounds bounds, Bounds t1) {
+                texttext.wrappingWidthProperty().setValue(t1.getWidth()*0.9);
+            }
+        });
+
+        if(image!=null){
+            ImageView finalImage = image;
+            scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+                @Override
+                public void changed(ObservableValue<? extends Bounds> observableValue, Bounds bounds, Bounds t1) {
+                    finalImage.setFitWidth((int)(t1.getWidth()*0.8));
+
+                    // This if clause is used, because with ScrollBarPolicy.AS_NEEDED
+                    // the whole view will flicker, when it can't decide whether
+                    // it should display the scrollbar. Please do not change!
+                    if(vbox.getHeight()>=t1.getHeight()){
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+                    }else{
+                        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                    }
+                }
+            });
+        }
+
+        titletext.textProperty().bind(title);
+        texttext.textProperty().bind(text);
+
+        vbox.getChildren().add(titletext);
+        vbox.getChildren().add(texttext);
+
+        if(imagePath!=null) {
+
+            vbox.getChildren().add(image);
+        }
+
+        scrollPane.setContent(vbox);
+
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+
+        vbox.setSpacing(20);
+
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+
+        return scrollPane;
     }
 
     public void onCheckBoxPressed() {

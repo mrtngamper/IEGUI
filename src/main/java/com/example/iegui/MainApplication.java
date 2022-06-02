@@ -61,7 +61,9 @@ public class MainApplication extends Application {
             Stage stage2 = new Stage();
             FXMLLoader loader2 = new FXMLLoader(getClass().getResource("welcome-view.fxml"));
             Parent root2 = loader2.load();
-            Scene scene2 = new Scene(root2, 768, 500);
+            Scene scene2 = new Scene(root2, 768, 700);
+            stage2.setMinHeight(480);
+            stage2.setMinWidth(640);
 
             stage2.setScene(scene2);
             stage2.titleProperty().bind(context.getTextName("welcome"));
