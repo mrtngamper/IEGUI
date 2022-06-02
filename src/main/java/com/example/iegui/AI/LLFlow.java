@@ -1,6 +1,7 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 
 import java.io.File;
 
@@ -20,14 +21,14 @@ public class LLFlow extends ImageEnhanceMethod{
     public String[] getCMD() {
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         return new String[]{
-                environment + "/bin/python3",
+                paths.independent(environment + "/bin/python3"),
                 "test_unpaired.py",
                 "--opt",
-                "confs/LOLv2-pc.yml",
+                paths.independent("confs/LOLv2-pc.yml"),
                 "--input",
-                context.getTempdir()+"/input",
+                paths.independent(context.getTempdir()+"/input"),
                 "--output",
-                context.getTempdir()+"/output"
+                paths.independent(context.getTempdir()+"/output")
                 // "python test_unpaired.py --opt confs/LOLv2-pc.yml -n result"
         };
     }

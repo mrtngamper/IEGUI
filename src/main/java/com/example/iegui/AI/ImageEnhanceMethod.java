@@ -5,6 +5,7 @@ import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -347,10 +348,10 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    getEnvDir()+"pip3",
+                    paths.independent(getEnvDir()+"/pip3"),
                     "install",
                     "-r",
-                    "Environments"+"/"+environment+".txt"
+                    paths.independent("Environments"+"/"+environment+".txt")
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -396,10 +397,10 @@ public abstract class ImageEnhanceMethod {
     public String getEnvDir(){
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        if (os.equals("windows")) {
-            return environment + "/Scripts/";
+        if (os.contains("windows")) {
+            return paths.independent(environment + "/Scripts/");
         }
-        return   environment + "/bin/";
+        return   paths.independent(environment + "/bin/");
     }
 
 
