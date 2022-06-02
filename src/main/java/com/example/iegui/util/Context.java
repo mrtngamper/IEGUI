@@ -109,7 +109,7 @@ public class Context {
         methods.add(new LowLightImageEnhance("EnhanceMethod/Low-light-Image-Enhancement",lang.getValue(),this));
         methods.add(new WhiteBalance("EnhanceMethod/mixedillWB2",lang.getValue(),this));
         methods.add(new LLFlow("EnhanceMethod/LLFlow/code",lang.getValue(),this));
-        methods.add(new GPEN("EnhanceMethod/GPEN", lang.getValue(), this));
+        methods.add(new GPen("EnhanceMethod/GPEN", lang.getValue(), this));
         methods.add(new NAFNet("EnhanceMethod/NAFNet",lang.getValue(),this));
     }
 
