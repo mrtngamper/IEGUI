@@ -52,18 +52,18 @@ public class SwinIR extends ImageEnhanceMethod{
                     };
                 case "denoising":
                     return new String[]{
-                            getEnvDir()+"python3",
+                            paths.independent(getEnvDir()+"/python3"),
                             "main_test_swinir.py",
                             "--task",
                             "color_dn",
                             "--noise",
                             String.valueOf(denoisingLevel),
                             "--model_path",
-                            "model_zoo/swinir/005_colorDN_DFWB_s128w8_SwinIR-M_noise"+String.valueOf(denoisingLevel)+".pth",
+                            paths.independent("model_zoo/swinir/005_colorDN_DFWB_s128w8_SwinIR-M_noise"+String.valueOf(denoisingLevel)+".pth"),
                             "--input",
-                            context.getTempdir()+"/input",
+                            paths.independent(context.getTempdir()+"/input"),
                             "--output",
-                            context.getTempdir()+"/output",
+                            paths.independent(context.getTempdir()+"/output"),
                     };
                 default:
                     return null;

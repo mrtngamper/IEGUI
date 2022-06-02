@@ -1,6 +1,7 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 
 import java.io.File;
 
@@ -24,16 +25,16 @@ public class LowLightImageEnhance extends ImageEnhanceMethod{
     @Override
     public String[] getCMD() {
         return new String[]{
-                getEnvDir()+"python3",
+                paths.independent(getEnvDir()+"/python3"),
                 "demo.py",
                 "-l",
                 String.valueOf(lambda),
                 "-g",
                 String.valueOf(gamma),
                 "--input",
-                context.getTempdir()+"/input/",
+                paths.independent(context.getTempdir()+"/input/"),
                 "--output",
-                context.getTempdir()+"/output/",
+                paths.independent(context.getTempdir()+"/output/"),
 
         };
     }
