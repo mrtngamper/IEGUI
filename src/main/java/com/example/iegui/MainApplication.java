@@ -48,13 +48,14 @@ public class MainApplication extends Application {
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setResizable(false);
 
-        // context.getMethods().get(0).start("/home/martin/ImageEnhance/mixedillWB2/results/output2_WB.png", "/home/martin/Downloads/output3.png"); // For Test purposes SwinIR
-        // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
-        //context.getMethods().get(2).start("/home/martin/Downloads/output2.png","/home/martin/Downloads/output4.png"); // For Testing purposes white balance
+        context.getMethods().get(4).start("/home/kilian/PycharmProjects/GPEN/examples/selfie/2020-12-10 175750.jpg", "/home/kilian/Downloads/output.png"); // For Test purposes SwinIR
+        //context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
+        //context.getMethods().get(2).start("/home/martin/Downloads/IMG_20220525_213839.jpg","/home/martin/Downloads/output9.png"); // For Testing purposes white balance
+        //context.getMethods().get(3).start("/home/martin/Downloads/input1.png","/home/martin/Downloads/output7.png"); // For Testing purposes white balance
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
-       // stage.show();
+        stage.show();
     }
 
     public static void main(String[] args) {

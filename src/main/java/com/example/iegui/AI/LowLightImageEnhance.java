@@ -26,7 +26,7 @@ public class LowLightImageEnhance extends ImageEnhanceMethod{
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         return new String[]{
                 environment + "/bin/python3",
-                "demo.py",
+                "main.py",
                 "-l",
                 String.valueOf(lambda),
                 "-g",

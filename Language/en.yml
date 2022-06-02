@@ -6,8 +6,8 @@ open: Open
 browse: choose a file
 browse2: or drag file here
 
-welcome : "Welcome to the Image enhance GUI:\n This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
-mainViewWelcome : "Main View:\n
+welcome: "Welcome to the Image enhance GUI:\n This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
+mainViewWelcome: "Main View:\n
 In the Main View your able to select an image and then select an Image Enhance Option.\n
 At the top there is the Menu Bar with the Items File, Settings and Help. With these Options.\n
   - File\n
@@ -49,3 +49,8 @@ unexpectederror: Unexpected error during execution in python environment
 envCreated: Python Virtual Environment Created
 envDoesNotExist: Python Virtual Environment Does Not Exist
 depInstalled: Dependencies have been installed
+task: Task
+faceEnhancement: Face Enhancement
+faceColorization: Face Colorization
+faceInpainting: Face Inpainting
+segmentation2Face: Segmentation to Face

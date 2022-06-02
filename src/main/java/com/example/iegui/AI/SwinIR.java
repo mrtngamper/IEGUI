@@ -26,6 +26,7 @@ public class SwinIR extends ImageEnhanceMethod{
 
     @Override
     public MethodSettingWindow getSettingWindow() {
+
         return super.getSettingWindow();
     }
 
