@@ -20,8 +20,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class SwinIR extends ImageEnhanceMethod{
-      private String task="super-resolution";
-      private int denoisingLevel=25;
+      private String task="denoising";
+      private int denoisingLevel=50;
       private int scaleFactor=4;
 
 

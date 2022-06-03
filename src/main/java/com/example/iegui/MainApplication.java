@@ -87,12 +87,12 @@ public class MainApplication extends Application {
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
-        //context.getMethods().get(0).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes SwinIR
-        //context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output20.png"); // For Test purposes Low light
-        //context.getMethods().get(2).start("/home/martin/Downloads/output14.png","/home/martin/Downloads/output15.png"); // For Testing purposes white balance
-        //context.getMethods().get(3).start("/home/martin/Downloads/IMG-20220601-WA0000.jpg","/home/martin/Downloads/output13.png"); // For Testing purposes low light2
-        // context.getMethods().get(4).start("/home/martin/Downloads/lowresselfie.jpg","/home/martin/Downloads/output15.png"); // For Testing purposes gpen
-        // context.getMethods().get(5).start("/home/martin/Downloads/bild6.jpg","/home/martin/Downloads/output14.png"); // For Testing purposes nafnet
+        //context.getMethods().get(0).start("/home/martin/Downloads/noisyin2.jpg", "/home/martin/Downloads/noisyout3.png"); // For Test purposes SwinIR
+       // context.getMethods().get(1).start("/home/martin/Downloads/input.jpg", "/home/martin/Downloads/output21.png"); // For Test purposes Low light
+      //  context.getMethods().get(2).start("/home/martin/Downloads/output.png","/home/martin/Downloads/output22.png"); // For Testing purposes white balance
+       // context.getMethods().get(3).start("/home/martin/Downloads/low-light.jpg","/home/martin/Downloads/output14.png"); // For Testing purposes low light2
+        // context.getMethods().get(5).start("/home/martin/Downloads/lowresselfie.jpg","/home/martin/Downloads/output15.png"); // For Testing purposes gpen
+       //  context.getMethods().get(4).start("/home/martin/Downloads/blurryin.png","/home/martin/Downloads/blurryout.png"); // For Testing purposes nafnet
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
