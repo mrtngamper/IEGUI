@@ -90,10 +90,6 @@ def copyModels(destination):
         print(e)
 
 
-
-
-
-
 main()
 
 

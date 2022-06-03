@@ -162,7 +162,7 @@ public abstract class ImageEnhanceMethod {
                     String[] cmd = getCMD();
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
-                    pb.directory(new File(getLocation()));
+                    pb.directory(new File(getLocation()+"/"));
                     System.out.println(getLocation());
 
 

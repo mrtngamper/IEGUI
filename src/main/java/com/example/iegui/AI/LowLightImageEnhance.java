@@ -32,9 +32,9 @@ public class LowLightImageEnhance extends ImageEnhanceMethod{
                 "-g",
                 String.valueOf(gamma),
                 "--input",
-                paths.independent(context.getTempdir()+"/input/"),
+                paths.independent(new File(context.getTempdir()+"/input/").getAbsolutePath()),
                 "--output",
-                paths.independent(context.getTempdir()+"/output/"),
+                paths.independent((new File(context.getTempdir()+"/output/").getAbsolutePath()))
 
         };
     }
