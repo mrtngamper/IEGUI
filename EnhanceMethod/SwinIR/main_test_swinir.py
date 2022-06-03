@@ -9,7 +9,7 @@ s = req[0:len(req)-1].split("\n")
 try:
     pkg_resources.require(s)
 except Exception as e:
-    print(e)
+    logging.info(e)
     exit(132)
 
 import argparse
@@ -20,11 +20,17 @@ from collections import OrderedDict
 import os
 import torch
 import requests
+import logging
+
 
 from models.network_swinir import SwinIR as net
 from utils import util_calculate_psnr_ssim as util
 
+
+logging.basicConfig(format='%(message)s',level=logging.INFO)
+
 def main():
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, default='color_dn', help='classical_sr, lightweight_sr, real_sr, '
                                                                      'gray_dn, color_dn, jpeg_car')
@@ -51,12 +57,12 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     # set up model
     if os.path.exists(args.model_path):
-        print(f'loading model from {args.model_path}')
+        logging.info(f'loading model from {args.model_path}')
     else:
         os.makedirs(os.path.dirname(args.model_path), exist_ok=True)
         url = 'https://github.com/JingyunLiang/SwinIR/releases/download/v0.0/{}'.format(os.path.basename(args.model_path))
         r = requests.get(url, allow_redirects=True)
-        print(f'downloading model {args.model_path}')
+        logging.info(f'downloading model {args.model_path}')
         open(args.model_path, 'wb').write(r.content)
 
     model = define_model(args)
@@ -116,25 +122,25 @@ def main():
             if args.task in ['jpeg_car']:
                 psnr_b = util.calculate_psnrb(output, img_gt, crop_border=border, test_y_channel=True)
                 test_results['psnr_b'].append(psnr_b)
-            print('Testing {:d} {:20s} - PSNR: {:.2f} dB; SSIM: {:.4f}; '
+            logging.info('Testing {:d} {:20s} - PSNR: {:.2f} dB; SSIM: {:.4f}; '
                   'PSNR_Y: {:.2f} dB; SSIM_Y: {:.4f}; '
                   'PSNR_B: {:.2f} dB.'.
                   format(idx, imgname, psnr, ssim, psnr_y, ssim_y, psnr_b))
         else:
-            print('Testing {:d} {:20s}'.format(idx, imgname))
+            logging.info('Testing {:d} {:20s}'.format(idx, imgname))
 
     # summarize psnr/ssim
     if img_gt is not None:
         ave_psnr = sum(test_results['psnr']) / len(test_results['psnr'])
         ave_ssim = sum(test_results['ssim']) / len(test_results['ssim'])
-        print('\n{} \n-- Average PSNR/SSIM(RGB): {:.2f} dB; {:.4f}'.format(save_dir, ave_psnr, ave_ssim))
+        logging.info('\n{} \n-- Average PSNR/SSIM(RGB): {:.2f} dB; {:.4f}'.format(save_dir, ave_psnr, ave_ssim))
         if img_gt.ndim == 3:
             ave_psnr_y = sum(test_results['psnr_y']) / len(test_results['psnr_y'])
             ave_ssim_y = sum(test_results['ssim_y']) / len(test_results['ssim_y'])
-            print('-- Average PSNR_Y/SSIM_Y: {:.2f} dB; {:.4f}'.format(ave_psnr_y, ave_ssim_y))
+            logging.info('-- Average PSNR_Y/SSIM_Y: {:.2f} dB; {:.4f}'.format(ave_psnr_y, ave_ssim_y))
         if args.task in ['jpeg_car']:
             ave_psnr_b = sum(test_results['psnr_b']) / len(test_results['psnr_b'])
-            print('-- Average PSNR_B: {:.2f} dB'.format(ave_psnr_b))
+            logging.info('-- Average PSNR_B: {:.2f} dB'.format(ave_psnr_b))
 
 
 def define_model(args):

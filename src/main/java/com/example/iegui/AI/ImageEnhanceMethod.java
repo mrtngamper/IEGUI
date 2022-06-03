@@ -163,6 +163,7 @@ public abstract class ImageEnhanceMethod {
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
                     pb.directory(new File(getLocation()));
+                    System.out.println(getLocation());
 
 
                     Path tempInput = Path.of(context.getTempdir() + "/input/input.png");
