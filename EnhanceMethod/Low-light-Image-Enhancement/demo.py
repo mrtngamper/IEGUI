@@ -30,15 +30,17 @@ from exposure_enhancement import enhance_image_exposure
 def main(args):
     # load images
     imdir = args.input
+
     ext = ['png', 'jpg', 'bmp']    # Add image formats here
     files = []
-    [files.extend(glob.glob(imdir + '*.' + e)) for e in ext]
+    [files.extend(glob.glob(imdir + '/*.' + e)) for e in ext]
     images = [cv2.imread(file) for file in files]
 
     # create save directory
     directory = join(imdir, args.output)
     if not exists(directory):
         makedirs(directory)
+
 
     # enhance images
     for i, image in tqdm(enumerate(images), desc="Enhancing images"):
@@ -78,5 +80,6 @@ if __name__ == "__main__":
 
 
     args = parser.parse_args()
+
 
     main(args)

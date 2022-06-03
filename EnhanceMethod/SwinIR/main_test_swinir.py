@@ -30,7 +30,6 @@ from utils import util_calculate_psnr_ssim as util
 logging.basicConfig(format='%(message)s',level=logging.INFO)
 
 def main():
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--task', type=str, default='color_dn', help='classical_sr, lightweight_sr, real_sr, '
                                                                      'gray_dn, color_dn, jpeg_car')
@@ -54,6 +53,7 @@ def main():
 
     args = parser.parse_args()
 
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     # set up model
     if os.path.exists(args.model_path):
@@ -61,8 +61,8 @@ def main():
     else:
         os.makedirs(os.path.dirname(args.model_path), exist_ok=True)
         url = 'https://github.com/JingyunLiang/SwinIR/releases/download/v0.0/{}'.format(os.path.basename(args.model_path))
-        r = requests.get(url, allow_redirects=True)
         logging.info(f'downloading model {args.model_path}')
+        r = requests.get(url, allow_redirects=True)
         open(args.model_path, 'wb').write(r.content)
 
     model = define_model(args)
