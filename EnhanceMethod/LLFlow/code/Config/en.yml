@@ -1,10 +1,12 @@
-name: "LLFlow"
-description: "A tool to enhance dark Images"
-
+name: "llflow"
+description: "llflow_short"
+description_long: "llflow_long"
+link: https://github.com/wyf0912/LLFlow
 
 examples:
-  image1: image1out
-  image2: image2out
+  image1.png: image1out.png
+  image2.png: image2out.png
+  image3.png: image3out.png
 
 miniatures:
   input: output

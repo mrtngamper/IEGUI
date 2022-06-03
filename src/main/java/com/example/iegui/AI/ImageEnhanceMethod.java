@@ -48,15 +48,26 @@ public abstract class ImageEnhanceMethod {
      * The factor of how much the input image will be downscaled before processing
      */
     private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(0.2);
+
+
     protected Context context;
+
     /**
-     * The name of the method
+     * The pointe to the name of the method in the language file
      */
     private String name = "";
     /**
-     * A description of the enhancement method
+     * A pointer to a short description of the method in the language file
      */
     private String description = "";
+
+
+    /**
+     * A pointer to a longer description of the method in the language file
+     */
+    private String long_description ="";
+
+
     /**
      * Path of the enhancement method
      */

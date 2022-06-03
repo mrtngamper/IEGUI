@@ -61,3 +61,40 @@ faceInpainting: Face Inpainting
 segmentation2Face: Segmentation to Face
 welcome: Welcome
 close: Close
+
+
+swinir: SwinIR
+swinir_short: A tool for image denoising and super-resolution
+swinir_long: "SwinIR can perform a few image restoration tasks. At image super-resolution, image denoising and jpeg
+artifact reduction it achieves state-of-the-art-performance. Image super-resolution can be used to convert
+smaller images into bigger images to improve their quality, with mixed results. Enhanced graphics often look very good, while
+real world images don't always. Image densoising can also be selected to remove noise from grainy images. That works reasonably well
+most of the time, but NAFNet, another method provided with IEGUI, can sometimes produce better results."
+
+nafnet: NAFNet
+nafnet_short: A tool for image deblurring and denoising
+nafnet_long: "NAFNet can perform image deblurring and denoising tasks very well. Deblurring can be used for images which
+were taken without stabilization, and are therefore a bit hazy, which is the case with most smartphone images. The denoising option
+can remove the grain from images quite well."
+
+wb: Automatic white balance
+wb_short: A tool for automatic AI supported white balancing
+wb_long: "Auto White-Balance Correction for Mixed-Illuminant Scenes is a white balancing technique which doesn't simply try to correct
+the whole scene using the same profile, but tries to estimate differently enlightened  parts of an image and then apply different settings
+for each part. It can achieve very good results with images containing differently illuminated scenes, a scenario with which smartphone cameras
+tend to struggle a lot. A disadvantage with this method is, that the less sharpness an image has, the poorer is the output"
+
+llie: Low light image enhancement
+llie_short: Enlightens low light images.
+llie_long: "This tool allows for enlightenment of very low light images, and is very fast by doing so it can also handle large images.
+Its disadvantage is, that it often times messes up the white balance. To a certain extend that can oftentimes be corrected with the
+tool for automatic white balance, but in general LLFlow produces better results."
+
+llflow: LLFlow
+llflow_short: Enlightens low light images.
+llflow_long: "This tool can enlighten low light images very well, with the disadvantage of it being very slow."
+
+gpen: GPen
+gpen_short: A method for face enhancement
+gpen_long: A long description of gpen   # TODO Create long description
+

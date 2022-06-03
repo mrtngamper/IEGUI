@@ -1,6 +1,7 @@
-name: "Automatic White Balance"
-description: "An automatic white balance"
-
+name: "wb"
+description: "wb_short"
+description_long: "wb_long"
+link: https://github.com/yanxiang-wang/mixedillWB
 
 examples:
    image1: image1out

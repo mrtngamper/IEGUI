@@ -1,5 +1,7 @@
-name: "NAFNet"
-description: "Noise Reduction and Image Deblurring"
+name: "nafnet"
+description: "nafnet_short"
+description_long: "nafnet_long"
+link: https://github.com/megvii-research/NAFNet
 
 
 examples:

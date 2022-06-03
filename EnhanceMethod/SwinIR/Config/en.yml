@@ -1,5 +1,7 @@
-name: "SwinIR"
-description: "An Image Enhance ToolBox"
+name: "swinir"
+description: "swinir_short"
+description_long: "swinir_long"
+link: https://github.com/JingyunLiang/SwinIR
 
 
 examples:

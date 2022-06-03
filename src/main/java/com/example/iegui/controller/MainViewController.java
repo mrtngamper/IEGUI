@@ -189,12 +189,15 @@ public class MainViewController extends Controller implements Initializable {
                     protected void updateItem(ImageEnhanceMethod imageEnhanceMethod, boolean b) {
                         super.updateItem(imageEnhanceMethod, b);
                         if(imageEnhanceMethod!=null){
+
                             VBox methodWindow = new VBox();
-                            Label name = new Label(imageEnhanceMethod.getName());
+                            Label name = new Label();
+                            name.textProperty().bind(context.getTextName(imageEnhanceMethod.getName()));
                             //name.getText().setStyle("-fx-font-weight: bold");
 
                             name.setFont(new Font("Arial", 20));
-                            Label description = new Label(imageEnhanceMethod.getDescription());
+                            Label description = new Label();
+                            description.textProperty().bind(context.getTextName(imageEnhanceMethod.getDescription()));
                             methodWindow.getChildren().addAll(name, description);
 
                             for (String beforePath: imageEnhanceMethod.getExamples().keySet()) {
