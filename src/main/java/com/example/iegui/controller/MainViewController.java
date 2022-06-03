@@ -185,19 +185,28 @@ public class MainViewController extends Controller implements Initializable {
                         if(imageEnhanceMethod!=null){
                             VBox methodWindow = new VBox();
                             Label name = new Label(imageEnhanceMethod.getName());
+                            //name.getText().setStyle("-fx-font-weight: bold");
+
                             name.setFont(new Font("Arial", 20));
                             Label description = new Label(imageEnhanceMethod.getDescription());
                             methodWindow.getChildren().addAll(name, description);
+
+                            for (String beforePath: imageEnhanceMethod.getExamples().keySet()) {
+                                //ImageView before = new ImageView(new Image(beforePath));
+                                //ImageView after = new ImageView(new Image(imageEnhanceMethod.getExamples().get(beforePath)));
+                                //methodWindow.getChildren().addAll(before, after);
+                            }
+                            try {
+                                methodWindow.getChildren().add(imageEnhanceMethod.getSettingWindow().getHBox());
+                            } catch(Exception e) {}
                             setGraphic(methodWindow);
                         }
                     }
                 };
 
             }
-
         });
         subBorderPane.setCenter(list);
-
     }
 
     @Override
