@@ -4,10 +4,6 @@ description_long: "wb_long"
 link: https://github.com/yanxiang-wang/mixedillWB
 
 examples:
-   image1: image1out
-   image2: image2out
-
-miniatures:
-   input: output
+   input.png: output.png
 
 environment: whitebalance

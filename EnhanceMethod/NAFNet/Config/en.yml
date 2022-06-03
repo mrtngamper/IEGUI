@@ -5,10 +5,7 @@ link: https://github.com/megvii-research/NAFNet
 
 
 examples:
-   image1: image1out
-   image2: image2out
-
-miniatures:
-   input: output
+   blurryin.png: blurryout.png
+   noisyin.png: noisyout.png
 
 environment: nafnet

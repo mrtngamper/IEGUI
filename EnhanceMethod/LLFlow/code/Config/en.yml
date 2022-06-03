@@ -4,11 +4,6 @@ description_long: "llflow_long"
 link: https://github.com/wyf0912/LLFlow
 
 examples:
-  image1.png: image1out.png
-  image2.png: image2out.png
-  image3.png: image3out.png
-
-miniatures:
-  input: output
+  input.jpg: output.png
 
 environment: lowlight2

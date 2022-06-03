@@ -4,10 +4,8 @@ description_long: "llie_long"
 link: https://github.com/pvnieo/Low-light-Image-Enhancement
 
 examples:
-  image1: image1out
-  image2: image2out
+  input.bmp: output.bmp
 
-miniatures:
-  input: output
+
 
 environment: lowlight
