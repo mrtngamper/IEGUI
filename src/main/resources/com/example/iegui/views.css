@@ -2,10 +2,18 @@
 accent1: #E5C1BD;
 background-normal: #D2D0BA;
 background-darker: #B6BE9C;
+accent2darker: #4B5E47;
 accent2: #7B9E87;
 accent2light: #8BAE97;
+accent2lighter: #9BBEA7;
 accent3: #5E747F;
 }
+.menu-button:hover, .menu-button:showing, .menu-button:focused,.menu-item:hover, .menu-item:showing, .menu-item:focused{
+    -fx-background-color: accent2;
+}
+
+
+
 #textBefore{
  -fx-font-smoothing-type: lcd;
   -fx-fill: accent3;
@@ -92,10 +100,21 @@ accent3: #5E747F;
 }
 
 .pagination .pagination-control .toggle-button:selected {
-    -fx-background-color: accent1;
-}
-
-.pagination .pagination-control .toggle-button:hover, .pagination .pagination-control .button:hover  {
     -fx-background-color: accent2;
 }
 
+.pagination .pagination-control .toggle-button:hover, .pagination .pagination-control .button:hover  {
+    -fx-background-color: accent2lighter;
+}
+
+.list-cell:focused, .label, .list-cell:selected{
+    -fx-text-fill: black;
+}
+.list-cell:selected{
+    -fx-background-color: accent2darker, accent2 ;
+    -fx-background-insets: 0 0 0 0, 1 1 1 1;
+}
+
+.list-view:hover, .list-view:focused, .list-view{
+    -fx-background-color: white
+}
