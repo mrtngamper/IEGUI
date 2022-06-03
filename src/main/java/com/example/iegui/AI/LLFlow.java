@@ -24,7 +24,7 @@ public class LLFlow extends ImageEnhanceMethod{
                 paths.independent(environment + "/bin/python3"),
                 "test_unpaired.py",
                 "--opt",
-                paths.independent("confs/LOLv2-pc.yml"),
+                paths.independent(getLocation()+"/confs/LOLv2-pc.yml"),
                 "--input",
                 paths.independent(context.getTempdir()+"/input"),
                 "--output",

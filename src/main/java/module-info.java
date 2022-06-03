@@ -3,6 +3,7 @@ module com.example.iegui {
     requires javafx.fxml;
     requires org.yaml.snakeyaml;
     requires java.desktop;
+    requires com.sun.jna;
 
     opens com.example.iegui.controller to javafx.fxml;
     opens com.example.iegui to javafx.fxml;
