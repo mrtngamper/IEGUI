@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -28,11 +29,22 @@ import javafx.util.Callback;
 import java.io.*;
 
 public class welcomeController extends Controller  {
+
+    @FXML
     public Button buttonOK;
+
+    @FXML
     public javafx.scene.control.CheckBox CheckBox;
+
+    @FXML
     public Pagination pagination;
+
+    @FXML
     public BorderPane borderPane;
+
+    @FXML
     public HBox HboxBottom;
+
 
 
 
@@ -73,10 +85,18 @@ public class welcomeController extends Controller  {
         pagination.maxPageIndicatorCountProperty().bind(pagination.pageCountProperty());
     }
 
+    /**
+     * Formatting for normal texts
+     * @param text
+     */
     private void setTextFond(Text text) {
         text.setFont(Font.font("verdana",16));
     }
 
+    /**
+     * Formatting for title texts
+     * @param textField
+     */
     private void setTitlefont(Text textField) {
         textField.setUnderline(true);
         textField.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
@@ -85,6 +105,12 @@ public class welcomeController extends Controller  {
         textField.setTextAlignment(TextAlignment.CENTER);
     }
 
+
+    /**
+     * Creates ImageView from a given image url
+     * @param url The url to the iamge
+     * @return An ImageView which shows the image from the arguments.
+     */
     private ImageView addimage(String url){
         ImageView imageView = new ImageView();
         try{
@@ -100,7 +126,13 @@ public class welcomeController extends Controller  {
         return imageView;
     }
 
-
+    /**
+     * Creates view for Pagination element. It returns a Vertically scrollable Pain.
+     * @param title The title of the help paragraph
+     * @param text The description text for the paragraph
+     * @param imagePath The path to an image file (optional - it is ignored when null)
+     * @return A ScrollPane containing all the information from the arguments.
+     */
     private ScrollPane createView(SimpleStringProperty title, SimpleStringProperty text, String imagePath){
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
@@ -164,11 +196,7 @@ public class welcomeController extends Controller  {
 
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-
         return scrollPane;
     }
 
-    public void onCheckBoxPressed() {
-
-    }
 }

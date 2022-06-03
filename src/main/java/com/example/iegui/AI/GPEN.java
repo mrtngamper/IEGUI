@@ -2,6 +2,7 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -31,11 +32,10 @@ public class GPEN extends ImageEnhanceMethod {
 
     @Override
     public String[] getCMD() {
-        String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         switch(task) {
             case "face-enhancement":
                 return new String[]{
-                        environment + "/bin/python3",
+                        paths.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-BFR-512",
@@ -44,9 +44,9 @@ public class GPEN extends ImageEnhanceMethod {
                         "--sr_scale",
                         String.valueOf(scaleFactor),
                         "--indir",
-                        context.getTempdir()+"/input",
+                        paths.independent(context.getTempdir()+"/input"),
                         "--outdir",
-                        context.getTempdir()+"/output",
+                        paths.independent(context.getTempdir()+"/output"),
                 };
             default:
                 return null;

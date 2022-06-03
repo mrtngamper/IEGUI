@@ -2,6 +2,7 @@ package com.example.iegui.AI;
 
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 
 public class NAFNet extends ImageEnhanceMethod{
 
@@ -23,25 +24,25 @@ public class NAFNet extends ImageEnhanceMethod{
         switch(task){
             case "denoising":
                 return new String[]{
-                        getEnvDir()+"python3",
-                        "basicsr/demo.py",
+                        paths.independent(getEnvDir()+"/python3"),
+                        paths.independent(getLocation()+"/basicsr/demo.py"),
                         "-opt",
-                        "options/test/SIDD/NAFNet-width64.yml",
+                        paths.independent(getLocation()+"/options/test/SIDD/NAFNet-width64.yml"),
                        "--input_path",
-                        context.getTempdir()+"/input/input.png",
+                        paths.independent(context.getTempdir()+"/input/input.png"),
                        "--output_path",
-                        context.getTempdir()+"/output/output.png"
+                        paths.independent(context.getTempdir()+"/output/output.png")
                 };
             case "deblurring":
                 return new String[]{
-                        getEnvDir()+"python3",
-                        "basicsr/demo.py",
+                        paths.independent(getEnvDir()+"/python3"),
+                        paths.independent(getLocation()+"/basicsr/demo.py"),
                         "-opt",
-                        "options/test/REDS/NAFNet-width64.yml",
+                        paths.independent(getLocation()+"/options/test/REDS/NAFNet-width64.yml"),
                         "--input_path",
-                        context.getTempdir()+"/input/input.png",
+                        paths.independent(context.getTempdir()+"/input/input.png"),
                         "--output_path",
-                        context.getTempdir()+"/output/input.png"
+                        paths.independent(context.getTempdir()+"/output/input.png")
                 };
             default:
                 Alerts.Error("NAFNet: Case not Found");

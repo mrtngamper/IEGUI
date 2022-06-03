@@ -3,8 +3,8 @@ accent1: #E5C1BD;
 background-normal: #D2D0BA;
 background-darker: #B6BE9C;
 accent2: #7B9E87;
+accent2light: #8BAE97;
 accent3: #5E747F;
-
 }
 #textBefore{
  -fx-font-smoothing-type: lcd;
@@ -40,8 +40,14 @@ accent3: #5E747F;
    -fx-background-color: background-normal;
 }
 
-#hbox{
+#bP{
    -fx-background-color: background-darker;
+}
+#dragAndDrop {
+    -fx-border-insets: 4;
+    -fx-border-width: 3;
+    -fx-border-style: dashed;
+    -fx-border-color: black;
 }
 
 .split-pane-divider{
@@ -60,6 +66,15 @@ accent3: #5E747F;
         -fx-text-fill: black;
         -fx-font-size: 14px;
 }
+.button:hover{
+    -fx-background-color: accent2light;
+    -fx-background-insets: 0,1,2;
+    -fx-background-radius: 3,2,1;
+    -fx-padding: 3 30 3 30;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+}
+
 
 .pagination > .pagination-control > .control-box > .number-button {
     -fx-min-width: 40;
