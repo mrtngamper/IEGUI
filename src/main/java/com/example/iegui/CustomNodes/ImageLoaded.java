@@ -37,7 +37,7 @@ public class ImageLoaded extends BorderPane {
 
             String[] splitter = imageFile.getName().split("\\.");
             String fileType = splitter[splitter.length - 1];
-            if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
+            if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("jpeg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
                 Alerts.Error(context.getTextName("noFoto").getValue());
                 throw new Exception();
             }
