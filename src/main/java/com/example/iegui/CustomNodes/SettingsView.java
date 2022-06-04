@@ -128,10 +128,9 @@ public class SettingsView extends BorderPane {
             HBox hbox = new HBox();
 
             try {
-                ImageView input = loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+ image));
-                ImageView output = loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+currentMethod.getExamples().get(image)));
+                ImageView input = Context.loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+ image));
+                ImageView output = Context.loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+currentMethod.getExamples().get(image)));
                 HBox.setHgrow(hbox, Priority.ALWAYS);
-
 
                 input.fitWidthProperty().bind(scrollPane.widthProperty().divide(2.5));
                 output.fitWidthProperty().bind(scrollPane.widthProperty().divide(2.5));
@@ -149,11 +148,5 @@ public class SettingsView extends BorderPane {
 
         this.setCenter(scrollPane);
     }
-    private ImageView loadImage(String path) throws FileNotFoundException {
-            FileInputStream input = new FileInputStream(path);
-            Image image = new Image(input);
-            ImageView view = new ImageView(image);
-            view.setPreserveRatio(true);
-            return view;
-    }
+
 }
