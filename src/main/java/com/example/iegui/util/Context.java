@@ -150,8 +150,13 @@ public class Context {
     }
 
     public void setLang(String lang) {
-        this.lang.set(lang);
-        storeSettings();
+        try {
+            this.lang.set(lang);
+            language.load("Language/"+lang+".yml");
+            storeSettings();
+        } catch (FileNotFoundException e) {
+            Alerts.Error(e.getMessage());
+        }
     }
 
     /**

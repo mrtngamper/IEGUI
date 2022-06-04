@@ -35,7 +35,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -105,7 +104,7 @@ public abstract class ImageEnhanceMethod {
         this.context = context;
         this.location = location;
         try {
-            loadYAML(location + "/" + "Config" + "/" + lang + ".yml");
+            loadYAML(location + "/" + "Config" + "/" + "en" + ".yml");
         } catch (Exception e) {
             Alerts.Warning(e.getMessage());
         }

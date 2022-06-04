@@ -109,8 +109,20 @@ public class MainViewController extends Controller implements Initializable {
         imageName.textProperty().bind(context.getTextName("imageName"));
         settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
         languageSetting.textProperty().bind(context.getTextName("languageSetting"));
-        lanDeSetting.textProperty().bind(context.getTextName("lanDeSetting"));
-        lanEnSetting.textProperty().bind(context.getTextName("lanEnSetting"));
+
+
+        try {
+            File languageDir = new File("Language");
+            for (File i : languageDir.listFiles()) {
+                MenuItem item = new MenuItem();
+                item.setText(i.getName().split("\\..*")[0]);
+                item.setOnAction(this::onLanguagePressed);
+                languageSetting.getItems().add(item);
+            }
+        }catch(Exception e){
+            Alerts.Error(e.getMessage());
+        }
+
         tutorialSetting.textProperty().bind(context.getTextName("tutorialSetting"));
         helpSetting.textProperty().bind(context.getTextName("helpSetting"));
         aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
@@ -209,7 +221,7 @@ public class MainViewController extends Controller implements Initializable {
 
     public void onLanguagePressed(ActionEvent actionEvent) {
         MenuItem mi = (MenuItem) actionEvent.getSource();
-        String language = mi.getText().toLowerCase();
+        String language = mi.getText();
         context.setLang(language);
     }
 
