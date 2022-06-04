@@ -7,7 +7,7 @@ import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
-import com.example.iegui.util.paths;
+
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -404,10 +404,10 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    paths.independent(getEnvDir()+"/pip3"),
+                    Context.independent(getEnvDir()+"/pip3"),
                     "install",
                     "-r",
-                    paths.independent("Environments"+"/"+environment+".txt")
+                    Context.independent("Environments"+"/"+environment+".txt")
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -454,9 +454,9 @@ public abstract class ImageEnhanceMethod {
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.contains("windows")) {
-            return paths.independent(environment + "/Scripts/");
+            return Context.independent(environment + "/Scripts/");
         }
-        return   paths.independent(environment + "/bin/");
+        return   Context.independent(environment + "/bin/");
     }
 
 

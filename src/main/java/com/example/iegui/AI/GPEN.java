@@ -2,7 +2,6 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
-import com.example.iegui.util.paths;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -36,7 +35,7 @@ public class GPEN extends ImageEnhanceMethod {
         switch(task) {
             case "face-enhancement":
                 return new String[]{
-                        paths.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-BFR-512",
@@ -53,7 +52,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-colorization":
                 return new String[]{
-                        paths.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Colorization-1024",
@@ -70,7 +69,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-inpainting":
                 return new String[]{
-                        paths.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Inpainting-1024",
@@ -87,7 +86,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "segmentation-to-face":
                 return new String[]{
-                        paths.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Seg2face-512",
@@ -98,9 +97,9 @@ public class GPEN extends ImageEnhanceMethod {
                         "--in_size",
                         "512",
                         "--indir",
-                        paths.independent(context.getTempdir()+"/input"),
+                        Context.independent(context.getTempdir()+"/input"),
                         "--outdir",
-                        paths.independent(context.getTempdir()+"/output"),
+                        Context.independent(context.getTempdir()+"/output"),
                 };
             default:
                 return null;

@@ -4,7 +4,6 @@ import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.MainApplication;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
-import com.example.iegui.util.paths;
 import javafx.application.HostServices;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -128,8 +127,8 @@ public class SettingsView extends BorderPane {
             HBox hbox = new HBox();
 
             try {
-                ImageView input = Context.loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+ image));
-                ImageView output = Context.loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+currentMethod.getExamples().get(image)));
+                ImageView input = Context.loadImage(Context.independent(currentMethod.getLocation()+"/Config/"+ image));
+                ImageView output = Context.loadImage(Context.independent(currentMethod.getLocation()+"/Config/"+currentMethod.getExamples().get(image)));
                 HBox.setHgrow(hbox, Priority.ALWAYS);
 
                 input.fitWidthProperty().bind(scrollPane.widthProperty().divide(2.5));
