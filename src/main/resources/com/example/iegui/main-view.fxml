@@ -21,7 +21,7 @@
                 <CheckMenuItem fx:id="tutorialSetting" mnemonicParsing="false" />
             </Menu>
             <Menu fx:id="helpSetting" mnemonicParsing="false">
-                <MenuItem fx:id="aboutSetting" mnemonicParsing="false" />
+                <MenuItem fx:id="aboutSetting" mnemonicParsing="false"  onAction="#about"/>
             </Menu>
         </MenuBar>
     </top>

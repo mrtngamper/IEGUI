@@ -100,7 +100,8 @@ public class MainApplication extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
         stage.setMinHeight(480);
-        stage.setMinWidth(640);        Controller controller = fxmlLoader.getController();
+        stage.setMinWidth(640);
+        Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
         // context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR
@@ -121,6 +122,7 @@ public class MainApplication extends Application {
             Scene scene2 = new Scene(root2, 768, 700);
             stage2.setMinHeight(480);
             stage2.setMinWidth(640);
+
 
             stage2.setScene(scene2);
             stage2.titleProperty().bind(context.getTextName("welcome"));
