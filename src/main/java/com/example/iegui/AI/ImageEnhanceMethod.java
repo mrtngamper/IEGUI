@@ -49,7 +49,6 @@ public abstract class ImageEnhanceMethod {
      */
     private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(1);
 
-
     protected Context context;
 
     /**
