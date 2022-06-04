@@ -45,7 +45,7 @@ public abstract class ImageEnhanceMethod {
     /**
      * The factor of how much the input image will be downscaled before processing
      */
-    private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(0.2);
+    private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(1);
     protected Context context;
     /**
      * The name of the method

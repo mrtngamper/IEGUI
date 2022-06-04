@@ -54,10 +54,10 @@ datasets:
 #### Test Settings
 # dataroot_GT: D:\LOLdataset\eval15\high
 # dataroot_LR: D:\LOLdataset\eval15\low
-dataroot_unpaired: /home/martin/ImageEnhance/LLFlow4/code/input
+dataroot_unpaired: ./input
 dataroot_GT: D:\Dataset\LOL-v2\LOL-v2\IntegratedTest\Test\high
-dataroot_LR: /home/martin/ImageEnhance/LLFlow4/code/input
-model_path: /home/martin/ImageEnhance/LLFlow4/code/confs/LOLv2.pth
+dataroot_LR: ./input
+model_path: ./confs/LOL_smallNet.pth
 heat: 0 # This is the standard deviation of the latent vectors
 
 #### network structures

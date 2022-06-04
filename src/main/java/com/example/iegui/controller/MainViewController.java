@@ -8,6 +8,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -120,7 +121,7 @@ public class MainViewController extends Controller implements Initializable {
         imageName.setFont(Font.font(20));
         imageName.textProperty().bind(context.getTextName("browse2"));
 
-        vbox.setOnDragDropped(new EventHandler<DragEvent>() {
+        hbox.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
@@ -132,7 +133,7 @@ public class MainViewController extends Controller implements Initializable {
                 System.out.println(fileType);
                 Image foto = new Image(f.toURI().toString());
                 ratio = (float) (foto.getWidth() / foto.getHeight());
-                if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
+                if(!fileType.equals("png") && !fileType.equals("jpg") && !fileType.equals("jpeg") && !fileType.equals("gif") && !fileType.equals("jps") && !fileType.equals("mpo")) {
                     Alerts.Error(context.getTextName("noFoto").getValue());
                 } else {
                     imageFile.setValue(f.getAbsolutePath());
@@ -140,7 +141,7 @@ public class MainViewController extends Controller implements Initializable {
             }
         });
 
-        vbox.setOnDragOver(new EventHandler<DragEvent>() {
+        hbox.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != browse && event.getDragboard().hasFiles()) {
@@ -162,9 +163,15 @@ public class MainViewController extends Controller implements Initializable {
                     image.fitHeightProperty().bind(hbox.heightProperty());
                     image.fitWidthProperty().unbind();
 
+                    Image foto = new Image(new File(imageFile.getValue()).toURI().toString());
+                    ratio = (float) (foto.getWidth() / foto.getHeight());
                     image.setFitWidth(ratio * image.getFitHeight());
 
-                    image.setImage(new Image(new File(imageFile.getValue()).toURI().toString()));
+                    image.setImage(foto);
+
+                    if (fileName.length() > 60) {
+                        fileName = fileName.substring(0, 60) + "...";
+                    }
 
                     imageName.setText(fileName);
                 }
@@ -205,12 +212,10 @@ public class MainViewController extends Controller implements Initializable {
     }
 
     public void onBrowseButton(ActionEvent actionEvent) {
-
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jps", "*.mpo"));
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.jps", "*.mpo"));
         File selectedFile = fileChooser.showOpenDialog(context.getStage());
         if (selectedFile != null) {
             imageFile.setValue(selectedFile.getAbsolutePath());
@@ -223,11 +228,9 @@ public class MainViewController extends Controller implements Initializable {
     }
 
     public void onLanguagePressed(ActionEvent actionEvent) {
-        if(Objects.equals(context.getLang(), "de")) {
-            context.setLang("en");
-        } else {
-            context.setLang("de");
-        }
+        MenuItem mi = (MenuItem) actionEvent.getSource();
+        String language = mi.getText().toLowerCase();
+        context.setLang(language);
     }
 
     /*ListView<ImageEnhanceMethod> list = new ListView();
