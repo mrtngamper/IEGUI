@@ -156,6 +156,7 @@ public class welcomeController extends Controller  {
                 texttext.wrappingWidthProperty().setValue(t1.getWidth()*0.9);
             }
         });
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         if(image!=null){
             ImageView finalImage = image;
@@ -193,8 +194,6 @@ public class welcomeController extends Controller  {
         scrollPane.setFitToWidth(true);
 
         vbox.setSpacing(20);
-
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         return scrollPane;
     }

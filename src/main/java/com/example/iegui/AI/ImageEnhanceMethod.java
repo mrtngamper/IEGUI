@@ -327,6 +327,15 @@ public abstract class ImageEnhanceMethod {
                 throw new YAMLTypeNotValidException(String.class.toString(), environment.getClass().toString(), "environment", file);
             }
         }
+
+        Object long_descriptionyml = map.get("description_long");
+        if(long_descriptionyml!=null){
+            if(long_descriptionyml instanceof  String){
+                this.long_description= (String)long_descriptionyml;
+            }else{
+                throw new YAMLTypeNotValidException(String.class.toString(), long_descriptionyml.getClass().toString(), "description_long", file);
+            }
+        }
     }
 
 

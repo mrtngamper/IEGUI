@@ -61,7 +61,7 @@ datasets:
 dataroot_unpaired: /home/martin/ImageEnhance/LLFlow/code/input
 dataroot_GT: D:\LOLdataset\eval15\high
 dataroot_LR: /home/martin/ImageEnhance/LLFlow/code/input
-model_path: /home/martin/ImageEnhance/LLFlow/code/confs/LOLv2.pth
+model_path: /home/martin/IdeaProjects/benutzerveerwaltung/Junit/IEGUI6/EnhanceMethod/LLFlow/code/confs/LOLv2.pth
 heat: 0 # This is the standard deviation of the latent vectors
 
 #### network structures
