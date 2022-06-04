@@ -15,13 +15,12 @@
             </Menu>
             <Menu fx:id="settingsSetting" mnemonicParsing="false">
                 <Menu fx:id="languageSetting" mnemonicParsing="false">
-                    <MenuItem fx:id="lanDeSetting" mnemonicParsing="false" onAction="#onLanguagePressed" />
-                    <MenuItem fx:id="lanEnSetting" mnemonicParsing="false" onAction="#onLanguagePressed" />
+
                 </Menu>
                 <CheckMenuItem fx:id="tutorialSetting" mnemonicParsing="false" />
             </Menu>
             <Menu fx:id="helpSetting" mnemonicParsing="false">
-                <MenuItem fx:id="aboutSetting" mnemonicParsing="false" />
+                <MenuItem fx:id="aboutSetting" mnemonicParsing="false"  onAction="#about"/>
             </Menu>
         </MenuBar>
     </top>

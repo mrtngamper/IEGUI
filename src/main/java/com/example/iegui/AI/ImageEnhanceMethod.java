@@ -7,7 +7,7 @@ import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
-import com.example.iegui.util.paths;
+
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -35,7 +35,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -105,7 +104,7 @@ public abstract class ImageEnhanceMethod {
         this.context = context;
         this.location = location;
         try {
-            loadYAML(location + "/" + "Config" + "/" + lang + ".yml");
+            loadYAML(location + "/" + "Config" + "/" + "en" + ".yml");
         } catch (Exception e) {
             Alerts.Warning(e.getMessage());
         }
@@ -351,7 +350,24 @@ public abstract class ImageEnhanceMethod {
                 throw new YAMLTypeNotValidException(String.class.toString(), long_descriptionyml.getClass().toString(), "description_long", file);
             }
         }
+        Object link = map.get("link");
+        if(link!=null){
+            if(link instanceof  String){
+                this.hyperlink= (String)link;
+            }else{
+                throw new YAMLTypeNotValidException(String.class.toString(), link.getClass().toString(), "link", file);
+            }
+        }
     }
+
+    public String getHyperlink() {
+        return hyperlink;
+    }
+
+    /**
+     * Hyperlink to the methods github repository
+     */
+    private String hyperlink;
 
 
     /**
@@ -387,10 +403,10 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    paths.independent(getEnvDir()+"/pip3"),
+                    Context.independent(getEnvDir()+"/pip3"),
                     "install",
                     "-r",
-                    paths.independent("Environments"+"/"+environment+".txt")
+                    Context.independent("Environments"+"/"+environment+".txt")
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -437,9 +453,9 @@ public abstract class ImageEnhanceMethod {
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
         if (os.contains("windows")) {
-            return paths.independent(environment + "/Scripts/");
+            return Context.independent(environment + "/Scripts/");
         }
-        return   paths.independent(environment + "/bin/");
+        return   Context.independent(environment + "/bin/");
     }
 
 

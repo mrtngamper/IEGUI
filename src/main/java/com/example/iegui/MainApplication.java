@@ -6,6 +6,7 @@ import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -73,6 +74,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        MainApplication.hostServices = getHostServices();
         if(!new File("EnhanceMethod").exists()) {
             String workingDir = "";
             try {
@@ -98,7 +100,8 @@ public class MainApplication extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
         stage.setMinHeight(480);
-        stage.setMinWidth(640);        Controller controller = fxmlLoader.getController();
+        stage.setMinWidth(640);
+        Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
         // context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR
@@ -120,6 +123,7 @@ public class MainApplication extends Application {
             stage2.setMinHeight(480);
             stage2.setMinWidth(640);
 
+
             stage2.setScene(scene2);
             stage2.titleProperty().bind(context.getTextName("welcome"));
             Controller controller2 =  loader2.getController();
@@ -128,5 +132,6 @@ public class MainApplication extends Application {
             stage2.show();
         }
     }
+    public static HostServices hostServices;
 
 }

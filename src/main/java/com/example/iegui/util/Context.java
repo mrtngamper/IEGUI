@@ -150,8 +150,13 @@ public class Context {
     }
 
     public void setLang(String lang) {
-        this.lang.set(lang);
-        storeSettings();
+        try {
+            this.lang.set(lang);
+            language.load("Language/"+lang+".yml");
+            storeSettings();
+        } catch (FileNotFoundException e) {
+            Alerts.Error(e.getMessage());
+        }
     }
 
     /**
@@ -207,11 +212,27 @@ public class Context {
     }
 
 
+    /**
+     * Loads Image into ImageView
+     * @param path Path to Image
+     * @return returns ImageView
+     * @throws FileNotFoundException
+     */
     public static  ImageView loadImage(String path) throws FileNotFoundException {
         FileInputStream input = new FileInputStream(path);
         Image image = new Image(input);
         ImageView view = new ImageView(image);
         view.setPreserveRatio(true);
         return view;
+    }
+
+
+    /**
+     * Creates path String from String which is platform independent
+     * @param path path String
+     * @return platform independent  path String
+     */
+    public static String independent(String path){
+        return new File(path).getAbsolutePath();
     }
 }

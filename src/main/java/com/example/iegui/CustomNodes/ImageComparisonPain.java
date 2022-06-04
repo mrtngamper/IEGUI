@@ -20,6 +20,9 @@ import javafx.scene.shape.Rectangle;
 import java.io.FileNotFoundException;
 import java.util.concurrent.Callable;
 
+/**
+ * Pain which enables image comparisons with a dynamic slider to switch between the two images.
+ */
 public class ImageComparisonPain extends Pane {
 
     private SimpleDoubleProperty position= new SimpleDoubleProperty(0.7);

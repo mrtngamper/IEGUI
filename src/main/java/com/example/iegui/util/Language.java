@@ -36,6 +36,10 @@ public class Language extends Controller {
         if(map == null){
             throw new FileNotFoundException(filename);
         }
+
+        for (String i:lan.keySet() ) {
+            lan.get(i).setValue("-------------");
+        }
         for (String i: map.keySet()) {
             if(lan.containsKey(i)){
                 lan.get(i).setValue(map.get(i).toString());
