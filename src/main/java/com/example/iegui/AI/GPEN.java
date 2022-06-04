@@ -53,7 +53,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-colorization":
                 return new String[]{
-                        environment + "/bin/python3",
+                        paths.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Colorization-1024",
@@ -70,7 +70,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-inpainting":
                 return new String[]{
-                        environment + "/bin/python3",
+                        paths.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Inpainting-1024",
@@ -87,7 +87,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "segmentation-to-face":
                 return new String[]{
-                        environment + "/bin/python3",
+                        paths.independent(getEnvDir() + "/python3"),
                         "main.py",
                         "--model",
                         "GPEN-Seg2face-512",

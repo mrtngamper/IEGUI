@@ -1,0 +1,14 @@
+name: "gpen"
+description: "gpen_short"
+description_long: "gpen_long"
+link: https://github.com/yangxy/GPEN
+
+
+examples:
+   image1: image1out
+   image2: image2out
+
+miniatures:
+   input: output
+
+environment: gpen
