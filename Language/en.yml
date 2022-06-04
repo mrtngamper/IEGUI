@@ -98,3 +98,11 @@ gpen: GPEN
 gpen_short: A method for face enhancement
 gpen_long: A long description of gpen   # TODO Create long description
 
+
+start: Start
+noFileSelected: No file selected
+selectFile: Select file
+saveFile: Select save file
+imageFile: Image file
+
+result: Result

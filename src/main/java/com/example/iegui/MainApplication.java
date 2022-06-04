@@ -1,23 +1,39 @@
 package com.example.iegui;
 
 
+import com.example.iegui.CustomNodes.ImageComparisonPain;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Locale;
@@ -82,9 +98,7 @@ public class MainApplication extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
         stage.setMinHeight(480);
-        stage.setMinWidth(640);
-
-        Controller controller = fxmlLoader.getController();
+        stage.setMinWidth(640);        Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
         // context.getMethods().get(0).start("/home/martin/Downloads/output12.png", "/home/martin/Downloads/output13.png"); // For Test purposes SwinIR
@@ -97,7 +111,6 @@ public class MainApplication extends Application {
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();
-
 
         if(context.isOpenWelcomeView()){
             Stage stage2 = new Stage();
@@ -115,4 +128,5 @@ public class MainApplication extends Application {
             stage2.show();
         }
     }
+
 }

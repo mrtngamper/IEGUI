@@ -1,6 +1,7 @@
 package com.example.iegui.controller;
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.CustomNodes.DragAndDrop;
+import com.example.iegui.CustomNodes.EnhanceMethodListView;
 import com.example.iegui.CustomNodes.ImageLoaded;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
@@ -80,6 +81,8 @@ public class MainViewController extends Controller implements Initializable {
 
     private ImageLoaded imageLoaded;
 
+    private ListView<ImageEnhanceMethod> list;
+
     @Override
     public void setContext(Context context) {
         super.setContext(context);
@@ -119,7 +122,6 @@ public class MainViewController extends Controller implements Initializable {
 
         tutorialSetting.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
         Bindings.bindBidirectional(context.openWelcomeViewProperty(),tutorialSetting.selectedProperty());
-
 
 
         imageName.setFont(Font.font(20));
@@ -174,45 +176,7 @@ public class MainViewController extends Controller implements Initializable {
         });
 
 
-        ListView<ImageEnhanceMethod> list = new ListView();
-
-        list.setItems(context.getMethods());
-
-        list.setCellFactory(new Callback<ListView<ImageEnhanceMethod>, ListCell<ImageEnhanceMethod>>() {
-            @Override
-            public ListCell<ImageEnhanceMethod> call(ListView<ImageEnhanceMethod> imageEnhanceMethodListView) {
-                return new ListCell<>(){
-                    @Override
-                    protected void updateItem(ImageEnhanceMethod imageEnhanceMethod, boolean b) {
-                        super.updateItem(imageEnhanceMethod, b);
-                        if(imageEnhanceMethod!=null){
-
-                            VBox methodWindow = new VBox();
-                            Label name = new Label();
-                            name.textProperty().bind(context.getTextName(imageEnhanceMethod.getName()));
-                            //name.getText().setStyle("-fx-font-weight: bold");
-
-                            name.setFont(new Font("Arial", 20));
-                            Label description = new Label();
-                            description.textProperty().bind(context.getTextName(imageEnhanceMethod.getDescription()));
-                            methodWindow.getChildren().addAll(name, description);
-
-                            for (String beforePath: imageEnhanceMethod.getExamples().keySet()) {
-                                //ImageView before = new ImageView(new Image(beforePath));
-                                //ImageView after = new ImageView(new Image(imageEnhanceMethod.getExamples().get(beforePath)));
-                                //methodWindow.getChildren().addAll(before, after);
-                            }
-                            try {
-                                methodWindow.getChildren().add(imageEnhanceMethod.getSettingWindow().getHBox());
-                            } catch(Exception e) {}
-                            setGraphic(methodWindow);
-                        }
-                    }
-                };
-
-            }
-        });
-        subBorderPane.setCenter(list);
+        list =  new EnhanceMethodListView(context, subBorderPane, imageFile);
     }
 
     @Override
@@ -221,9 +185,9 @@ public class MainViewController extends Controller implements Initializable {
 
     public void onBrowseButton(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle(context.getTextName("selectFile").getValue());
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.jps", "*.mpo"));
+                new FileChooser.ExtensionFilter(context.getTextName("imageFile").getValue(), "*.png", "*.jpg", "*.gif", "*.jps", "*.mpo"));
         File selectedFile = fileChooser.showOpenDialog(context.getStage());
         if (selectedFile != null) {
             imageFile.setValue(selectedFile.getAbsolutePath());

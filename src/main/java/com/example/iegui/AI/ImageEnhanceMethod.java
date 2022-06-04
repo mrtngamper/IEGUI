@@ -1,18 +1,29 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.ImageComparisonPain;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.Controller;
 import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -162,6 +173,8 @@ public abstract class ImageEnhanceMethod {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 LoadingView loadingView = new LoadingView();
                 loadingView.show();
                 try {
@@ -220,7 +233,8 @@ public abstract class ImageEnhanceMethod {
 
                                 System.out.println(context.getTextName("success").getValue());
                                 loadingView.close();
-                                //TODO Show Finished View
+
+                                showFinishedView(inputfile,outputfile);
                                 return;
                             case 132:
                                 System.out.println(context.getTextName("nodependencies").getValue());
@@ -242,6 +256,8 @@ public abstract class ImageEnhanceMethod {
             }
         }).start();
     }
+
+
 
     /**
      * Deletes all elements from directory recursively
@@ -324,6 +340,15 @@ public abstract class ImageEnhanceMethod {
                 this.environment = environment.toString();
             } else {
                 throw new YAMLTypeNotValidException(String.class.toString(), environment.getClass().toString(), "environment", file);
+            }
+        }
+
+        Object long_descriptionyml = map.get("description_long");
+        if(long_descriptionyml!=null){
+            if(long_descriptionyml instanceof  String){
+                this.long_description= (String)long_descriptionyml;
+            }else{
+                throw new YAMLTypeNotValidException(String.class.toString(), long_descriptionyml.getClass().toString(), "description_long", file);
             }
         }
     }
@@ -444,7 +469,7 @@ public abstract class ImageEnhanceMethod {
                 LoadingViewController controller = fxmlLoader.getController();
                 controller.setContext(context);
                 stage.setTitle("Loading ...");
-                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
@@ -500,5 +525,68 @@ public abstract class ImageEnhanceMethod {
             });
 
         }
+    }
+
+
+
+    /**
+     * Displays the finished view
+     * @param input path to input image
+     * @param output  path to output image
+     */
+    private void showFinishedView(String input, String output){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
+                Stage stage = new Stage();
+                BorderPane pane = new BorderPane();
+
+                Scene scene = new Scene(pane, 500, 300);
+                scene.getStylesheets().add(getClass().getResource("/com/example/iegui/views.css").toExternalForm());;
+
+                stage.setMinWidth(320);
+                stage.setMinHeight(240);
+
+                HBox topBox = new HBox();
+                Text result = new Text();
+                topBox.setAlignment(Pos.CENTER);
+                topBox.getChildren().add(result);
+                result.setStyle("-fx-font-family: Arial; -fx-font-size: 30; -fx-font-weight: bold");
+                result.textProperty().bind(context.getTextName("result"));
+
+                ImageComparisonPain pain = new ImageComparisonPain(input,output);
+                HBox box = new HBox();
+                box.getChildren().add(pain);
+                box.setAlignment(Pos.CENTER);
+                box.setPadding(new Insets(10,10,10,10));
+                HBox.setHgrow(pain, Priority.ALWAYS);
+                VBox.setVgrow(pain,Priority.ALWAYS);
+
+                pane.setCenter(box);
+                HBox bottomBox = new HBox();
+                bottomBox.setAlignment(Pos.CENTER);
+                Button ok = new Button();
+                ok.textProperty().bind(context.getTextName("ok"));
+                bottomBox.getChildren().add(ok);
+
+
+                ok.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent actionEvent) {
+                        stage.close();
+                    }
+                });
+
+                pane.setBottom(bottomBox);
+                pane.setTop(topBox);
+
+                stage.setTitle("Done");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.show();
+
+            }
+        });
     }
 }

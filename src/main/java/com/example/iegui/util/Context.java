@@ -9,6 +9,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.yaml.snakeyaml.Yaml;
 
@@ -202,5 +204,14 @@ public class Context {
 
     public SimpleBooleanProperty openWelcomeViewProperty() {
         return openWelcomeView;
+    }
+
+
+    public static  ImageView loadImage(String path) throws FileNotFoundException {
+        FileInputStream input = new FileInputStream(path);
+        Image image = new Image(input);
+        ImageView view = new ImageView(image);
+        view.setPreserveRatio(true);
+        return view;
     }
 }
