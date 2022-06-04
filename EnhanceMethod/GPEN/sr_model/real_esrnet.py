@@ -70,9 +70,9 @@ class RealESRNet(object):
                     with torch.no_grad():
                         output_tile = self.srmodel(input_tile)
                 except RuntimeError as error:
-                    print('Error', error, flush=True)
+                    print('Error', error)
                     return None
-                if tile_idx%10==0: print(f'\tTile {tile_idx}/{tiles_x * tiles_y}', flush=True)
+                if tile_idx%10==0: print(f'\tTile {tile_idx}/{tiles_x * tiles_y}')
 
                 # output tile area on total image
                 output_start_x = input_start_x * self.scale
