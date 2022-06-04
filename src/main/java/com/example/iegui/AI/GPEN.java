@@ -17,8 +17,9 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class GPEN extends ImageEnhanceMethod {
-    private String task = "face-enhancement";
+    private String task = "segmentation-to-face";
     private int scaleFactor = 4;
+    private int inputResolution = 512;
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
      *
@@ -43,6 +44,59 @@ public class GPEN extends ImageEnhanceMethod {
                         "FaceEnhancement",
                         "--sr_scale",
                         String.valueOf(scaleFactor),
+                        "--in_size",
+                        String.valueOf(inputResolution),
+                        "--indir",
+                        context.getTempdir()+"/input",
+                        "--outdir",
+                        context.getTempdir()+"/output",
+                };
+            case "face-colorization":
+                return new String[]{
+                        environment + "/bin/python3",
+                        "main.py",
+                        "--model",
+                        "GPEN-Colorization-1024",
+                        "--task",
+                        "FaceColorization",
+                        "--sr_scale",
+                        String.valueOf(scaleFactor),
+                        "--in_size",
+                        "1024",
+                        "--indir",
+                        context.getTempdir()+"/input",
+                        "--outdir",
+                        context.getTempdir()+"/output",
+                };
+            case "face-inpainting":
+                return new String[]{
+                        environment + "/bin/python3",
+                        "main.py",
+                        "--model",
+                        "GPEN-Inpainting-1024",
+                        "--task",
+                        "FaceInpainting",
+                        "--sr_scale",
+                        String.valueOf(scaleFactor),
+                        "--in_size",
+                        "1024",
+                        "--indir",
+                        context.getTempdir()+"/input",
+                        "--outdir",
+                        context.getTempdir()+"/output",
+                };
+            case "segmentation-to-face":
+                return new String[]{
+                        environment + "/bin/python3",
+                        "main.py",
+                        "--model",
+                        "GPEN-Seg2face-512",
+                        "--task",
+                        "Segmentation2Face",
+                        "--sr_scale",
+                        String.valueOf(scaleFactor),
+                        "--in_size",
+                        "512",
                         "--indir",
                         paths.independent(context.getTempdir()+"/input"),
                         "--outdir",
@@ -72,6 +126,10 @@ public class GPEN extends ImageEnhanceMethod {
         } else {
             throw new IllegalArgumentException("Scale factor must be greater than 0");
         }
+    }
+
+    public void setInputResolution(int inputResolution) {
+        this.inputResolution = inputResolution;
     }
 
     @Override

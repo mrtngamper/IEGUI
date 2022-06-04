@@ -11,6 +11,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -125,7 +126,6 @@ public class MainViewController extends Controller implements Initializable {
 
         imageName.setFont(Font.font(20));
         imageName.textProperty().bind(context.getTextName("browse2"));
-
         bP.setOnDragDropped(new EventHandler<DragEvent>() {
             @Override
             public void handle(DragEvent event) {
@@ -134,8 +134,6 @@ public class MainViewController extends Controller implements Initializable {
                 imageFile.setValue(f.getAbsolutePath());
             }
         });
-
-
         imageFile.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -151,7 +149,6 @@ public class MainViewController extends Controller implements Initializable {
                 }
             }
         });
-
 
         bP.setOnDragOver(new EventHandler<DragEvent>() {
             @Override
@@ -203,11 +200,9 @@ public class MainViewController extends Controller implements Initializable {
     }
 
     public void onLanguagePressed(ActionEvent actionEvent) {
-        if(Objects.equals(context.getLang(), "de")) {
-            context.setLang("en");
-        } else {
-            context.setLang("de");
-        }
+        MenuItem mi = (MenuItem) actionEvent.getSource();
+        String language = mi.getText().toLowerCase();
+        context.setLang(language);
     }
 
     public void onCloseButton(ActionEvent actionEvent) {
