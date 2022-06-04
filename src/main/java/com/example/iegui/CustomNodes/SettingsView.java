@@ -17,6 +17,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
@@ -25,16 +28,47 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Settings View which is displayed when a image enhance method is selected from the main view.
+ */
 public class SettingsView extends BorderPane {
+
 
     private ImageEnhanceMethod currentMethod = null;
     private Context context;
 
+    private final SimpleStringProperty output= new SimpleStringProperty();
+
     public SettingsView(Context context, EnhanceMethodListView parent, BorderPane pane, SimpleStringProperty openedFile){
         this.context=context;
-        HBox bottomBox = new HBox();
+        BorderPane bottomBox = new BorderPane();
         HBox topBox = new HBox();
-        Button back = new Button("X");
+
+        final double ARROW_SIZE = 5;
+
+        Path arrowUp = new Path();
+        arrowUp.getElements().addAll(new MoveTo(-ARROW_SIZE, -ARROW_SIZE), new LineTo(ARROW_SIZE, ARROW_SIZE),new MoveTo(-ARROW_SIZE,ARROW_SIZE),
+                new LineTo(ARROW_SIZE, -ARROW_SIZE));
+        Button back = new Button();
+        back.setGraphic(arrowUp);
+        back.setPrefWidth(85);
+
+        Text outputPath = new Text();
+        outputPath.textProperty().bind(output);
+
+        Button selectOutput = new Button();
+        selectOutput.textProperty().bind(context.getTextName("select"));
+        selectOutput.setOnAction(actionEvent -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle(context.getTextName("saveFile").getValue());
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter(context.getTextName("imageFile").getValue(), "*.png"));
+            File selectedFile = fileChooser.showSaveDialog(context.getStage());
+            if(selectedFile!=null){
+                output.setValue(selectedFile.getAbsolutePath());
+            }
+        });
+
         Button start = new Button();
         start.textProperty().bind(context.getTextName("start"));
 
@@ -46,37 +80,47 @@ public class SettingsView extends BorderPane {
                 if(openedFile.getValue().equals("")){
                     Alerts.Error(context.getTextName("noFileSelected").getValue());
                 }else{
-                    String output = "";
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.setTitle(context.getTextName("saveFile").getValue());
-                    fileChooser.getExtensionFilters().addAll(
-                            new FileChooser.ExtensionFilter(context.getTextName("imageFile").getValue(), "*.png"));
-                    File selectedFile = fileChooser.showSaveDialog(context.getStage());
-                    output= selectedFile.getAbsolutePath();
-
-                    currentMethod.start(openedFile.getValue(), output);
-
+                    currentMethod.start(openedFile.getValue(), output.getValue());
                     pane.setCenter(parent);
                 }
             }
         });
 
-        bottomBox.setAlignment(Pos.CENTER_RIGHT);
         topBox.setAlignment(Pos.CENTER_RIGHT);
 
 
         topBox.setId("settingsTopBox");
         bottomBox.setId("settingsBottomBox");
 
+
         topBox.getChildren().add(back);
-        bottomBox.getChildren().add(start);
+
+        HBox left = new HBox();
+        left.setSpacing(10);
+        left.setAlignment(Pos.CENTER);
+        left.getChildren().addAll(selectOutput,outputPath);
+        BorderPane.setAlignment(left,Pos.CENTER);
+        BorderPane.setAlignment(start,Pos.CENTER);
+
+        bottomBox.setLeft(left);
+        bottomBox.setRight(start);
 
         this.setTop(topBox);
         this.setBottom(bottomBox);
     }
 
+    /**
+     * Changes the ImageEnhanceMethod of which the information is displayed
+     * @param method The new ImageEnhanceMethod
+     */
     public void setEnhanceMethod(ImageEnhanceMethod method){
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            output.setValue(System.getenv("HOMEPATH")+"\\output.png");
+        } else {
+            output.setValue(System.getenv("HOME")+"/output.png");
+        }
         this.currentMethod=method;
+
 
         ScrollPane scrollPane = new ScrollPane();
         VBox vbox = new VBox();
