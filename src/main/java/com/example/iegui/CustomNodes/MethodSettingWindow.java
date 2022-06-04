@@ -4,15 +4,13 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-public class MethodSettingWindow {
-    private HBox hBox = new HBox();
+public class MethodSettingWindow extends HBox{
 
-    public void setHBox(HBox hBox, DoubleProperty downscale) {
+    DoubleProperty downscale;
+
+    public void setDownscale(DoubleProperty downscale) {
         // TODO downscale numberfield
-        this.hBox = hBox;
+        this.downscale=downscale;
     }
 
-    public HBox getHBox() {
-        return hBox;
-    }
 }

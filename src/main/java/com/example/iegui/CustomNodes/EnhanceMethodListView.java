@@ -55,9 +55,7 @@ public class EnhanceMethodListView extends ListView {
                                 //ImageView after = new ImageView(new Image(imageEnhanceMethod.getExamples().get(beforePath)));
                                 //methodWindow.getChildren().addAll(before, after);
                             }
-                            try {
-                                methodWindow.getChildren().add(imageEnhanceMethod.getSettingWindow().getHBox());
-                            } catch(Exception e) {}
+
                             setGraphic(methodWindow);
                         }
                     }

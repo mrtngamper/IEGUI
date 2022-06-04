@@ -1,10 +1,12 @@
 package com.example.iegui;
 
 
+import com.example.iegui.controller.FinishedViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Locale;
@@ -84,6 +87,7 @@ public class MainApplication extends Application {
         stage.setMinHeight(480);
         stage.setMinWidth(640);
 
+        //this.context=context;
         Controller controller = fxmlLoader.getController();
         controller.setContext(context);
 
@@ -92,11 +96,12 @@ public class MainApplication extends Application {
       //  context.getMethods().get(2).start("/home/martin/Downloads/blackwhite.jpeg","/home/martin/Downloads/output23.png"); // For Testing purposes white balance
        // context.getMethods().get(3).start("/home/martin/Downloads/low-light.jpg","/home/martin/Downloads/output14.png"); // For Testing purposes low light2
         // context.getMethods().get(5).start("/home/martin/Downloads/lowresselfie.jpg","/home/martin/Downloads/output15.png"); // For Testing purposes gpen
-       //  context.getMethods().get(4).start("/home/martin/Downloads/blurryin.png","/home/martin/Downloads/blurryout.png"); // For Testing purposes nafnet
+        //  context.getMethods().get(4).start("/home/martin/Downloads/blurryin.png","/home/martin/Downloads/blurryout.png"); // For Testing purposes nafnet
 
         stage.setTitle("IEGUI");
         stage.setScene(scene);
         stage.show();
+       // showFinishedView("/home/martin/Dokumente/Unbenannt.png","/home/martin/Dokumente/Unbenannt.png");
 
 
         if(context.isOpenWelcomeView()){
@@ -115,4 +120,40 @@ public class MainApplication extends Application {
             stage2.show();
         }
     }
+  // Context context ;
+
+
+    /**
+     * Displays the finished view
+     * @param input path to input image
+     * @param output  path to output image
+     */
+    /*private void showFinishedView(String input, String output){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Stage stage = new Stage();
+
+                    URL fxmlLocation = getClass().getResource("/com/example/iegui/finished-view.fxml");
+                    FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+
+                    Parent root = null;
+                    root = fxmlLoader.load();
+                    Scene scene = new Scene(root, 500, 300);
+
+                    FinishedViewController controller = fxmlLoader.getController();
+                    controller.setContext(context);
+                   // controller.setImages(input, output);
+
+                    stage.setTitle("Done");
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    Alerts.Error(e.getMessage());
+                }
+            }
+        });
+    }*/
 }

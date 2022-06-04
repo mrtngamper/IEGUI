@@ -2,9 +2,11 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
+import com.example.iegui.controller.FinishedViewController;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.Controller;
 import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
@@ -163,6 +165,8 @@ public abstract class ImageEnhanceMethod {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
                 LoadingView loadingView = new LoadingView();
                 loadingView.show();
                 try {
@@ -221,6 +225,9 @@ public abstract class ImageEnhanceMethod {
 
                                 System.out.println(context.getTextName("success").getValue());
                                 loadingView.close();
+
+
+
                                 //TODO Show Finished View
                                 return;
                             case 132:
@@ -243,6 +250,8 @@ public abstract class ImageEnhanceMethod {
             }
         }).start();
     }
+
+
 
     /**
      * Deletes all elements from directory recursively
@@ -454,7 +463,7 @@ public abstract class ImageEnhanceMethod {
                 LoadingViewController controller = fxmlLoader.getController();
                 controller.setContext(context);
                 stage.setTitle("Loading ...");
-                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override

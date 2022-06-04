@@ -76,7 +76,7 @@ public class GPEN extends ImageEnhanceMethod {
 
     @Override
     public MethodSettingWindow getSettingWindow() {
-        HBox hBox = new HBox();
+        MethodSettingWindow settingWindow = new MethodSettingWindow();
 
         ArrayList<StringProperty> availableTasks = new ArrayList<>(0);
         for (int i = 0; i < 4; i++) {
@@ -112,11 +112,10 @@ public class GPEN extends ImageEnhanceMethod {
 
         scaleSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> scaleFactor = integer);
 
-        hBox.getChildren().addAll(taskSelector, scaleSelector);
+        settingWindow.getChildren().addAll(taskSelector, scaleSelector);
 
-        MethodSettingWindow msw = new MethodSettingWindow();
-        msw.setHBox(hBox, super.getDownscaleFactor());
 
-        return msw;
+        settingWindow.setDownscale(super.getDownscaleFactor());
+        return settingWindow;
     }
 }

@@ -36,24 +36,12 @@ public class FinishedViewController extends Controller implements Initializable 
     }
 
     public void onButtonOKClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
-        try {
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root,1024, 768);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            Controller controller = fxmlLoader.getController();
-            controller.setContext(context);
-            stage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         Stage thisStage = ((Stage)vbox.getScene().getWindow());
         thisStage.close();
 
     }
 
-    public void setImage(String url, ImageView imageView){
+    private void setImage(String url, ImageView imageView){
         try{
             FileInputStream inputstream = new FileInputStream(url);
             Image image = new Image(inputstream);
@@ -66,4 +54,6 @@ public class FinishedViewController extends Controller implements Initializable 
         }
     }
 
+    public void setImages(String input, String output) {
+    }
 }

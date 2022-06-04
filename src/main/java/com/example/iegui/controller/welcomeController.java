@@ -146,7 +146,6 @@ public class welcomeController extends Controller  {
         Text titletext = new Text();
         Text texttext = new Text();
 
-
         setTitlefont(titletext);
         setTextFond(texttext);
 

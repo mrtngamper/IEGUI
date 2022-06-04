@@ -3,6 +3,7 @@ package com.example.iegui.CustomNodes;
 import com.example.iegui.AI.ImageEnhanceMethod;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,14 +16,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class SettingsView extends BorderPane {
 
@@ -103,19 +105,55 @@ public class SettingsView extends BorderPane {
         scrollPane.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
             @Override
             public void changed(ObservableValue<? extends Bounds> observableValue, Bounds bounds, Bounds t1) {
-                description_long.wrappingWidthProperty().setValue(t1.getWidth()*0.9);
-                description_short.wrappingWidthProperty().setValue(t1.getWidth()*0.9);
-                header.wrappingWidthProperty().setValue(t1.getWidth()*0.9);
+                description_long.wrappingWidthProperty().setValue(t1.getWidth()*0.95);
+                description_short.wrappingWidthProperty().setValue(t1.getWidth()*0.95);
+                header.wrappingWidthProperty().setValue(t1.getWidth()*0.95);
             }
         });
 
 
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(0, 0, 0, 8));
+        vbox.setPadding(new Insets(4, 0, 0, 8));
+
+        if(currentMethod.getSettingWindow()!=null){
+            vbox.getChildren().add(currentMethod.getSettingWindow());
+        }
+
         vbox.getChildren().add(header);
         vbox.getChildren().add(description_short);
         vbox.getChildren().add(description_long);
 
+
+        for (String image: currentMethod.getExamples().keySet() ) {
+            HBox hbox = new HBox();
+
+            try {
+                ImageView input = loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+ image));
+                ImageView output = loadImage(paths.independent(currentMethod.getLocation()+"/Config/"+currentMethod.getExamples().get(image)));
+                HBox.setHgrow(hbox, Priority.ALWAYS);
+
+
+                input.fitWidthProperty().bind(scrollPane.widthProperty().divide(2.5));
+                output.fitWidthProperty().bind(scrollPane.widthProperty().divide(2.5));
+
+                hbox.setPadding(new Insets(10,0,10,0));
+                hbox.setSpacing(5);
+                hbox.setAlignment(Pos.CENTER);
+                hbox.getChildren().addAll(input,output);
+                vbox.getChildren().add(hbox);
+            } catch (FileNotFoundException e) {
+                Alerts.Error(e.getMessage());
+                continue;
+            }
+        }
+
         this.setCenter(scrollPane);
+    }
+    private ImageView loadImage(String path) throws FileNotFoundException {
+            FileInputStream input = new FileInputStream(path);
+            Image image = new Image(input);
+            ImageView view = new ImageView(image);
+            view.setPreserveRatio(true);
+            return view;
     }
 }
