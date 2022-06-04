@@ -1,6 +1,7 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 
 import java.io.File;
 
@@ -21,7 +22,7 @@ public class WhiteBalance extends ImageEnhanceMethod{
     @Override
     public String[] getCMD() {
         return new String[]{
-                getEnvDir()+"python3",
+                paths.independent(getEnvDir()+"/python3"),
                 "test.py",
                 "--wb-settings",
                 "D",
@@ -32,9 +33,9 @@ public class WhiteBalance extends ImageEnhanceMethod{
                 "--model-name",
                 "WB_model_p_128_D_S_T_F_C",
                 "--testing-dir",
-                String.format(context.getTempdir()+"/input"),
+                paths.independent(String.format(context.getTempdir()+"/input")),
                 "--outdir",
-                String.format(context.getTempdir()+"/output"),
+                paths.independent(String.format(context.getTempdir()+"/output")),
         };
     }
 }

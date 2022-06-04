@@ -4,6 +4,7 @@ import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
+import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +20,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class SwinIR extends ImageEnhanceMethod{
-      private String task="super-resolution";
-      private int denoisingLevel=25;
+      private String task="denoising";
+      private int denoisingLevel=50;
       private int scaleFactor=4;
 
 
@@ -32,11 +33,10 @@ public class SwinIR extends ImageEnhanceMethod{
 
     @Override
        public String[] getCMD(){
-
             switch(task) {
                 case "super-resolution":
                     return new String[]{
-                            getEnvDir()+"python3",
+                            paths.independent(getEnvDir()+"/"+"python"),
                             "main_test_swinir.py",
                             "--task",
                             "real_sr",
@@ -44,26 +44,26 @@ public class SwinIR extends ImageEnhanceMethod{
                             String.valueOf(scaleFactor),
                             "--large_model",
                             "--model_path",
-                            "model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth",
+                            paths.independent(getLocation()+"/model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth"),
                             "--input",
-                            context.getTempdir()+"/input",
+                            paths.independent(context.getTempdir()+"/input"),
                             "--output",
-                            context.getTempdir()+"/output",
+                            paths.independent(context.getTempdir()+"/output"),
                     };
                 case "denoising":
                     return new String[]{
-                            getEnvDir()+"python3",
+                            paths.independent(getEnvDir()+"/python3"),
                             "main_test_swinir.py",
                             "--task",
                             "color_dn",
                             "--noise",
                             String.valueOf(denoisingLevel),
                             "--model_path",
-                            "model_zoo/swinir/005_colorDN_DFWB_s128w8_SwinIR-M_noise"+String.valueOf(denoisingLevel)+".pth",
+                            paths.independent(getLocation()+"/model_zoo/swinir/005_colorDN_DFWB_s128w8_SwinIR-M_noise"+String.valueOf(denoisingLevel)+".pth"),
                             "--input",
-                            context.getTempdir()+"/input",
+                            paths.independent(context.getTempdir()+"/input"),
                             "--output",
-                            context.getTempdir()+"/output",
+                            paths.independent(context.getTempdir()+"/output"),
                     };
                 default:
                     return null;

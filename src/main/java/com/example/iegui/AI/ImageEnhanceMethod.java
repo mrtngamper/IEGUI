@@ -5,6 +5,7 @@ import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.paths;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -23,6 +24,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,15 +48,28 @@ public abstract class ImageEnhanceMethod {
      * The factor of how much the input image will be downscaled before processing
      */
     private final SimpleDoubleProperty downscaleFactor = new SimpleDoubleProperty(1);
+
     protected Context context;
+
     /**
-     * The name of the method
+     * The pointe to the name of the method in the language file
      */
     private String name = "";
     /**
-     * A description of the enhancement method
+     * A pointer to a short description of the method in the language file
      */
     private String description = "";
+
+    public String getLong_description() {
+        return long_description;
+    }
+
+    /**
+     * A pointer to a longer description of the method in the language file
+     */
+    private String long_description ="";
+
+
     /**
      * Path of the enhancement method
      */
@@ -160,7 +175,8 @@ public abstract class ImageEnhanceMethod {
                     String[] cmd = getCMD();
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
-                    pb.directory(new File(getLocation()));
+                    pb.directory(new File(getLocation()+"/"));
+                    System.out.println(getLocation());
 
 
                     Path tempInput = Path.of(context.getTempdir() + "/input/input.png");
@@ -190,9 +206,18 @@ public abstract class ImageEnhanceMethod {
                                 if (Path.of(outputfile).toFile().exists()) {
                                     Files.delete(Path.of(outputfile));
                                 }
-                                Files.copy(tempOutput, Path.of(outputfile));
-                                Files.delete(tempInput);
-                                Files.delete(tempOutput);
+
+                                for (File file: new File(context.getTempdir().toFile().getAbsolutePath()+"/output").listFiles()) {
+                                    String extension = file.getName().replaceAll(".*\\.","");
+                                    if(extension.equals("png")){
+                                        Files.copy(Path.of(file.getAbsolutePath()), Path.of(outputfile));
+                                        break;
+                                    }
+                                }
+
+                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/input"));
+                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/output"));
+
                                 System.out.println(context.getTextName("success").getValue());
                                 loadingView.close();
                                 //TODO Show Finished View
@@ -216,6 +241,23 @@ public abstract class ImageEnhanceMethod {
                 loadingView.close();
             }
         }).start();
+    }
+
+    /**
+     * Deletes all elements from directory recursively
+     * @param file Root directory
+     */
+    private void recursiveDelete(File file){
+        if(file.isDirectory()){
+            for (File f:file.listFiles() ) {
+                if(f.isDirectory()){
+                    recursiveDelete(f);
+                    f.delete();
+                }else{
+                    f.delete();
+                }
+            }
+        }
     }
 
     /**
@@ -320,10 +362,10 @@ public abstract class ImageEnhanceMethod {
         File file = new File("Environments"+"/"+environment);
         if(file.exists()) {
             String[] cmd = {
-                    getEnvDir()+"pip3",
+                    paths.independent(getEnvDir()+"/pip3"),
                     "install",
                     "-r",
-                    "Environments"+"/"+environment+".txt"
+                    paths.independent("Environments"+"/"+environment+".txt")
             };
             ProcessBuilder pb = new ProcessBuilder(cmd);
 
@@ -369,10 +411,10 @@ public abstract class ImageEnhanceMethod {
     public String getEnvDir(){
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.US);
-        if (os.equals("windows")) {
-            return environment + "/Scripts/";
+        if (os.contains("windows")) {
+            return paths.independent(environment + "/Scripts/");
         }
-        return   environment + "/bin/";
+        return   paths.independent(environment + "/bin/");
     }
 
 
@@ -440,9 +482,6 @@ public abstract class ImageEnhanceMethod {
                 }
             });
         }
-
-
-
 
 
 

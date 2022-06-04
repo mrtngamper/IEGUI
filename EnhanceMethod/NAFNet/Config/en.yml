@@ -1,12 +1,11 @@
-name: "NAFNet"
-description: "Noise Reduction and Image Deblurring"
+name: "nafnet"
+description: "nafnet_short"
+description_long: "nafnet_long"
+link: https://github.com/megvii-research/NAFNet
 
 
 examples:
-   image1: image1out
-   image2: image2out
-
-miniatures:
-   input: output
+   blurryin.png: blurryout.png
+   noisyin.png: noisyout.png
 
 environment: nafnet

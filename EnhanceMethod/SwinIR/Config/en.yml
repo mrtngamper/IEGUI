@@ -1,10 +1,12 @@
-name: "SwinIR"
-description: "An Image Enhance ToolBox"
+name: "swinir"
+description: "swinir_short"
+description_long: "swinir_long"
+link: https://github.com/JingyunLiang/SwinIR
 
 
 examples:
-   image1: image1out
-   image2: image2out
+   katzein.jpg: katzeout.png
+   nin.jpg: nout.png
 
 miniatures:
    input: output
