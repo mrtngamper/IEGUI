@@ -1,9 +1,11 @@
 package com.example.iegui.CustomNodes;
 
 import com.example.iegui.AI.ImageEnhanceMethod;
+import com.example.iegui.MainApplication;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.paths;
+import javafx.application.HostServices;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,16 +14,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
+import javax.net.ssl.HostnameVerifier;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -145,6 +145,16 @@ public class SettingsView extends BorderPane {
                 continue;
             }
         }
+
+        Hyperlink link = new Hyperlink(currentMethod.getHyperlink());
+        link.setText(currentMethod.getHyperlink());
+
+        link.setOnAction((ActionEvent event) -> {
+            MainApplication.hostServices.showDocument(currentMethod.getHyperlink());
+            event.consume();
+        });
+
+        vbox.getChildren().add(link);
 
         this.setCenter(scrollPane);
     }

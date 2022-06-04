@@ -6,6 +6,7 @@ import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.Controller;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -73,6 +74,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        MainApplication.hostServices = getHostServices();
         if(!new File("EnhanceMethod").exists()) {
             String workingDir = "";
             try {
@@ -128,5 +130,6 @@ public class MainApplication extends Application {
             stage2.show();
         }
     }
+    public static HostServices hostServices;
 
 }

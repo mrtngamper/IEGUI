@@ -351,7 +351,24 @@ public abstract class ImageEnhanceMethod {
                 throw new YAMLTypeNotValidException(String.class.toString(), long_descriptionyml.getClass().toString(), "description_long", file);
             }
         }
+        Object link = map.get("link");
+        if(link!=null){
+            if(link instanceof  String){
+                this.hyperlink= (String)link;
+            }else{
+                throw new YAMLTypeNotValidException(String.class.toString(), link.getClass().toString(), "link", file);
+            }
+        }
     }
+
+    public String getHyperlink() {
+        return hyperlink;
+    }
+
+    /**
+     * Hyperlink to the methods github repository
+     */
+    private String hyperlink;
 
 
     /**
