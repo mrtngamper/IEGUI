@@ -94,7 +94,7 @@ llflow: LLFlow
 llflow_short: Enlightens low light images.
 llflow_long: "This tool can enlighten low light images very well, with the disadvantage of it being very slow."
 
-gpen: GPen
+gpen: GPEN
 gpen_short: A method for face enhancement
 gpen_long: A long description of gpen   # TODO Create long description
 

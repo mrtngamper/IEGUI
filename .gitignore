@@ -40,14 +40,16 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/Environments/lowlight/
-/Environments/lowlight2/
-/Environments/null/
-/Environments/whitebalance/
-/EnhanceMethod/GPEN/weights/
-/EnhanceMethod/LLFlow/code/confs/LOL_smallNet.pth
-/EnhanceMethod/LLFlow/code/confs/LOLv2.pth
-/EnhanceMethod/SwinIR/model_zoo/swinir/
-/Environments/standard/
-/Environments/nafnet/
-/Environments/gpen/
+Environments/lowlight/
+Environments/lowlight2/
+Environments/null/
+Environments/whitebalance/
+EnhanceMethod/GPEN/weights/
+EnhanceMethod/LLFlow/code/confs/LOL_smallNet.pth
+EnhanceMethod/LLFlow/code/confs/LOLv2.pth
+EnhanceMethod/SwinIR/model_zoo/swinir/
+Environments/standard/
+Environments/nafnet/
+Environments/gpen/
+models
+*.pth
