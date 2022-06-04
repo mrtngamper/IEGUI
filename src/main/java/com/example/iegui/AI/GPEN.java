@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class GPEN extends ImageEnhanceMethod {
-    private String task = "segmentation-to-face";
+    private String task = "face-enhancement";
     private int scaleFactor = 4;
     private int inputResolution = 512;
     /**
