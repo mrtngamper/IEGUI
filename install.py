@@ -38,7 +38,7 @@ def main():
         except:
             print("Temp dir exists")
         print("copying jar")
-        shutil.copyfile(source+"/target/IEGUI-1.0-SNAPSHOT-shaded.jar",tempdir+"/iegui.jar")
+        shutil.copyfile(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/iegui.jar")
         print("copying EnhanceMethod")
         shutil.copytree(source+"/EnhanceMethod/", tempdir+"/EnhanceMethod/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
         print("copying Settings")
@@ -76,6 +76,7 @@ def copyModels(destination):
             yml = yaml.safe_load(file)
             for i in yml:
                 try:
+                    print("copying " + i + " to " + destination+"/"+yml[i]+"/")
                     shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
                 except Exception as f:
                     print("copying: "+i)
