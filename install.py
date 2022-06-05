@@ -57,13 +57,13 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--zip", type=str, default=None)
 
-parser.add_argument("--installation", type=str, default="./temp")
+parser.add_argument("--installation", type=str, default=".\\temp")
 parser.add_argument("--model", type=str, default="model")
 parser.add_argument("--source", type=str, default="./")
 
 args = parser.parse_args()
 
-directory = args.model
+directory = normalize(args.model)
 source = normalize(args.source)
 
 tempdir = source + "/tempInstallationDir"
@@ -72,7 +72,7 @@ tempdir = source + "/tempInstallationDir"
 def main():
     global tempdir
     if args.installation is not None:
-        tempdir = args.installation
+        tempdir = normalize(args.installation)
 
     if args.zip is not None or args.installation is not None:
 
@@ -137,11 +137,14 @@ def copyModels(destination):
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
-
-                    print("copying " + i + " to " + destination+"/"+yml[i]+"/")
-                    print(directory+"/"+i)
-                    print(destination+"/"+yml[i]+"/")
-                    shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
+                try:
+                    _i = i.split("/")
+                    src = os.path.join(directory, *_i)
+                    _yml_i = yml[i].split("/")
+                    dst = os.path.join(destination, *_yml_i)
+                    print("copying " + src + " to " + dst)
+                    os.makedirs(str(dst), exist_ok=True)
+                    shutil.copy(str(src), str(dst))
                 except Exception as f:
                     print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)

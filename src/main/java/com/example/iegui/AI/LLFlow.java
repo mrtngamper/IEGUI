@@ -31,7 +31,7 @@ public class LLFlow extends ImageEnhanceMethod{
         switch(task.getValue()) {
             case "v1":
                 return new String[]{
-                        environment + "/bin/python3",
+                        environment + "/bin/python",
                         "test_unpaired.py",
                         "--opt",
                         "confs/LOL-pc.yml",
@@ -43,7 +43,7 @@ public class LLFlow extends ImageEnhanceMethod{
                 };
             case "v2":
                 return new String[]{
-                        environment + "/bin/python3",
+                        environment + "/bin/python",
                         "test_unpaired.py",
                         "--opt",
                         "confs/LOLv2-pc.yml",
@@ -55,7 +55,7 @@ public class LLFlow extends ImageEnhanceMethod{
                 };
             case "small-net":
                 return new String[]{
-                        environment + "/bin/python3",
+                        environment + "/bin/python",
                         "test_unpaired.py",
                         "--opt",
                         "confs/LOL_smallNet.yml",
