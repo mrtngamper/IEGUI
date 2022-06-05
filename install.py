@@ -124,8 +124,8 @@ def copyModels(destination):
 
     r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
 
-    # with open(directory + '/location.yml', 'wb') as file:
-        # file.write(r.content)
+    with open(directory + '/location.yml', 'wb') as file:
+        file.write(r.content)
 
     try:
         with open(directory + '/location.yml', 'r') as file:
