@@ -1,5 +1,6 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.NumberField;
@@ -168,7 +169,10 @@ public class GPEN extends ImageEnhanceMethod {
         inSizeSelector.setValue(512);
         inSizeSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> inputResolution = newValue);
 
-        settingWindow.getChildren().addAll(taskBox, scaleBox, inSizeBox);
+        settingWindow.getChildren().addAll(
+                new DescribedNode(context.getTextName("task"),taskSelector),
+                new DescribedNode(context.getTextName("inRes"),inSizeSelector),
+                new DescribedNode(context.getTextName("scale"),scaleSelector));
 
         settingWindow.setDownscale(super.getDownscaleFactor(), context);
 

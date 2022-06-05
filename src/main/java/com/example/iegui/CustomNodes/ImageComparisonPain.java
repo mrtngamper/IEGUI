@@ -21,11 +21,11 @@ import java.io.FileNotFoundException;
 import java.util.concurrent.Callable;
 
 /**
- * Pain which enables image comparisons with a dynamic slider to switch between the two images.
+ * A Pain which enables image comparisons with a dynamic slider to switch between the two images.
  */
 public class ImageComparisonPain extends Pane {
 
-    private SimpleDoubleProperty position= new SimpleDoubleProperty(0.7);
+    private SimpleDoubleProperty position= new SimpleDoubleProperty(0.5);
     private SimpleDoubleProperty height = new SimpleDoubleProperty(0);
     private SimpleDoubleProperty width = new SimpleDoubleProperty(0);
     private double imageRatio ;

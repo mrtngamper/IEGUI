@@ -115,3 +115,15 @@ result: Result
 
 ieguiTeam: IEGUI Team
 select: Select path
+
+denoising: Denoising
+superResolution: Super-resolution
+
+wrongSettings: Selected settings are not valid
+oldModel: Old model
+newModel: New model
+fastModel: Fast model
+deblurring: Deblurring
+gamma: Gamma
+model: Model
+noiseIntensity: Noise Intensity

@@ -1,38 +1,77 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
-import com.example.iegui.util.Alerts;
+import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Context;
-import com.example.iegui.util.Controller;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.layout.BorderPane;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class SwinIR extends ImageEnhanceMethod{
-      private String task="super-resolution";
+      private SimpleStringProperty task=new SimpleStringProperty("");
       private int denoisingLevel=50;
-      private int scaleFactor=4;
+
+      private SimpleStringProperty denoisingLevelProperty = new SimpleStringProperty("15");
 
 
     @Override
     public MethodSettingWindow getSettingWindow() {
 
-        return super.getSettingWindow();
+
+        HashMap<SimpleStringProperty, String> denoisingSelections = new HashMap<>();
+        denoisingSelections.putAll(Collections.singletonMap(new SimpleStringProperty(String.valueOf(50)),"50"));
+        denoisingSelections.putAll(Collections.singletonMap(new SimpleStringProperty(String.valueOf(25)),"25"));
+        denoisingSelections.putAll(Collections.singletonMap(new SimpleStringProperty(String.valueOf(15)),"15"));
+        CustomChoiceBox denoisingSelector = new CustomChoiceBox(denoisingSelections,denoisingLevelProperty);
+        denoisingLevelProperty.addListener((observableValue, s, t1) -> denoisingLevel=Integer.parseInt(t1));
+
+        denoisingLevelProperty.setValue("15");
+
+        MethodSettingWindow msw = new MethodSettingWindow();
+        HBox settingBox = new HBox();
+        task.setValue("");
+        settingBox.setAlignment(Pos.CENTER);
+        task.addListener((observableValue, s, t1) -> {
+            settingBox.getChildren().clear();
+            switch(t1){
+                case "denoising":
+                    settingBox.getChildren().add(new DescribedNode(context.getTextName("noiseIntensity"),denoisingSelector));
+                    break;
+                case "super-resolution":
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        HashMap<SimpleStringProperty, String> selections= new HashMap<>();
+        selections.putAll(Collections.singletonMap(context.getTextName("superResolution"),"super-resolution"));
+        selections.putAll(Collections.singletonMap(context.getTextName("denoising"),"denoising"));
+        CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
+
+        msw.getChildren().add(new DescribedNode(context.getTextName("task"),taskSelector));
+        msw.getChildren().add(settingBox);
+        msw.setSpacing(10);
+
+        msw.setDownscale(getDownscaleFactor(),context);
+        return msw;
     }
 
+
     @Override
-       public String[] getCMD(){
-            switch(task) {
+       public String[] getCMD() throws DynamicMessageException {
+            switch(task.getValue()) {
                 case "super-resolution":
                     return new String[]{
                             Context.independent(getEnvDir()+"/"+"python"),
@@ -40,7 +79,7 @@ public class SwinIR extends ImageEnhanceMethod{
                             "--task",
                             "real_sr",
                             "--scale",
-                            String.valueOf(scaleFactor),
+                            "4",
                             "--large_model",
                             "--model_path",
                             Context.independent(getLocation()+"/model_zoo/swinir/003_realSR_BSRGAN_DFOWMFC_s64w8_SwinIR-L_x4_GAN.pth"),
@@ -65,7 +104,7 @@ public class SwinIR extends ImageEnhanceMethod{
                             Context.independent(context.getTempdir()+"/output"),
                     };
                 default:
-                    return null;
+                    throw new DynamicMessageException(context.getTextName("wrongSettings").getValue());
             }
       }
 
