@@ -61,15 +61,15 @@ public class welcomeController extends Controller  {
         CheckBox.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
         Bindings.bindBidirectional(context.openWelcomeViewProperty(),CheckBox.selectedProperty());
 
-        ScrollPane pagBoxWelcome = createView(context.getTextName("welcomeTitle"),context.getTextName("welcomeText"),"Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
-        ScrollPane pageBoxMain = createView(context.getTextName("mainViewWelcomeTitle"),context.getTextName("mainViewWelcomeText"),"Images/mainView.png");
-        ScrollPane pageBoxSettings = createView(context.getTextName("settingsWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Images/mainView2.png");
+        ScrollPane pagBoxWelcome = createView(context.getTextName("welcomeTitle"),context.getTextName("welcomeText"),"/images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
+        ScrollPane pageBoxMain = createView(context.getTextName("mainViewWelcomeTitle"),context.getTextName("mainViewWelcomeText"),"/images/mainView.png");
+        ScrollPane pageBoxSettings = createView(context.getTextName("settingsWelcomeTitle"),context.getTextName("settingsWelcomeText"),"/images/mainView2.png");
 
-        ScrollPane pageBoxSettings2 = createView(context.getTextName("settingsWelcomeTitle2"),context.getTextName("settingsWelcomeText2"),"Images/mainView3.png");
-        ScrollPane pageBoxLoading = createView(context.getTextName("loadingViewWelcomeTitle"),context.getTextName("loadingViewWelcomeText"),"Images/loading.png");
+        ScrollPane pageBoxSettings2 = createView(context.getTextName("settingsWelcomeTitle2"),context.getTextName("settingsWelcomeText2"),"/images/mainView3.png");
+        ScrollPane pageBoxLoading = createView(context.getTextName("loadingViewWelcomeTitle"),context.getTextName("loadingViewWelcomeText"),"/images/loading.png");
 
         ScrollPane pageBoxWait = createView(context.getTextName("loadingViewWelcomeTitle2"),context.getTextName("loadingViewWelcomeText2"),null);
-        ScrollPane pageBoxEnjoy = createView(context.getTextName("finishViewWelcomeTitle"),context.getTextName("finishViewWelcomeText"),"Images/result.png");
+        ScrollPane pageBoxEnjoy = createView(context.getTextName("finishViewWelcomeTitle"),context.getTextName("finishViewWelcomeText"),"/images/result.png");
 
 
 
@@ -121,7 +121,7 @@ public class welcomeController extends Controller  {
     private ImageView addimage(String url){
         ImageView imageView = new ImageView();
         try{
-            FileInputStream inputstream = new FileInputStream(url);
+            InputStream inputstream = this.getClass().getResourceAsStream(url);
             Image image = new Image(inputstream);
             imageView.setImage(image);
             imageView.setPreserveRatio(true);

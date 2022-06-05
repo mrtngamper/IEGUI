@@ -41,10 +41,8 @@ def main():
         shutil.copyfile(source+"/target/IEGUI-1.0-SNAPSHOT-shaded.jar",tempdir+"/iegui.jar")
         print("copying EnhanceMethod")
         shutil.copytree(source+"/EnhanceMethod/", tempdir+"/EnhanceMethod/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
-        print("copying Images")
-        shutil.copytree(source+"/Images/", tempdir+"/Images/", dirs_exist_ok=True,ignore=shutil.ignore_patterns('*.pth'))
-        print("copying Language")
-        shutil.copytree(source+"/Language/", tempdir+"/Language/", dirs_exist_ok=True,ignore=shutil.ignore_patterns('*.pth'))
+        print("copying Settings")
+        shutil.copytree(source+"/Settings/", tempdir+"/Settings/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
         files=os.listdir(source+"/Environments/")
         try:

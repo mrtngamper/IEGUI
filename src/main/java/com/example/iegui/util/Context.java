@@ -8,7 +8,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -17,7 +16,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -111,7 +109,7 @@ public class Context {
 
         try {
             language.setContext(this);
-            language.load("Language/"+lang.getValue()+".yml");
+            language.load("/language/"+lang.getValue()+".yml");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -161,7 +159,7 @@ public class Context {
     public void setLang(String lang) {
         try {
             this.lang.set(lang);
-            language.load("Language/"+lang+".yml");
+            language.load("/language/"+lang+".yml");
             storeSettings();
         } catch (FileNotFoundException e) {
             Alerts.Error(e.getMessage());
@@ -178,8 +176,8 @@ public class Context {
             Map<String, Object> map = yaml.load(inputStream);
 
             // Add properties if necessary
-            if(map.containsKey("Language")){
-                lang.setValue((String)map.get("Language"));
+            if(map.containsKey("language")){
+                lang.setValue((String)map.get("language"));
             }
 
             if(map.containsKey("OpenWelcomeView")){
