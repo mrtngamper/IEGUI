@@ -1,7 +1,9 @@
 import argparse
 import io
 import os
+
 from pathlib import Path
+
 import shutil
 import zipfile
 
@@ -52,7 +54,9 @@ def normalize(raw_path):
 
 parser = argparse.ArgumentParser()
 
+
 parser.add_argument("--zip", type=str, default=None)
+
 parser.add_argument("--installation", type=str, default="./temp")
 parser.add_argument("--model", type=str, default="model")
 parser.add_argument("--source", type=str, default="./")
@@ -104,7 +108,6 @@ def main():
     else:
         copyModels(source)
 
-
 def getTotalSizeOfModels():
     if os.path.isdir(directory):
         total_size = 0
@@ -120,6 +123,7 @@ def copyModels(destination):
     if getTotalSizeOfModels() < 7174020431:
         # TODO download only models that doesn't exist in the directory
         download_models()
+        
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
@@ -133,7 +137,7 @@ def copyModels(destination):
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
-                try:
+
                     print("copying " + i + " to " + destination+"/"+yml[i]+"/")
                     print(directory+"/"+i)
                     print(destination+"/"+yml[i]+"/")
@@ -146,5 +150,4 @@ def copyModels(destination):
 
 
 main()
-
-
+# download_models()
