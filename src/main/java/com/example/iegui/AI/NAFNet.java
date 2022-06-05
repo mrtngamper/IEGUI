@@ -1,11 +1,13 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.text.Text;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -68,7 +70,11 @@ public class NAFNet extends ImageEnhanceMethod{
         selections.putAll(Collections.singletonMap(context.getTextName("deblurring"),"deblurring"));
 
         CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
-        msw.getChildren().add(taskSelector);
+
+
+        msw.getChildren().add(new DescribedNode(context.getTextName("task"),taskSelector));
+        msw.setSpacing(10);
+        msw.setDownscale(getDownscaleFactor(),context);
         return msw;
     }
 }

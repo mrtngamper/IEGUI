@@ -1,5 +1,6 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
 import com.example.iegui.util.NumberField;
@@ -150,44 +151,29 @@ public class GPEN extends ImageEnhanceMethod {
         context.getTextName("faceInpainting").addListener((observableValue, s, t1) -> availableTasks.set(2, s));
         context.getTextName("segmentation2Face").addListener((observableValue, s, t1) -> availableTasks.set(3, s));
 
-        Label taskLabel = new Label();
-        taskLabel.textProperty().bind(context.getTextName("task"));
 
         ChoiceBox<String> taskSelector = new ChoiceBox<>(FXCollections.observableList(availableTasks));
 
-        VBox taskBox = new VBox();
-        taskBox.getChildren().addAll(taskLabel, taskSelector);
-        taskBox.setAlignment(Pos.CENTER);
 
         taskSelector.setValue(availableTasks.get(0));
 
         Integer[] availableScales = new Integer[] {1, 2, 4};
 
-        Label scaleLabel = new Label();
-        scaleLabel.textProperty().bind(context.getTextName("scale"));
         ChoiceBox<Integer> scaleSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableScales));
-
-        VBox scaleBox = new VBox();
-        scaleBox.getChildren().addAll(scaleLabel, scaleSelector);
-        scaleBox.setAlignment(Pos.CENTER);
-
         scaleSelector.setValue(1);
 
         scaleSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> scaleFactor = newValue);
 
         Integer[] availableInSizes = new Integer[] {256, 512};
-        Label inSizeLabel = new Label();
-        inSizeLabel.textProperty().bind(context.getTextName("inRes"));
         ChoiceBox<Integer> inSizeSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableInSizes));
-
-        VBox inSizeBox = new VBox();
-        inSizeBox.getChildren().addAll(inSizeLabel, inSizeSelector);
-        inSizeBox.setAlignment(Pos.CENTER);
 
         inSizeSelector.setValue(512);
         inSizeSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> inputResolution = newValue);
 
-        settingWindow.getChildren().addAll(taskBox, scaleBox, inSizeBox);
+        settingWindow.getChildren().addAll(
+                new DescribedNode(context.getTextName("task"),taskSelector),
+                new DescribedNode(context.getTextName("inRes"),inSizeSelector),
+                new DescribedNode(context.getTextName("scale"),scaleSelector));
 
         settingWindow.setDownscale(super.getDownscaleFactor(), context);
 

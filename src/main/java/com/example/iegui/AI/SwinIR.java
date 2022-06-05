@@ -1,15 +1,19 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Context;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,11 +41,12 @@ public class SwinIR extends ImageEnhanceMethod{
         MethodSettingWindow msw = new MethodSettingWindow();
         HBox settingBox = new HBox();
         task.setValue("");
+        settingBox.setAlignment(Pos.CENTER);
         task.addListener((observableValue, s, t1) -> {
             settingBox.getChildren().clear();
             switch(t1){
                 case "denoising":
-                    settingBox.getChildren().add(denoisingSelector);
+                    settingBox.getChildren().add(new DescribedNode(context.getTextName("noiseIntensity"),denoisingSelector));
                     break;
                 case "super-resolution":
                     break;
@@ -55,10 +60,11 @@ public class SwinIR extends ImageEnhanceMethod{
         selections.putAll(Collections.singletonMap(context.getTextName("denoising"),"denoising"));
         CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
 
-        msw.getChildren().add(taskSelector);
-        msw.setSpacing(10);
+        msw.getChildren().add(new DescribedNode(context.getTextName("task"),taskSelector));
         msw.getChildren().add(settingBox);
+        msw.setSpacing(10);
 
+        msw.setDownscale(getDownscaleFactor(),context);
         return msw;
     }
 

@@ -122,3 +122,5 @@ newModel: New model
 fastModel: Fast model
 deblurring: Deblurring
 gamma: Gamma
+model: Model
+noiseIntensity: Noise Intensity

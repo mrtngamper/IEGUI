@@ -1,10 +1,12 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Context;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.util.Collections;
@@ -80,7 +82,10 @@ public class LLFlow extends ImageEnhanceMethod{
         selections.putAll(Collections.singletonMap(context.getTextName("fastModel"),"small-net"));
 
         CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
-        msw.getChildren().add(taskSelector);
+
+        msw.getChildren().add(new DescribedNode(context.getTextName("model"),taskSelector));
+        msw.setSpacing(10);
+        msw.setDownscale(getDownscaleFactor(),context);
         return msw;
     }
 }

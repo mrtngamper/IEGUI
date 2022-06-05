@@ -1,8 +1,16 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
+import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class WhiteBalance extends ImageEnhanceMethod{
     /**
@@ -34,6 +42,13 @@ public class WhiteBalance extends ImageEnhanceMethod{
                 "--outdir",
                 Context.independent(String.format(context.getTempdir()+"/output")),
         };
+    }
+
+    @Override
+    public MethodSettingWindow getSettingWindow() {
+        MethodSettingWindow msw = new MethodSettingWindow();
+        msw.setDownscale(getDownscaleFactor(),context);
+        return msw;
     }
 }
 // python test.py --wb-settings D S T F C --model-name WB_model_p_128_D_S_T_F_C  --testing-dir data/test_images  --outdir ./results

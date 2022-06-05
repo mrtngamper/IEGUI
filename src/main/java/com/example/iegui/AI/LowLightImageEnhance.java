@@ -1,6 +1,7 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
 import javafx.beans.property.SimpleStringProperty;
@@ -36,13 +37,9 @@ public class LowLightImageEnhance extends ImageEnhanceMethod{
 
         CustomChoiceBox taskSelector = new CustomChoiceBox(selections,gammaProperty);
 
-
-        Text gammaText = new Text();
-        gammaText.textProperty().bind(context.getTextName("gamma"));
-        msw.getChildren().add(gammaText);
-        msw.getChildren().add(taskSelector);
+        msw.getChildren().add(new DescribedNode(context.getTextName("gamma"),taskSelector));
         msw.setSpacing(10);
-        msw.setAlignment(Pos.CENTER_LEFT);
+        msw.setDownscale(getDownscaleFactor(),context);
         return msw;
     }
 
