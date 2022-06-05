@@ -57,7 +57,7 @@ depInstalled: Dependencies have been installed
 task: Task
 scale: Scale
 inRes: Input Resolution
-downscaleFactor: Downscale Factor
+downscaleFactor: Input Downscale Factor
 faceEnhancement: Face Enhancement
 faceColorization: Face Colorization
 faceInpainting: Face Inpainting
@@ -88,18 +88,21 @@ for each part. It can achieve very good results with images containing different
 tend to struggle a lot. A disadvantage with this method is, that the less sharpness an image has, the poorer is the output"
 
 llie: Low light image enhancement
-llie_short: Enlightens low light images.
+llie_short: Enlightens low light images
 llie_long: "This tool allows for enlightenment of very low light images, and is very fast by doing so it can also handle large images.
 Its disadvantage is, that it often times messes up the white balance. To a certain extend that can oftentimes be corrected with the
 tool for automatic white balance, but in general LLFlow produces better results."
 
 llflow: LLFlow
-llflow_short: Enlightens low light images.
+llflow_short: Enlightens low light images
 llflow_long: "This tool can enlighten low light images very well, with the disadvantage of it being very slow."
 
 gpen: GPEN
-gpen_short: A method for face enhancement
-gpen_long: A long description of gpen   # TODO Create long description
+gpen_short: A method for face restoration
+gpen_long: "GPEN (GAN Prior Embedded Network) can mainly restore faces. There are 3 options, all of which work much better with close-ups, 
+such as selfies, than with pictures where the face is further away. First, face enhancement to enhance and enlarge poor quality face images. 
+Second option is to colorize black and white images. And last option is to remove impurities from images. Usually only works with white lines, 
+i.e. you have to paint over the impurities with white lines manually beforehand."
 
 
 start: Start

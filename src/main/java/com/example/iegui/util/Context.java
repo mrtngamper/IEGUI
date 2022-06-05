@@ -61,6 +61,15 @@ public class Context {
 
     private SimpleStringProperty selectedFile = new SimpleStringProperty();
 
+    private Image icon;
+
+    public Image getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Image icon) {
+        this.icon = icon;
+    }
 
     /**
      * New Output Stream for System.out to enable printing to TextArea

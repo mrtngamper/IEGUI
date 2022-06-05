@@ -248,6 +248,7 @@ public class MainViewController extends Controller implements Initializable {
 
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+            stage.getIcons().add(context.getIcon());
         } catch (IOException e) {
             Alerts.Error(e.getMessage());
         }
