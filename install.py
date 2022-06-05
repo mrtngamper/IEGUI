@@ -114,13 +114,25 @@ def main():
         copyModels(source)
 
 
+def getTotalSizeOfModels():
+    if os.path.isdir(directory):
+        total_size = 0
+        for dirpath, dirnames, filenames in os.walk(directory):
+            for f in filenames:
+                fp = os.path.join(dirpath, f)
+                total_size += os.path.getsize(fp)
+
+        return total_size
+
+
 def copyModels(destination):
+    if getTotalSizeOfModels() < 7174020431:
+        # TODO download only models that doesn't exist in the directory
+        download_models()
+    print(getTotalSizeOfModels())
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
-
-    # TODO check if models are already installed
-    download_models()
 
     r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
 
