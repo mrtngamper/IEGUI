@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class GPEN extends ImageEnhanceMethod {
     private String task = "face-enhancement";
-    private int scaleFactor = 4;
+    private int scaleFactor = 1;
     private int inputResolution = 512;
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
@@ -89,23 +89,6 @@ public class GPEN extends ImageEnhanceMethod {
                         "--outdir",
                         context.getTempdir()+"/output",
                 };
-            case "segmentation-to-face":
-                return new String[]{
-                        Context.independent(getEnvDir() + "/python3"),
-                        "main.py",
-                        "--model",
-                        "GPEN-Seg2face-512",
-                        "--task",
-                        "Segmentation2Face",
-                        "--sr_scale",
-                        String.valueOf(scaleFactor),
-                        "--in_size",
-                        "512",
-                        "--indir",
-                        Context.independent(context.getTempdir()+"/input"),
-                        "--outdir",
-                        Context.independent(context.getTempdir()+"/output"),
-                };
             default:
                 return null;
         }
@@ -117,7 +100,7 @@ public class GPEN extends ImageEnhanceMethod {
      * @param task face-enhancement, face-colorization, face-inpainting or segmentation-to-face
      */
     public void setTask(String task) {
-        if (task.equals("face-enhancement") || task.equals("face-colorization") || task.equals("face-inpainting") || task.equals("segmentation-to-face")) {
+        if (task.equals("face-enhancement") || task.equals("face-colorization") || task.equals("face-inpainting")) {
             this.task = task;
         } else {
             throw new IllegalArgumentException("Task must be one of the following: face-enhancement, face-colorization, face-inpainting or segmentation-to-face");
@@ -144,28 +127,44 @@ public class GPEN extends ImageEnhanceMethod {
         availableTasks.add(context.getTextName("faceEnhancement").get());
         availableTasks.add(context.getTextName("faceColorization").get());
         availableTasks.add(context.getTextName("faceInpainting").get());
-        availableTasks.add(context.getTextName("segmentation2Face").get());
 
         context.getTextName("faceEnhancement").addListener((observableValue, s, t1) -> availableTasks.set(0, s));
         context.getTextName("faceColorization").addListener((observableValue, s, t1) -> availableTasks.set(1, s));
         context.getTextName("faceInpainting").addListener((observableValue, s, t1) -> availableTasks.set(2, s));
-        context.getTextName("segmentation2Face").addListener((observableValue, s, t1) -> availableTasks.set(3, s));
 
+        Label taskLabel = new Label();
+        taskLabel.textProperty().bind(context.getTextName("task"));
 
         ChoiceBox<String> taskSelector = new ChoiceBox<>(FXCollections.observableList(availableTasks));
 
+        VBox taskBox = new VBox();
+        taskBox.getChildren().addAll(taskLabel, taskSelector);
+        taskBox.setAlignment(Pos.CENTER);
 
         taskSelector.setValue(availableTasks.get(0));
 
         Integer[] availableScales = new Integer[] {1, 2, 4};
 
+        Label scaleLabel = new Label();
+        scaleLabel.textProperty().bind(context.getTextName("scale"));
         ChoiceBox<Integer> scaleSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableScales));
-        scaleSelector.setValue(1);
+
+        VBox scaleBox = new VBox();
+        scaleBox.getChildren().addAll(scaleLabel, scaleSelector);
+        scaleBox.setAlignment(Pos.CENTER);
+
+        scaleSelector.setValue(2);
 
         scaleSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> scaleFactor = newValue);
 
         Integer[] availableInSizes = new Integer[] {256, 512};
+        Label inSizeLabel = new Label();
+        inSizeLabel.textProperty().bind(context.getTextName("inRes"));
         ChoiceBox<Integer> inSizeSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableInSizes));
+
+        VBox inSizeBox = new VBox();
+        inSizeBox.getChildren().addAll(inSizeLabel, inSizeSelector);
+        inSizeBox.setAlignment(Pos.CENTER);
 
         inSizeSelector.setValue(512);
         inSizeSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> inputResolution = newValue);
@@ -191,11 +190,6 @@ public class GPEN extends ImageEnhanceMethod {
                     break;
                 case 2:
                     task = "face-inpainting";
-                    scaleSelector.setDisable(true);
-                    inSizeSelector.setDisable(true);
-                    break;
-                case 3:
-                    task = "segmentation-to-face";
                     scaleSelector.setDisable(true);
                     inSizeSelector.setDisable(true);
                     break;

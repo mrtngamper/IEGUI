@@ -497,6 +497,7 @@ public abstract class ImageEnhanceMethod {
                 stage.resizableProperty().setValue(Boolean.FALSE);
                 stage.initStyle(StageStyle.DECORATED);
                 stage.show();
+                stage.getIcons().add(context.getIcon());
                 return stage;
             } catch (Exception e) {
                 Alerts.Error(e.getMessage());
@@ -600,7 +601,7 @@ public abstract class ImageEnhanceMethod {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.show();
-
+                stage.getIcons().add(context.getIcon());
             }
         });
     }
