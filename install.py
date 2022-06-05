@@ -31,7 +31,7 @@ def download():
               "SwinIR_models.zip"]
 
 
-    if(source==None):
+    if(source==False):
         download_and_extract_zip(jarname,False)
 
     for model in models:
@@ -94,9 +94,9 @@ parser.add_argument("--noclean",action='store_true', help="Select if you dont wa
 args = parser.parse_args()
 
 directory = normalize(args.dl_cache)
-source = normalize(args.source)
+source = args.source
 
-tempdir = source + "/tempInstallationDir"
+tempdir = normalize("/tempInstallationDir")
 
 
 def main():
@@ -114,10 +114,10 @@ def main():
                 print("Temp dir exists")
 
             print("copying jar")
-            shutil.copyfile(normalize(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/IEGUI.jar"))
+            shutil.copyfile(normalize("./target/IEGUI-0.1-shaded.jar"),normalize(tempdir+"/IEGUI.jar"))
         else:
             print("copying jar")
-            shutil.copyfile((normalize(directory+"/"+jarname, tempdir + "/IEGUI.jar"))
+            shutil.copyfile((normalize(directory+"/"+jarname), normalize(tempdir + "/IEGUI.jar")))
 
         print("copying EnhanceMethod")
         shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
@@ -136,7 +136,7 @@ def main():
         if not args.noclean:
             shutil.rmtree(directory, ignore_errors = False)
     else:
-        copyModels(source)
+        copyModels(normalize("./"))
 
 def getTotalSizeOfModels():
     total_size = 0
@@ -150,8 +150,8 @@ def getTotalSizeOfModels():
 
 
 def copyModels(destination):
-    if getTotalSizeOfModels() < 7174020431:
-        # TODO download only models that doesn't exist in the directory
+   # if getTotalSizeOfModels() < 7174020431:
+         # TODO download only models that doesn't exist in the directory
 
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
