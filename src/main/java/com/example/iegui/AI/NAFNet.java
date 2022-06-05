@@ -35,7 +35,7 @@ public class NAFNet extends ImageEnhanceMethod{
         switch(task.getValue()){
             case "denoising":
                 return new String[]{
-                        Context.independent(getEnvDir()+"/python3"),
+                        Context.independent(getEnvDir()+"/python"),
                         Context.independent(getLocation()+"/basicsr/demo.py"),
                         "-opt",
                         Context.independent(getLocation()+"/options/test/SIDD/NAFNet-width64.yml"),
@@ -46,7 +46,7 @@ public class NAFNet extends ImageEnhanceMethod{
                 };
             case "deblurring":
                 return new String[]{
-                        Context.independent(getEnvDir()+"/python3"),
+                        Context.independent(getEnvDir()+"/python"),
                         Context.independent(getLocation()+"/basicsr/demo.py"),
                         "-opt",
                         Context.independent(getLocation()+"/options/test/REDS/NAFNet-width64.yml"),

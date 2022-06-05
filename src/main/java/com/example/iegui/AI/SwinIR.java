@@ -90,7 +90,7 @@ public class SwinIR extends ImageEnhanceMethod{
                     };
                 case "denoising":
                     return new String[]{
-                            Context.independent(getEnvDir()+"/python3"),
+                            Context.independent(getEnvDir()+"/python"),
                             "main_test_swinir.py",
                             "--task",
                             "color_dn",
