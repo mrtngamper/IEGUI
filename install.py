@@ -1,7 +1,9 @@
 import argparse
 import io
 import os
-import pathlib
+
+from pathlib import Path
+
 import shutil
 import zipfile
 from sys import platform
@@ -75,12 +77,14 @@ def download_and_extract_zip(model, unzip):
 
 
 def normalize(raw_path):
-    return pathlib.Path(raw_path).expanduser().resolve().__str__()
+    return Path(raw_path).expanduser().resolve().__str__()
 
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--zip", type=str, default="test")
+
+parser.add_argument("--zip", type=str, default=None)
+
 parser.add_argument("--installation", type=str, default="./temp")
 parser.add_argument("--dl_cache", type=str, default="dl_cache")
 parser.add_argument("--source", type=str, default="./")
@@ -88,7 +92,7 @@ parser.add_argument("--noclean",action='store_true')
 
 args = parser.parse_args()
 
-directory = normalize(args.dl_cache)
+directory = args.dl_cache
 source = normalize(args.source)
 
 tempdir = source + "/tempInstallationDir"
@@ -126,14 +130,25 @@ def main():
     else:
         copyModels(source)
 
+def getTotalSizeOfModels():
+    if os.path.isdir(directory):
+        total_size = 0
+        for dirpath, dirnames, filenames in os.walk(directory):
+            for f in filenames:
+                fp = os.path.join(dirpath, f)
+                total_size += os.path.getsize(fp)
+
+        return total_size
+
 
 def copyModels(destination):
+    if getTotalSizeOfModels() < 7174020431:
+        # TODO download only models that doesn't exist in the directory
+        download_models()
+
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
-
-    # TODO check if models are already installed
-    download()
 
     r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
 
@@ -144,11 +159,13 @@ def copyModels(destination):
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
-                try:
-                    shutil.copy(directory + "/" + i, destination + "/" + yml[i] + "/")
+
+                    print("copying " + i + " to " + destination+"/"+yml[i]+"/")
+                    print(directory+"/"+i)
+                    print(destination+"/"+yml[i]+"/")
+                    shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
                 except Exception as f:
-                    print("copying: " + i)
-                    print(i + ", " + yml[i] + ": Could not be copied")
+                    print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)
     except Exception as e:
         print(e)
