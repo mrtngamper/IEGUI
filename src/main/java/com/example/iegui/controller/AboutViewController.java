@@ -37,8 +37,8 @@ public class AboutViewController extends Controller {
         header.textProperty().bind(context.getTextName("ieguiTeam"));
 
         try {
-            imageView.setImage(new Image(new FileInputStream("Images/about.jpg")));
-        } catch (FileNotFoundException e) {
+            imageView.setImage(new Image((getClass().getResourceAsStream("/images/about.jpg"))));
+        } catch (Exception e) {
             Alerts.Error(e.getMessage());
         }
 

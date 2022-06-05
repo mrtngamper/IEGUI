@@ -11,40 +11,34 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.JarURLConnection;
 import java.net.URL;
-import java.util.Objects;
+import java.net.URLConnection;
+import java.util.Enumeration;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-
 
 /**
  * Controller for main window which is displayed after application launch
@@ -112,13 +106,41 @@ public class MainViewController extends Controller implements Initializable {
 
 
         try {
-            File languageDir = new File("Language");
-            for (File i : languageDir.listFiles()) {
-                MenuItem item = new MenuItem();
-                item.setText(i.getName().split("\\..*")[0]);
-                item.setOnAction(this::onLanguagePressed);
-                languageSetting.getItems().add(item);
+            URL url = getClass().getResource("MainViewController.class");
+            String scheme = url.getProtocol();
+            System.out.println(scheme);
+            switch(scheme) {
+                case "jar":
+                    JarURLConnection con = (JarURLConnection) url.openConnection();
+                    JarFile archive = con.getJarFile();
+                    Enumeration<JarEntry> entries = archive.entries();
+                    while (entries.hasMoreElements()) {
+                        JarEntry entry = entries.nextElement();
+                        if (entry.getName().startsWith("language")) {
+                            try {
+                                MenuItem item = new MenuItem();
+                                String[] split = entry.getName().split("language/");
+                                item.setText(split[1].split("\\..*")[0]);
+                                item.setOnAction(this::onLanguagePressed);
+                                languageSetting.getItems().add(item);
+                            }catch(Exception ignore){}
+                        }
+                    }
+                    break;
+                case "file":
+                    String file1 = url.getPath();
+                    File resourceFile = new File(file1);
+                    File rootDir = resourceFile.getParentFile().getParentFile().getParentFile().getParentFile().getParentFile();
+                    File languageDir = new File(rootDir+"/"+"language/");
+                    for (File i : languageDir.listFiles()) {
+                        MenuItem item = new MenuItem();
+                        item.setText(i.getName().split("\\..*")[0]);
+                        item.setOnAction(this::onLanguagePressed);
+                        languageSetting.getItems().add(item);
+                    }
+                    break;
             }
+
         }catch(Exception e){
             Alerts.Error(e.getMessage());
         }

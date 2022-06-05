@@ -1,0 +1,122 @@
+ok: OK
+abort: abbrechen
+file: Datei
+open: Offen
+
+browse: Wählen Sie eine Datei aus
+browse2: oder Datei hierher ziehen
+imageNotFound: Bild nicht gefunden
+
+welcomeTitle : "Willkommen ..."
+welcomeText : "... zur Bildverbesserungs-GUI. Dieses Programm ist eine GUI für verschiedene KI-unterstützte Bildverbesserungsalgorithmen. Sie können durch die Seiten blättern, um detailliertere Informationen zu erhalten!"
+mainViewWelcomeTitle : "Drop"
+mainViewWelcomeText : "Dieses Fenster ist das Herzstück von IEGUI. Es lässt Sie ein Bild per Drag & Drop in den hervorgehobenen Bereich ziehen"
+
+settingsWelcomeTitle: "Auswählen"
+settingsWelcomeText: "... dann kannst du eine Verbesserungsmethode auswählen, indem du darauf doppelklickst, ..."
+
+settingsWelcomeTitle2: "Einstellungen ändern"
+settingsWelcomeText2: "... ändere die Einstellungen ..."
+
+loadingViewWelcomeTitle: "Enhancee!!!"
+loadingViewWelcomeText: "und klicken Sie auf Start."
+
+loadingViewWelcomeTitle2: ""
+loadingViewWelcomeText2: "Der Verbesserungsprozess kann eine Weile dauern"
+
+
+finishViewWelcomeTitle: "Viel Spaß"
+finishViewWelcomeText: "Untersuchen Sie das Ergebnis mit einem Schieberegler, um zwischen Eingabe und Ausgabe umzuschalten"
+
+
+exit: Beenden
+imageName: Bildname
+settingsSetting: Einstellungen
+languageSetting: Sprache
+lanDeSetting: De
+lanEnSetting: En
+tutorialSetting: Tutorial beim Start
+helpSetting: Hilfe
+aboutSetting: Über
+noFoto: Bilddatei erwartet
+success: Der Vorgang war erfolgreich
+nodependencies: Abhängigkeiten nicht gefunden
+error: Unerwarteter Fehler
+installationdependencies: Installation von Abhängigkeiten
+unexpectederror: Unerwarteter Fehler während der Ausführung in der Python-Umgebung
+envCreated: Virtuelle Python-Umgebung erstellt
+envDoesNotExist: Die virtuelle Python-Umgebung existiert nicht
+depInstalled: Abhängigkeiten wurden installiert
+task: Aufgabe
+scale: Vergrößerung
+inRes: Eingabeauflösung
+downscaleFactor: Geben Sie den Herunterskalierungsfaktor ein
+faceEnhancement: Gesichtsverbesserung
+faceColorization: Gesichtsfärbung
+faceInpainting: Gesichtsbemalung
+segmentation2Face: Segmentierung zu Gesicht
+welcome: wilkommen
+close: Schließen
+
+
+swinir: SwinIR
+swinir_short: Ein Tool für Bildentrauschung und Superauflösung
+swinir_long: "SwinIR kann einige Bildwiederherstellungsaufgaben ausführen. Bei Bild-Superauflösung, Bildentrauschung und JPEG
+Artefaktreduzierung erreicht es State-of-the-Art-Performance. Bildsuperauflösung kann zum Konvertieren verwendet werden
+kleinere Bilder in größere Bilder umwandeln, um ihre Qualität zu verbessern, mit gemischten Ergebnissen. Verbesserte Grafiken sehen dabei oft sehr gut aus
+Bilder aus der realen Welt tun dies nicht immer. Die Bildverdichtung kann auch ausgewählt werden, um Rauschen aus körnigen Bildern zu entfernen. Das funktioniert halbwegs gut
+meistens, aber NAFNet, eine andere Methode, die mit IEGUI bereitgestellt wird, kann manchmal bessere Ergebnisse liefern."
+
+nafnet: NAFNet
+nafnet_short: Ein Tool zum Entschärfen und Entrauschen von Bildern
+nafnet_long: "NAFNet kann sehr gut Bild-Deblurring- und Denoising-Aufgaben ausführen. Deblurring kann für Bilder verwendet werden, die
+wurden ohne Stabilisierung aufgenommen und sind daher etwas unscharf, was bei den meisten Smartphone-Bildern der Fall ist. Die Denoising-Option
+kann die Körnung recht gut aus Bildern entfernen."
+
+wb: Automatischer Weißabgleich
+wb_short: Ein Tool für automatischen KI-unterstützten Weißabgleich
+wb_long: "Die automatische Weißabgleichskorrektur für Szenen mit gemischten Lichtverhältnissen ist eine Weißabgleichstechnik, die nicht nur versucht, zu korrigieren
+die gesamte Szene mit dem gleichen Profil, versucht aber, unterschiedlich aufgeleuchtete Teile eines Bildes einzuschätzen und dann unterschiedliche Einstellungen anzuwenden
+für jeden Teil. Sehr gute Ergebnisse lassen sich mit Bildern erzielen, die unterschiedlich beleuchtete Szenen enthalten, ein Szenario, mit dem Smartphone-Kameras arbeiten
+neige dazu, viel zu kämpfen. Ein Nachteil bei dieser Methode ist, dass die Ausgabe umso schlechter ist, je weniger Schärfe ein Bild hat."
+
+llie: Bildverbesserung bei schwachem Licht
+llie_short: Erhellt Bilder bei schwachem Licht
+llie_long: "Dieses Tool ermöglicht die Aufhellung von Bildern mit sehr wenig Licht und ist sehr schnell, wodurch es auch große Bilder verarbeiten kann.
+Der Nachteil ist, dass es oft den Weißabgleich durcheinander bringt. Bis zu einem gewissen Grad kann das oft mit korrigiert werden
+Tool für den automatischen Weißabgleich, aber im Allgemeinen liefert LLFlow bessere Ergebnisse."
+
+llflow: LLflow
+llflow_short: Erhellt Bilder bei schwachem Licht
+llflow_long: "Dieses Tool kann Low-Light-Bilder sehr gut aufhellen, hat aber den Nachteil, dass es sehr langsam ist."
+
+gpen: GPEN
+gpen_short: Eine Methode zur Gesichtswiederherstellung
+gpen_long: "GPEN (GAN Prior Embedded Network) kann hauptsächlich Gesichter wiederherstellen. Es gibt 3 Optionen, die alle viel besser mit Nahaufnahmen funktionieren,
+wie Selfies, als bei Bildern, bei denen das Gesicht weiter entfernt ist. Erstens, Gesichtsverbesserung, um Gesichtsbilder von schlechter Qualität zu verbessern und zu vergrößern.
+Die zweite Möglichkeit besteht darin, Schwarzweißbilder zu kolorieren. Und die letzte Option ist das Entfernen von Verunreinigungen aus Bildern. Funktioniert normalerweise nur mit weißen Linien,
+d.h. man muss die Verunreinigungen vorher manuell mit weißen Linien übermalen."
+
+
+start: Beginnen
+noFileSelected: Keine Datei ausgewählt
+selectFile: Datei auswählen
+saveFile: Datei speichern auswählen
+imageFile: Bilddatei
+
+result: Ergebnis
+
+ieguiTeam: IEGUI-Team
+select: Pfad auswählen
+
+denoising: Rauschunterdrückung
+superResolution: Superauflösung
+
+wrongSettings: Ausgewählte Einstellungen sind nicht gültig
+oldModel: Altes Modell
+newModel: Neues Modell
+fastModel: Schnelles Modell
+deblurring: Entschärfen
+gamma: Gamma
+model: Modell
+noiseIntensity: Rauschintensität

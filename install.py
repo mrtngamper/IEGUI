@@ -1,7 +1,9 @@
 import argparse
 import io
 import os
-import pathlib
+
+from pathlib import Path
+
 import shutil
 import zipfile
 
@@ -47,19 +49,21 @@ def download_models():
 
 
 def normalize(raw_path):
-    return pathlib.Path(raw_path).expanduser().resolve().__str__()
+    return Path(raw_path).expanduser().resolve().__str__()
 
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--zip", type=str, default="test")
+
+parser.add_argument("--zip", type=str, default=None)
+
 parser.add_argument("--installation", type=str, default="./temp")
 parser.add_argument("--model", type=str, default="model")
 parser.add_argument("--source", type=str, default="./")
 
 args = parser.parse_args()
 
-directory = normalize(args.model)
+directory = args.model
 source = normalize(args.source)
 
 tempdir = source + "/tempInstallationDir"
@@ -78,29 +82,20 @@ def main():
         except:
             print("Temp dir exists")
         print("copying jar")
-        shutil.copyfile(source + "/target/IEGUI-" + release_tag + ".jar", tempdir + "/IEGUI.jar")
+        shutil.copyfile(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/iegui.jar")
         print("copying EnhanceMethod")
-        shutil.copytree(source + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns('*.pth'))
-        print("copying Images")
-        shutil.copytree(source + "/Images/", tempdir + "/Images/", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns('*.pth'))
-        print("copying Language")
-        shutil.copytree(source + "/Language/", tempdir + "/Language/", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns('*.pth'))
-        # TODO Remove Planning when it is noot needed for images anymore
-        print("copying Planning")
-        shutil.copytree(source + "/Planning/", tempdir + "/Planning/", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns('*.pth'))
+        shutil.copytree(source+"/EnhanceMethod/", tempdir+"/EnhanceMethod/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
+        print("copying Settings")
+        shutil.copytree(source+"/Settings/", tempdir+"/Settings/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
-        files = os.listdir(source + "/Environments/")
+        files = os.listdir(Path(source + "/Environments/"))
         try:
-            os.makedirs(tempdir + "/Environments")
+            os.makedirs(Path(tempdir + "/Environments"))
         except:
             print("Environments dir exists")
         for fname in files:
-            if not os.path.isdir(source + "/Environments/" + fname):
-                shutil.copy2(os.path.join(source + "/Environments/", fname), tempdir + "/Environments/" + fname)
+            if not os.path.isdir(Path(source + "/Environments/" + fname)):
+                shutil.copy2(os.path.join(Path(source + "/Environments/", fname)), Path(tempdir + "/Environments/" + fname))
         print("copying models")
         copyModels(tempdir)
 
@@ -113,11 +108,22 @@ def main():
     else:
         copyModels(source)
 
+def getTotalSizeOfModels():
+    if os.path.isdir(directory):
+        total_size = 0
+        for dirpath, dirnames, filenames in os.walk(directory):
+            for f in filenames:
+                fp = os.path.join(dirpath, f)
+                total_size += os.path.getsize(fp)
+
+        return total_size
+
 
 def copyModels(destination):
-    # TODO check if models are already installed
-    download_models()
-    
+    if getTotalSizeOfModels() < 7174020431:
+        # TODO download only models that doesn't exist in the directory
+        download_models()
+        
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
@@ -131,11 +137,13 @@ def copyModels(destination):
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
-                try:
-                    shutil.copy(directory + "/" + i, destination + "/" + yml[i] + "/")
+
+                    print("copying " + i + " to " + destination+"/"+yml[i]+"/")
+                    print(directory+"/"+i)
+                    print(destination+"/"+yml[i]+"/")
+                    shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
                 except Exception as f:
-                    print("copying: " + i)
-                    print(i + ", " + yml[i] + ": Could not be copied")
+                    print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)
     except Exception as e:
         print(e)

@@ -31,7 +31,12 @@ public class Language extends Controller {
      */
     public void load(String filename) throws FileNotFoundException {
         Yaml yaml = new Yaml();
-        InputStream inputStream = new FileInputStream(filename);
+        InputStream inputStream = getClass().getResourceAsStream(filename);
+        if(inputStream==null){
+            Alerts.Error("Language file not found");
+            System.out.println(filename);
+            return;
+        }
         Map<String, Object> map = yaml.load(inputStream);
         if(map == null){
             throw new FileNotFoundException(filename);
