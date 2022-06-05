@@ -115,12 +115,12 @@ def main():
 
 
 def copyModels(destination):
+    # TODO check if models are already installed
+    download_models()
+    
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
-
-    # TODO check if models are already installed
-    download_models()
 
     r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
 
