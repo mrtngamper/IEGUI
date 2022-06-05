@@ -181,8 +181,9 @@ public class Context {
             Map<String, Object> map = yaml.load(inputStream);
 
             // Add properties if necessary
-            if(map.containsKey("language")){
-                lang.setValue((String)map.get("language"));
+            if(map.containsKey("Language")){
+                lang.setValue((String)map.get("Language"));
+                System.out.println((String) map.get("Language"));
             }
 
             if(map.containsKey("OpenWelcomeView")){

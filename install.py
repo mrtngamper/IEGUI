@@ -31,7 +31,8 @@ def download():
               "SwinIR_models.zip"]
 
 
-    download_and_extract_zip(jarname,False)
+    if(source==None):
+        download_and_extract_zip(jarname,False)
 
     for model in models:
             download_and_extract_zip(model ,True)
@@ -83,12 +84,12 @@ def normalize(raw_path):
 parser = argparse.ArgumentParser()
 
 
-parser.add_argument("--zip", type=str, default=None)
+parser.add_argument("--zip", type=str, default=None, help = "Create zip after installation (Experimental)")
 
-parser.add_argument("--installation", type=str, default="./temp")
-parser.add_argument("--dl_cache", type=str, default="dl_cache")
-parser.add_argument("--source", type=str, default="./")
-parser.add_argument("--noclean",action='store_true')
+parser.add_argument("--installation", type=str, default="./temp", help="Set installation directory")
+parser.add_argument("--dl_cache", type=str, default="dl_cache", help = "Set download cache directory")
+parser.add_argument("--source", action='store_true', help="Select if you want to compile from source. You need to be in the source directory")
+parser.add_argument("--noclean",action='store_true', help="Select if you dont want to clean the cache (Debugging)")
 
 args = parser.parse_args()
 
@@ -104,8 +105,20 @@ def main():
         tempdir = args.installation
 
     if args.zip is not None or args.installation is not None:
-        print("copying jar")
-        shutil.copyfile(directory+"/"+jarname, tempdir + "/IEGUI.jar")
+        os.makedirs(tempdir, exist_ok=True)
+        if(args.source==True):
+            os.system("mvn install")
+            try:
+                os.makedirs(tempdir)
+            except:
+                print("Temp dir exists")
+
+            print("copying jar")
+            shutil.copyfile(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/IEGUI.jar")
+        else:
+            print("copying jar")
+            shutil.copyfile(directory+"/"+jarname, tempdir + "/IEGUI.jar")
+
         print("copying EnhanceMethod")
         shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('*.pth'))
