@@ -115,7 +115,7 @@ public class SettingsView extends BorderPane {
      */
     public void setEnhanceMethod(ImageEnhanceMethod method){
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            output.setValue(System.getenv("HOMEPATH")+"\\output.png");
+            output.setValue(System.getProperty("user.home")+"\\output.png");
         } else {
             output.setValue(System.getenv("HOME")+"/output.png");
         }
