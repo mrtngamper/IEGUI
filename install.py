@@ -93,7 +93,7 @@ def main():
             if not os.path.isdir(Path(source + "/Environments/" + fname)):
                 shutil.copy2(os.path.join(Path(source + "/Environments/", fname)), Path(tempdir + "/Environments/" + fname))
         print("copying models")
-        copyModels(source)
+        copyModels(tempdir)
 
         if args.zip is not None:
             print("creating zip archive")
