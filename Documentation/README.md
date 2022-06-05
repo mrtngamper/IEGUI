@@ -444,7 +444,7 @@ First version of the display of all available methods with title and short descr
 
 ## Temporary resume 
 #### What worked
-Up until June 28th, one week from the deadline, the development team was able
+Up until May 28th, one week from the deadline, the development team was able
 to create basic implementations of the different views wich were previously specified.
 The WelcomeView was implemented, it was possible to select or drag & drop images 
 into the MainView. It was also possible to run enhance images using a simple interface in java.
@@ -462,3 +462,12 @@ design specifications had to be changed, the most sever being the need for an in
 because of the size of some PyTorch models and the GitHub file size limitation.
 
 ## Resume
+Up until June 05th the IEGUI the codebase for IEGUI was finished, and the requirements fulfilled. 
+The development process was very interesting. The planning turned out to have been adequate. The main
+difficulty the team encountered was the splitting of the tasks. Since some tasks were simply not finished by some
+people of the team, during the development process [notion](https://www.notion.so/) was introduced to create a task list.
+Everyone who had time and was motivated could move a task from to-do to doing and afterwards to done. This introduction
+made  the development process  much easier.
+
+All -in all the team is very satisfied with the final product.
+
