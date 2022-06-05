@@ -5,8 +5,9 @@ link: https://github.com/yangxy/GPEN
 
 
 examples:
-   image1: image1out
-   image2: image2out
+   enhancementin.png: enhancementout.png
+   colorizationin.png: colorizationout.png
+   inpaintingin.png: inpaintingout.png
 
 miniatures:
    input: output

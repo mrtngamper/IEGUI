@@ -55,6 +55,9 @@ envCreated: Python Virtual Environment Created
 envDoesNotExist: Python Virtual Environment Does Not Exist
 depInstalled: Dependencies have been installed
 task: Task
+scale: Scale
+inRes: Input Resolution
+downscaleFactor: Downscale Factor
 faceEnhancement: Face Enhancement
 faceColorization: Face Colorization
 faceInpainting: Face Inpainting
@@ -109,3 +112,15 @@ result: Result
 
 ieguiTeam: IEGUI Team
 select: Select path
+
+denoising: Denoising
+superResolution: Super-resolution
+
+wrongSettings: Selected settings are not valid
+oldModel: Old model
+newModel: New model
+fastModel: Fast model
+deblurring: Deblurring
+gamma: Gamma
+model: Model
+noiseIntensity: Noise Intensity

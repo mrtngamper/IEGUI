@@ -1,11 +1,20 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.DescribedNode;
+import com.example.iegui.CustomNodes.MethodSettingWindow;
+import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Alerts;
 import com.example.iegui.util.Context;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.text.Text;
+
+import java.util.Collections;
+import java.util.HashMap;
 
 public class NAFNet extends ImageEnhanceMethod{
 
-    String task = "deblurring"; // denoising, deblurring
+    SimpleStringProperty task = new SimpleStringProperty(); // denoising, deblurring
 
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
@@ -18,9 +27,12 @@ public class NAFNet extends ImageEnhanceMethod{
         super(location, lang, context);
     }
 
+
+
+
     @Override
-    public String[] getCMD() {
-        switch(task){
+    public String[] getCMD() throws DynamicMessageException {
+        switch(task.getValue()){
             case "denoising":
                 return new String[]{
                         Context.independent(getEnvDir()+"/python3"),
@@ -44,8 +56,25 @@ public class NAFNet extends ImageEnhanceMethod{
                         Context.independent(context.getTempdir()+"/output/input.png")
                 };
             default:
-                Alerts.Error("NAFNet: Case not Found");
-                return null;
+                throw new DynamicMessageException(context.getTextName("wrongSettings").getValue());
         }
+    }
+
+    @Override
+    public MethodSettingWindow getSettingWindow() {
+
+        MethodSettingWindow msw = new MethodSettingWindow();
+
+        HashMap<SimpleStringProperty, String> selections= new HashMap<>();
+        selections.putAll(Collections.singletonMap(context.getTextName("denoising"),"denoising"));
+        selections.putAll(Collections.singletonMap(context.getTextName("deblurring"),"deblurring"));
+
+        CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
+
+
+        msw.getChildren().add(new DescribedNode(context.getTextName("task"),taskSelector));
+        msw.setSpacing(10);
+        msw.setDownscale(getDownscaleFactor(),context);
+        return msw;
     }
 }

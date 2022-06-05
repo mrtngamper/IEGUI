@@ -154,6 +154,7 @@ public class MainViewController extends Controller implements Initializable {
                 imageFile.setValue(f.getAbsolutePath());
             }
         });
+
         imageFile.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -207,7 +208,7 @@ public class MainViewController extends Controller implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(context.getTextName("selectFile").getValue());
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(context.getTextName("imageFile").getValue(), "*.png", "*.jpg", "*.gif", "*.jps", "*.mpo"));
+                new FileChooser.ExtensionFilter(context.getTextName("imageFile").getValue(), "*.png", "*.jpg", "*.jpeg", "*.gif", "*.jps", "*.mpo"));
         File selectedFile = fileChooser.showOpenDialog(context.getStage());
         if (selectedFile != null) {
             imageFile.setValue(selectedFile.getAbsolutePath());
