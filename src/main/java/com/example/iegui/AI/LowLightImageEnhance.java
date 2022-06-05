@@ -59,7 +59,7 @@ public class LowLightImageEnhance extends ImageEnhanceMethod{
     @Override
     public String[] getCMD() {
         return new String[]{
-                Context.independent(getEnvDir()+"/python3"),
+                Context.independent(getEnvDir()+"/python"),
                 "demo.py",
                 "-l",
                 String.valueOf(lambda),

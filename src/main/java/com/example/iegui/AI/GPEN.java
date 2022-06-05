@@ -40,7 +40,7 @@ public class GPEN extends ImageEnhanceMethod {
         switch(task) {
             case "face-enhancement":
                 return new String[]{
-                        Context.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python"),
                         "main.py",
                         "--model",
                         "GPEN-BFR-512",
@@ -57,7 +57,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-colorization":
                 return new String[]{
-                        Context.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python"),
                         "main.py",
                         "--model",
                         "GPEN-Colorization-1024",
@@ -74,7 +74,7 @@ public class GPEN extends ImageEnhanceMethod {
                 };
             case "face-inpainting":
                 return new String[]{
-                        Context.independent(getEnvDir() + "/python3"),
+                        Context.independent(getEnvDir() + "/python"),
                         "main.py",
                         "--model",
                         "GPEN-Inpainting-1024",

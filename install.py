@@ -86,14 +86,14 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("--zip", type=str, default=None, help = "Create zip after installation (Experimental)")
 
-parser.add_argument("--installation", type=str, default="./temp", help="Set installation directory")
+parser.add_argument("--installation", type=str, default=normalize("./temp"), help="Set installation directory")
 parser.add_argument("--dl_cache", type=str, default="dl_cache", help = "Set download cache directory")
 parser.add_argument("--source", action='store_true', help="Select if you want to compile from source. You need to be in the source directory")
 parser.add_argument("--noclean",action='store_true', help="Select if you dont want to clean the cache (Debugging)")
 
 args = parser.parse_args()
 
-directory = args.dl_cache
+directory = normalize(args.dl_cache)
 source = normalize(args.source)
 
 tempdir = source + "/tempInstallationDir"
@@ -102,7 +102,7 @@ tempdir = source + "/tempInstallationDir"
 def main():
     global tempdir
     if args.installation is not None:
-        tempdir = args.installation
+        tempdir = normalize(args.installation)
 
     if args.zip is not None or args.installation is not None:
         os.makedirs(tempdir, exist_ok=True)
@@ -114,10 +114,10 @@ def main():
                 print("Temp dir exists")
 
             print("copying jar")
-            shutil.copyfile(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/IEGUI.jar")
+            shutil.copyfile(normalize(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/IEGUI.jar"))
         else:
             print("copying jar")
-            shutil.copyfile(directory+"/"+jarname, tempdir + "/IEGUI.jar")
+            shutil.copyfile((normalize(directory+"/"+jarname, tempdir + "/IEGUI.jar"))
 
         print("copying EnhanceMethod")
         shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
@@ -139,20 +139,19 @@ def main():
         copyModels(source)
 
 def getTotalSizeOfModels():
+    total_size = 0
     if os.path.isdir(directory):
-        total_size = 0
         for dirpath, dirnames, filenames in os.walk(directory):
             for f in filenames:
                 fp = os.path.join(dirpath, f)
                 total_size += os.path.getsize(fp)
 
-        return total_size
+    return total_size
 
 
 def copyModels(destination):
     if getTotalSizeOfModels() < 7174020431:
         # TODO download only models that doesn't exist in the directory
-        download()
 
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
@@ -168,10 +167,13 @@ def copyModels(destination):
             yml = yaml.safe_load(file)
             for i in yml:
                 try:
-                    print("copying " + i + " to " + destination+"/"+yml[i]+"/")
-                    print(directory+"/"+i)
-                    print(destination+"/"+yml[i]+"/")
-                    shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
+                    _i = i.split("/")
+                    src = os.path.join(directory, *_i)
+                    _yml_i = yml[i].split("/")
+                    dst = os.path.join(destination, *_yml_i)
+                    print("copying " + src + " to " + dst)
+                    os.makedirs(str(dst), exist_ok=True)
+                    shutil.copy(str(src), str(dst))
                 except Exception as f:
                     print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)
