@@ -7,35 +7,29 @@ browse: choose a file
 browse2: or drag file here
 imageNotFound: Image not found
 
-welcomeTitle : "Welcome to the Image enhance GUI:\n"
-welcomeText : "This project is a GUI for different AI supported image enhance algorithms. You can scroll through the Pagination to get more detailed information!"
-mainViewWelcomeTitle : "Main View:"
-mainViewWelcomeText : "In the Main View your able to select an image and then select an Image Enhance Option.\n
-At the top there is the Menu Bar with the Items File, Settings and Help. With these Options.\n
-  - File\n
-  - Open (file dialog)\n
-  - Exit (quit program)\n
-  - Settings\n
-  - Language (select language)\n
-  - Tutorial on Startup (enable or disable Welcome View)\n
-  - Help\n
-  - About <br /><br />"
+welcomeTitle : "Welcome ..."
+welcomeText : "...  to the Image enhancement GUI. This program is a GUI for different AI supported image enhance algorithms. You can scroll through the pagination to get more detailed information!"
+mainViewWelcomeTitle : "Drop"
+mainViewWelcomeText : "This Window is is the centrepiece of IEGUI. It lets you drag and drop an image into the highlighted area,
+"
 
-settingsWelcomeTitle: "Settings View:\n"
-settingsWelcomeText: "The Setting View display's detailed
-information of a selected image enhance method. It displays the name a description and example Images of the Method. 
-It should also be possible to return to the Main View. The description and examples should be contained in a List View. 
-At the bottom of which a method specific field for Options should be displayed. It is contained in the ImageEnhanceMethod 
-Class and can be accessed via the *getSettingWindow()* method. At the bottom a start button should be displayed. 
-On click the start method of the corresponding ImageEnhanceMethod should be called, after displaying file dialog."
+settingsWelcomeTitle: "Select"
+settingsWelcomeText: "... then you can select an enhance method by double clicking on it, ..."
 
-loadingViewWelcomeTitle: "Loading View:\n"
-loadingViewWelcomeText: "The Loading View will be displayed while calculating the output image.  No progressbar will be displayed
-but when the time comes the displayed content will be specified further."
+settingsWelcomeTitle2: "Change settings"
+settingsWelcomeText2: "... change the settings ..."
 
-finishViewWelcomeTitle: "Finish View:\n"
-finishViewWelcomeText: "This view contains a comparison input and the output image after the Loading View. 
-It should contain a button to return to the Main View."
+loadingViewWelcomeTitle: "Enhancee!!!"
+loadingViewWelcomeText: "and click start."
+
+loadingViewWelcomeTitle2: ""
+loadingViewWelcomeText2: "The enhancement process may take a while"
+
+
+finishViewWelcomeTitle: "Enjoy"
+finishViewWelcomeText: "Examine the result using a slider to switch between the input and the output"
+
+
 exit: Exit
 imageName: Image Name
 settingsSetting: Settings

@@ -45,9 +45,6 @@ def main():
         shutil.copytree(source+"/Images/", tempdir+"/Images/", dirs_exist_ok=True,ignore=shutil.ignore_patterns('*.pth'))
         print("copying Language")
         shutil.copytree(source+"/Language/", tempdir+"/Language/", dirs_exist_ok=True,ignore=shutil.ignore_patterns('*.pth'))
-        #TODO Remove Planning when it is noot needed for images anymore
-        print("copying Planning")
-        shutil.copytree(source+"/Planning/", tempdir+"/Planning/", dirs_exist_ok=True,ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
         files=os.listdir(source+"/Environments/")
         try:

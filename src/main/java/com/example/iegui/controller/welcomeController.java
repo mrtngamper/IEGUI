@@ -56,16 +56,21 @@ public class welcomeController extends Controller  {
     @Override
     public void setContext(Context context) {
         this.context=context;
-        int pagecount=5;
+        int pagecount=7;
 
         CheckBox.selectedProperty().setValue(context.openWelcomeViewProperty().getValue());
         Bindings.bindBidirectional(context.openWelcomeViewProperty(),CheckBox.selectedProperty());
 
-        ScrollPane pageBoxMain = createView(context.getTextName("welcomeTitle"),context.getTextName("welcomeText"),"Planning/Images/MainView.png");
-        ScrollPane pageBoxSettings = createView(context.getTextName("settingsWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Planning/Images/SettingView.png");
-        ScrollPane pagBoxWelcome = createView(context.getTextName("mainViewWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Planning/Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
-        ScrollPane pageBoxLoading = createView(context.getTextName("loadingViewWelcomeTitle"),context.getTextName("loadingViewWelcomeText"),null);
-        ScrollPane pageBoxFinish = createView(context.getTextName("finishViewWelcomeTitle"),context.getTextName("finishViewWelcomeText"),null);
+        ScrollPane pagBoxWelcome = createView(context.getTextName("welcomeTitle"),context.getTextName("welcomeText"),"Images/85165e6f-e900-4740-8b3b-77d3b48f7d8b.jpg");
+        ScrollPane pageBoxMain = createView(context.getTextName("mainViewWelcomeTitle"),context.getTextName("mainViewWelcomeText"),"Images/mainView.png");
+        ScrollPane pageBoxSettings = createView(context.getTextName("settingsWelcomeTitle"),context.getTextName("settingsWelcomeText"),"Images/mainView2.png");
+
+        ScrollPane pageBoxSettings2 = createView(context.getTextName("settingsWelcomeTitle2"),context.getTextName("settingsWelcomeText2"),"Images/mainView3.png");
+        ScrollPane pageBoxLoading = createView(context.getTextName("loadingViewWelcomeTitle"),context.getTextName("loadingViewWelcomeText"),"Images/loading.png");
+
+        ScrollPane pageBoxWait = createView(context.getTextName("loadingViewWelcomeTitle2"),context.getTextName("loadingViewWelcomeText2"),null);
+        ScrollPane pageBoxEnjoy = createView(context.getTextName("finishViewWelcomeTitle"),context.getTextName("finishViewWelcomeText"),"Images/result.png");
+
 
 
         pagination.setPageFactory(new Callback<Integer, Node>() {
@@ -75,8 +80,10 @@ public class welcomeController extends Controller  {
                     case 0: return pagBoxWelcome;
                     case 1: return pageBoxMain;
                     case 2: return pageBoxSettings;
-                    case 3: return pageBoxLoading;
-                    case 4: return pageBoxFinish;
+                    case 3: return pageBoxSettings2;
+                    case 4: return pageBoxLoading;
+                    case 5: return pageBoxWait;
+                    case 6: return pageBoxEnjoy;
                     default: return null;
                 }
             }
@@ -178,6 +185,7 @@ public class welcomeController extends Controller  {
 
         titletext.textProperty().bind(title);
         texttext.textProperty().bind(text);
+        texttext.setTextAlignment(TextAlignment.CENTER);
 
         vbox.getChildren().add(titletext);
         vbox.getChildren().add(texttext);

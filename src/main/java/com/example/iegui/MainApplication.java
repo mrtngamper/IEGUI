@@ -112,7 +112,7 @@ public class MainApplication extends Application {
         stage.setTitle("IEGUI");
         stage.setScene(startAnimation(scene, stage));
         stage.show();
-        InputStream inputStream = getClass().getResourceAsStream("/images/woldas.png");
+        InputStream inputStream = getClass().getResourceAsStream("/images/icon.png");
         assert inputStream != null;
         Image icon = new Image(inputStream);
         context.setIcon(icon);
