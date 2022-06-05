@@ -208,7 +208,7 @@ public class MainViewController extends Controller implements Initializable {
             @Override
             public void handle(DragEvent dragEvent) {
                 oldStyle[0] =bP.getStyle();
-                bP.setStyle("-fx-background-color: #D2D0BA");
+                bP.setStyle("-fx-background-color: #d4ffd1 ");
             }
         });
         bP.setOnDragExited(new EventHandler<DragEvent>() {

@@ -402,7 +402,45 @@ First version of the display of all available methods with title and short descr
 #### 28-05-22
 - This documentation was added to the project, the Concept.md became obsolete.
 
+#### 29-05-22
+- This documentation sheet was improved
 
+#### 30-05-22
+- The language switching options was implemented
+
+#### 31-05-22
+- A maven install option was added (mvn install created a jar from now on)
+
+#### 02-06-22
+- WelcomeView on startup setting not working was fixed
+- GPEN to the image-enhance-methods
+- The welcome view was modified to be resizable
+- Drag and Drop field was redesigned
+- Start method was updated to delete all files from temp folders
+- Paths were made platform independent
+
+#### 03-06-22
+- A python installer script was added
+- Long descriptions were added, example images were added, descriptions were written
+- Main-view styling was improved
+
+#### 04-06-22
+- Settings-view was added
+- Additional options for GPEN and LLFlow were implemented
+- The GPEN Folder was added to the repository
+- A finished view for image comparisons was added
+- Hyperlinks were added to ImageEnhanceMethods and displayed in the settings-view
+- An about page was added
+- Language settings were changed to load languages dynamically depending on the files which are present
+- Output path selection was made optional
+
+#### 05-06-22
+- GPEN Settings were added to the settings view
+- Icon and logo were added
+- All ImageEnhanceMethod settings were implemented
+- The welcome-view content was updated
+- Languages and images were moved into the resource folder
+- A first release was published on GitHub
 
 ## Temporary resume 
 #### What worked
@@ -424,4 +462,3 @@ design specifications had to be changed, the most sever being the need for an in
 because of the size of some PyTorch models and the GitHub file size limitation.
 
 ## Resume
-This section will be added after release :warning:

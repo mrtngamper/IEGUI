@@ -1,7 +1,7 @@
 {
 accent1: #E5C1BD;
 background-normal: #D2D0BA;
-background-darker: #B6BE9C;
+background-darker: #b8deb5 ;
 accent2darker: #4B5E47;
 accent2: #7B9E87;
 accent2light: #8BAE97;
@@ -13,7 +13,9 @@ lightgray2: #EEEEEE;
     -fx-background-color: accent2;
 }
 
-
+#aboutPane{
+    -fx-background-color: lightgray2;
+}
 
 #textBefore{
  -fx-font-smoothing-type: lcd;

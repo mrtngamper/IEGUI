@@ -15,9 +15,10 @@ TFO Fallmerayer
 ### Contents
 1. [About IEGUI](#about-iegui)
     - [Methods](#list-of-integrated-methods)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Documentation](#documentation)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Build](#build)
+5. [Documentation](#documentation)
 
 
 ## About IEGUI
@@ -47,16 +48,45 @@ repositories and may have the following changes:
 - Test images may have been removed to save storage space.
 
 
+## Requirements
+
+### Execution
+
+#### Python3
+```
+fdsa
+```
+
+#### Java
+```
+Java JRE 17
+```
+
+### Build
+
+```
+Java JDK 17
+Maven
+```
+
 ## Installation
 
 [//]: # (TODO Description)
 TODO when finished
 
 
-## Usage
+## Build
+To build IEGUI you can run
 
-[//]: # (TODO Description)
-TODO when finished
+``
+mvn install
+``
+
+in the source directory.
+This will create an executable jar in the target directory, which his called IEGUI...shaded.jar
+this can then be copied into the source directory.
+
+
 
 ## Documentation
 [Documentation](Documentation/README.md)
