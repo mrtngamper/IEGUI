@@ -1,7 +1,7 @@
 import argparse
 import io
 import os
-import pathlib
+from pathlib import Path
 import shutil
 import zipfile
 
@@ -47,12 +47,12 @@ def download_models():
 
 
 def normalize(raw_path):
-    return pathlib.Path(raw_path).expanduser().resolve().__str__()
+    return Path(raw_path).expanduser().resolve().__str__()
 
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("--zip", type=str, default="test")
+parser.add_argument("--zip", type=str, default=None)
 parser.add_argument("--installation", type=str, default="./temp")
 parser.add_argument("--model", type=str, default="model")
 parser.add_argument("--source", type=str, default="./")
@@ -78,7 +78,7 @@ def main():
         except:
             print("Temp dir exists")
         print("copying jar")
-        shutil.copyfile(source + "/target/IEGUI-" + release_tag + ".jar", tempdir + "/IEGUI.jar")
+        shutil.copyfile(source + "/target/IEGUI-" + release_tag + "-shaded.jar", tempdir + "/IEGUI.jar")
         print("copying EnhanceMethod")
         shutil.copytree(source + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('*.pth'))
@@ -93,14 +93,14 @@ def main():
         shutil.copytree(source + "/Planning/", tempdir + "/Planning/", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
-        files = os.listdir(source + "/Environments/")
+        files = os.listdir(Path(source + "/Environments/"))
         try:
-            os.makedirs(tempdir + "/Environments")
+            os.makedirs(Path(tempdir + "/Environments"))
         except:
             print("Environments dir exists")
         for fname in files:
-            if not os.path.isdir(source + "/Environments/" + fname):
-                shutil.copy2(os.path.join(source + "/Environments/", fname), tempdir + "/Environments/" + fname)
+            if not os.path.isdir(Path(source + "/Environments/" + fname)):
+                shutil.copy2(os.path.join(Path(source + "/Environments/", fname)), Path(tempdir + "/Environments/" + fname))
         print("copying models")
         copyModels(tempdir)
 
@@ -129,25 +129,24 @@ def copyModels(destination):
     if getTotalSizeOfModels() < 7174020431:
         # TODO download only models that doesn't exist in the directory
         download_models()
-    print(getTotalSizeOfModels())
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
 
     r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
 
-    # with open(directory + '/location.yml', 'wb') as file:
-        # file.write(r.content)
+    with open(directory + '/location.yml', 'wb') as file:
+        file.write(r.content)
 
     try:
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
                 try:
-                    shutil.copy(directory + "/" + i, destination + "/" + yml[i] + "/")
+                    print("copying " + i + " to " + str(Path(destination + "/" + yml[i] + "/")))
+                    shutil.copy(Path(directory + "/" + i), Path(destination + "/" + yml[i] + "/"))
                 except Exception as f:
-                    print("copying: " + i)
-                    print(i + ", " + yml[i] + ": Could not be copied")
+                    print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)
     except Exception as e:
         print(e)
