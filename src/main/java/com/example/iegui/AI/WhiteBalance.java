@@ -16,8 +16,6 @@ public class WhiteBalance extends ImageEnhanceMethod{
         super(location, lang, context);
     }
 
-
-
     @Override
     public String[] getCMD() {
         return new String[]{

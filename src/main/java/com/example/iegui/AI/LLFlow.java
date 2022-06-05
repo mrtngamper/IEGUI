@@ -1,11 +1,17 @@
 package com.example.iegui.AI;
 
+import com.example.iegui.CustomNodes.CustomChoiceBox;
+import com.example.iegui.CustomNodes.MethodSettingWindow;
+import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.util.Context;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class LLFlow extends ImageEnhanceMethod{
-    private String task = "small-net";
+    private SimpleStringProperty task = new SimpleStringProperty();
     /**
      * Upon object creation the method directory is being stored and method settings are loaded from the Config folder.
      *
@@ -18,9 +24,9 @@ public class LLFlow extends ImageEnhanceMethod{
     }
 
     @Override
-    public String[] getCMD() {
+    public String[] getCMD() throws DynamicMessageException {
         String environment =  new File("Environments"+"/"+getEnvironment()).getAbsolutePath();
-        switch(task) {
+        switch(task.getValue()) {
             case "v1":
                 return new String[]{
                         environment + "/bin/python3",
@@ -58,7 +64,23 @@ public class LLFlow extends ImageEnhanceMethod{
                         // "python test_unpaired.py --opt confs/LOLv2-pc.yml -n result"
                 };
             default:
-                return null;
+                throw new DynamicMessageException(context.getTextName("wrongSettings").getValue());
         }
+
+    }
+
+    @Override
+    public MethodSettingWindow getSettingWindow() {
+
+        MethodSettingWindow msw = new MethodSettingWindow();
+
+        HashMap<SimpleStringProperty, String> selections= new HashMap<>();
+        selections.putAll(Collections.singletonMap(context.getTextName("oldModel"),"v1"));
+        selections.putAll(Collections.singletonMap(context.getTextName("newModel"),"v2"));
+        selections.putAll(Collections.singletonMap(context.getTextName("fastModel"),"small-net"));
+
+        CustomChoiceBox taskSelector = new CustomChoiceBox(selections,task);
+        msw.getChildren().add(taskSelector);
+        return msw;
     }
 }

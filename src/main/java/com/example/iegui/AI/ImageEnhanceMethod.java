@@ -2,6 +2,7 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.ImageComparisonPain;
 import com.example.iegui.CustomNodes.MethodSettingWindow;
+import com.example.iegui.Exceptions.DynamicMessageException;
 import com.example.iegui.Exceptions.YAMLTypeNotValidException;
 import com.example.iegui.controller.LoadingViewController;
 import com.example.iegui.util.Alerts;
@@ -172,8 +173,6 @@ public abstract class ImageEnhanceMethod {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-
                 LoadingView loadingView = new LoadingView();
                 loadingView.show();
                 try {
@@ -183,8 +182,8 @@ public abstract class ImageEnhanceMethod {
                     return;
                 }
                 try {
-                    boolean error = false;
                     String[] cmd = getCMD();
+                    boolean error = false;
                     ProcessBuilder pb = new ProcessBuilder(cmd);
                     pb.redirectErrorStream(true);
                     pb.directory(new File(getLocation()+"/"));
@@ -280,7 +279,7 @@ public abstract class ImageEnhanceMethod {
      *
      * @return A string array containing the command parameters.
      */
-    public abstract String[] getCMD();
+    public abstract String[] getCMD() throws DynamicMessageException;
 
 
 
