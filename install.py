@@ -14,6 +14,12 @@ import yaml
 release_tag = "v0.1"
 
 jarname = "iegui_win.jar"
+if platform == "linux" or platform == "linux2":
+    jarname= "iegui_lin.jar"
+elif platform == "darwin":
+    jarname= "iegui_mac.jar"
+elif platform == "win32":
+    jarname= "iegui_win.jar"
 
 def update_progress(progress):
     print("\r [{0}] {1}%".format(str('#' * (int(progress * 100) // 2)).ljust(50), "{:.2f}".format(progress * 100)),
@@ -24,13 +30,7 @@ def download():
     models = [ "EnhanceMethod.zip","Environments.zip","mixedillWB2_models.zip", "GPEN_models.zip", "LLFlow_models.zip", "NAFNet_models.zip",
               "SwinIR_models.zip"]
 
-    global jarname
-    if platform == "linux" or platform == "linux2":
-        jarname= "iegui_lin.jar"
-    elif platform == "darwin":
-        jarname= "iegui_mac.jar"
-    elif platform == "win32":
-        jarname= "iegui_win.jar"
+
     download_and_extract_zip(jarname,False)
 
     for model in models:
@@ -104,11 +104,6 @@ def main():
         tempdir = args.installation
 
     if args.zip is not None or args.installation is not None:
-        os.system("mvn install")
-        try:
-            os.makedirs(tempdir)
-        except:
-            print("Temp dir exists")
         print("copying jar")
         shutil.copyfile(directory+"/"+jarname, tempdir + "/IEGUI.jar")
         print("copying EnhanceMethod")
@@ -144,7 +139,7 @@ def getTotalSizeOfModels():
 def copyModels(destination):
     if getTotalSizeOfModels() < 7174020431:
         # TODO download only models that doesn't exist in the directory
-        download_models()
+        download()
 
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
@@ -159,7 +154,7 @@ def copyModels(destination):
         with open(directory + '/location.yml', 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
-
+                try:
                     print("copying " + i + " to " + destination+"/"+yml[i]+"/")
                     print(directory+"/"+i)
                     print(destination+"/"+yml[i]+"/")
@@ -169,7 +164,6 @@ def copyModels(destination):
                     print(f)
     except Exception as e:
         print(e)
-
 
 download()
 main()
