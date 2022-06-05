@@ -59,7 +59,7 @@ parser.add_argument("--source", type=str, default="./")
 
 args = parser.parse_args()
 
-directory = normalize(args.model)
+directory = args.model
 source = normalize(args.source)
 
 tempdir = source + "/tempInstallationDir"
@@ -135,6 +135,8 @@ def copyModels(destination):
             for i in yml:
                 try:
                     print("copying " + i + " to " + destination+"/"+yml[i]+"/")
+                    print(directory+"/"+i)
+                    print(destination+"/"+yml[i]+"/")
                     shutil.copy(directory+"/"+i,destination+"/"+yml[i]+"/")
                 except Exception as f:
                     print(i + ", " + Path(yml[i]) + ": Could not be copied")
