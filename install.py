@@ -109,14 +109,14 @@ def main():
         copyModels(source)
 
 def getTotalSizeOfModels():
+    total_size = 0
     if os.path.isdir(directory):
-        total_size = 0
         for dirpath, dirnames, filenames in os.walk(directory):
             for f in filenames:
                 fp = os.path.join(dirpath, f)
                 total_size += os.path.getsize(fp)
 
-        return total_size
+    return total_size
 
 
 def copyModels(destination):
