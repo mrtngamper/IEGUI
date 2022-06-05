@@ -55,6 +55,9 @@ envCreated: Python Virtual Environment Created
 envDoesNotExist: Python Virtual Environment Does Not Exist
 depInstalled: Dependencies have been installed
 task: Task
+scale: Scale
+inRes: Input Resolution
+downscaleFactor: Downscale Factor
 faceEnhancement: Face Enhancement
 faceColorization: Face Colorization
 faceInpainting: Face Inpainting

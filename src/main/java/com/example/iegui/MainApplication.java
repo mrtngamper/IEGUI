@@ -108,7 +108,7 @@ public class MainApplication extends Application {
         // context.getMethods().get(1).start("/home/martin/Downloads/bild6.jpg", "/home/martin/Downloads/output.png"); // For Test purposes Low light
         // context.getMethods().get(2).start("/home/martin/Downloads/output14.png","/home/martin/Downloads/output15.png"); // For Testing purposes white balance
         // context.getMethods().get(3).start("/home/martin/Downloads/IMG-20220601-WA0000.jpg","/home/martin/Downloads/output13.png"); // For Testing purposes white balance
-        // context.getMethods().get(3).start("EnhanceMethod/LLFlow/code/confs/bild6.jpg","~/Downloads/llflow_smallNet_output.png"); // For Testing purposes white balance
+        // context.getMethods().get(5).start("/home/kilian/Nextcloud/Schule/Informatik/IEGUI/EnhanceMethod/GPEN/Config/input.png","~/Downloads/friends.png"); // For Testing purposes white balance
 
 
         stage.setTitle("IEGUI");
@@ -122,7 +122,6 @@ public class MainApplication extends Application {
             Scene scene2 = new Scene(root2, 768, 700);
             stage2.setMinHeight(480);
             stage2.setMinWidth(640);
-
 
             stage2.setScene(scene2);
             stage2.titleProperty().bind(context.getTextName("welcome"));

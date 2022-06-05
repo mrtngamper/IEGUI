@@ -2,21 +2,25 @@ package com.example.iegui.AI;
 
 import com.example.iegui.CustomNodes.MethodSettingWindow;
 import com.example.iegui.util.Context;
+import com.example.iegui.util.NumberField;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class GPEN extends ImageEnhanceMethod {
-    private String task = "segmentation-to-face";
+    private String task = "face-enhancement";
     private int scaleFactor = 4;
     private int inputResolution = 512;
     /**
@@ -135,44 +139,82 @@ public class GPEN extends ImageEnhanceMethod {
     public MethodSettingWindow getSettingWindow() {
         MethodSettingWindow settingWindow = new MethodSettingWindow();
 
-        ArrayList<StringProperty> availableTasks = new ArrayList<>(0);
-        for (int i = 0; i < 4; i++) {
-            availableTasks.add(new SimpleStringProperty());
-        }
+        ArrayList<String> availableTasks = new ArrayList<>(0);
+        availableTasks.add(context.getTextName("faceEnhancement").get());
+        availableTasks.add(context.getTextName("faceColorization").get());
+        availableTasks.add(context.getTextName("faceInpainting").get());
+        availableTasks.add(context.getTextName("segmentation2Face").get());
 
-        availableTasks.get(0).bind(context.getTextName("faceEnhancement"));
-        availableTasks.get(1).bind(context.getTextName("faceColorization"));
-        availableTasks.get(2).bind(context.getTextName("faceInpainting"));
-        availableTasks.get(3).bind(context.getTextName("segmentation2Face"));
+        context.getTextName("faceEnhancement").addListener((observableValue, s, t1) -> availableTasks.set(0, s));
+        context.getTextName("faceColorization").addListener((observableValue, s, t1) -> availableTasks.set(1, s));
+        context.getTextName("faceInpainting").addListener((observableValue, s, t1) -> availableTasks.set(2, s));
+        context.getTextName("segmentation2Face").addListener((observableValue, s, t1) -> availableTasks.set(3, s));
 
-        ChoiceBox<StringProperty> taskSelector = new ChoiceBox<>(FXCollections.observableList(availableTasks));
+        Label taskLabel = new Label();
+        taskLabel.textProperty().bind(context.getTextName("task"));
 
-        taskSelector.getSelectionModel().selectedIndexProperty().addListener((observableValue, number, t1) -> {
-            switch (number.intValue()) {
+        ChoiceBox<String> taskSelector = new ChoiceBox<>(FXCollections.observableList(availableTasks));
+
+        VBox taskBox = new VBox();
+        taskBox.getChildren().addAll(taskLabel, taskSelector);
+        taskBox.setAlignment(Pos.CENTER);
+
+        taskSelector.setValue(availableTasks.get(0));
+
+        Integer[] availableScales = new Integer[] {1, 2, 4};
+
+        Label scaleLabel = new Label();
+        scaleLabel.textProperty().bind(context.getTextName("scale"));
+        ChoiceBox<Integer> scaleSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableScales));
+
+        VBox scaleBox = new VBox();
+        scaleBox.getChildren().addAll(scaleLabel, scaleSelector);
+        scaleBox.setAlignment(Pos.CENTER);
+
+        scaleSelector.setValue(1);
+
+        scaleSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> scaleFactor = newValue);
+
+        Integer[] availableInSizes = new Integer[] {256, 512};
+        Label inSizeLabel = new Label();
+        inSizeLabel.textProperty().bind(context.getTextName("inRes"));
+        ChoiceBox<Integer> inSizeSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableInSizes));
+
+        VBox inSizeBox = new VBox();
+        inSizeBox.getChildren().addAll(inSizeLabel, inSizeSelector);
+        inSizeBox.setAlignment(Pos.CENTER);
+
+        inSizeSelector.setValue(512);
+        inSizeSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> inputResolution = newValue);
+
+        settingWindow.getChildren().addAll(taskBox, scaleBox, inSizeBox);
+
+        settingWindow.setDownscale(super.getDownscaleFactor(), context);
+
+        taskSelector.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldValue, newValue) -> {
+            switch (newValue.intValue()) {
                 case 0:
                     task = "face-enhancement";
+                    scaleSelector.setDisable(false);
+                    inSizeSelector.setDisable(false);
                     break;
                 case 1:
                     task = "face-colorization";
+                    scaleSelector.setDisable(true);
+                    inSizeSelector.setDisable(true);
                     break;
                 case 2:
                     task = "face-inpainting";
+                    scaleSelector.setDisable(true);
+                    inSizeSelector.setDisable(true);
                     break;
                 case 3:
                     task = "segmentation-to-face";
+                    scaleSelector.setDisable(true);
+                    inSizeSelector.setDisable(true);
                     break;
             }
         });
-
-        Integer[] availableScales = new Integer[] {1, 2, 4};
-        ChoiceBox<Integer> scaleSelector = new ChoiceBox<>(FXCollections.observableArrayList(availableScales));
-
-        scaleSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, integer, t1) -> scaleFactor = integer);
-
-        settingWindow.getChildren().addAll(taskSelector, scaleSelector);
-
-
-        settingWindow.setDownscale(super.getDownscaleFactor());
         return settingWindow;
     }
 }

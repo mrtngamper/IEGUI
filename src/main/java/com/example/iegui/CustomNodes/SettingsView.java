@@ -159,7 +159,10 @@ public class SettingsView extends BorderPane {
         vbox.setPadding(new Insets(4, 0, 0, 8));
 
         if(currentMethod.getSettingWindow()!=null){
-            vbox.getChildren().add(currentMethod.getSettingWindow());
+            VBox centeredSettingsBox = new VBox();
+            centeredSettingsBox.getChildren().add(currentMethod.getSettingWindow());
+            centeredSettingsBox.setAlignment(Pos.CENTER);
+            vbox.getChildren().add(centeredSettingsBox);
         }
 
         vbox.getChildren().add(header);
