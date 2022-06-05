@@ -102,7 +102,7 @@ def main():
             if not os.path.isdir(Path(source + "/Environments/" + fname)):
                 shutil.copy2(os.path.join(Path(source + "/Environments/", fname)), Path(tempdir + "/Environments/" + fname))
         print("copying models")
-        copyModels(tempdir)
+        copyModels(source)
 
         if args.zip is not None:
             print("creating zip archive")
@@ -143,8 +143,10 @@ def copyModels(destination):
             yml = yaml.safe_load(file)
             for i in yml:
                 try:
-                    print("copying " + i + " to " + str(Path(destination + "/" + yml[i] + "/")))
-                    shutil.copy(Path(directory + "/" + i), Path(destination + "/" + yml[i] + "/"))
+                    dest = Path(destination + "/" + yml[i] + "/")
+                    print("copying " + i + " to " + str(dest))
+                    os.makedirs(str(dest), exist_ok=True)
+                    shutil.copy(str(Path(directory + "/" + i)), str(dest))
                 except Exception as f:
                     print(i + ", " + Path(yml[i]) + ": Could not be copied")
                     print(f)
