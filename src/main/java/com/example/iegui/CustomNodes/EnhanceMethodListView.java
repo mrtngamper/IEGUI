@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
 
+/**
+ * ListView which contains all Enhancement Methods, displays their names and short descriptions.
+ */
 public class EnhanceMethodListView extends ListView {
     private SettingsView settings ;
 

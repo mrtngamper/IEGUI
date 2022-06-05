@@ -1,7 +1,6 @@
 package com.example.iegui.AI;
 
 import com.example.iegui.util.Context;
-import com.example.iegui.util.paths;
 
 import java.io.File;
 

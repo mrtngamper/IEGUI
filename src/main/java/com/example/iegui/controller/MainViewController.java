@@ -14,19 +14,25 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -35,6 +41,8 @@ import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
@@ -101,8 +109,20 @@ public class MainViewController extends Controller implements Initializable {
         imageName.textProperty().bind(context.getTextName("imageName"));
         settingsSetting.textProperty().bind(context.getTextName("settingsSetting"));
         languageSetting.textProperty().bind(context.getTextName("languageSetting"));
-        lanDeSetting.textProperty().bind(context.getTextName("lanDeSetting"));
-        lanEnSetting.textProperty().bind(context.getTextName("lanEnSetting"));
+
+
+        try {
+            File languageDir = new File("Language");
+            for (File i : languageDir.listFiles()) {
+                MenuItem item = new MenuItem();
+                item.setText(i.getName().split("\\..*")[0]);
+                item.setOnAction(this::onLanguagePressed);
+                languageSetting.getItems().add(item);
+            }
+        }catch(Exception e){
+            Alerts.Error(e.getMessage());
+        }
+
         tutorialSetting.textProperty().bind(context.getTextName("tutorialSetting"));
         helpSetting.textProperty().bind(context.getTextName("helpSetting"));
         aboutSetting.textProperty().bind(context.getTextName("aboutSetting"));
@@ -202,7 +222,7 @@ public class MainViewController extends Controller implements Initializable {
 
     public void onLanguagePressed(ActionEvent actionEvent) {
         MenuItem mi = (MenuItem) actionEvent.getSource();
-        String language = mi.getText().toLowerCase();
+        String language = mi.getText();
         context.setLang(language);
     }
 
@@ -210,15 +230,28 @@ public class MainViewController extends Controller implements Initializable {
         imageFile.setValue("");
     }
 
-    /*ListView<ImageEnhanceMethod> list = new ListView();
+    public void about(ActionEvent actionEvent) {
 
-        list.setItems(context.getMethods());
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/iegui/about.fxml"));
 
-        list.setCellFactory(new Callback<ListView<ImageEnhanceMethod>, ListCell<ImageEnhanceMethod>>() {
-        @Override
-        public ListCell<ImageEnhanceMethod> call(ListView<ImageEnhanceMethod> imageEnhanceMethodListView) {
-            ListCell cell = new ListCell();
-            cell.setGraphic
+
+            Parent root = null;
+            root = loader.load();
+            Scene scene =new Scene(root, 500, 300);
+            Controller controller = loader.getController();
+            controller.setContext(context);
+
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        } catch (IOException e) {
+            Alerts.Error(e.getMessage());
         }
-    });*/
+
+    }
+
 }
