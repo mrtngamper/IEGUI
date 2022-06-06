@@ -117,7 +117,7 @@ def main():
             shutil.copyfile(normalize("./target/IEGUI-0.1-shaded.jar"),normalize(tempdir+"/IEGUI.jar"))
         else:
             print("copying jar")
-            shutil.copyfile((normalize(directory+"/"+jarname), normalize(tempdir + "/IEGUI.jar")))
+            shutil.copyfile((normalize(directory+"/"+jarname)), normalize(tempdir + "/IEGUI.jar"))
 
         print("copying EnhanceMethod")
         shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
