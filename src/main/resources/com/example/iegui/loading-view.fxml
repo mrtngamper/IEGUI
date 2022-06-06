@@ -6,13 +6,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="loadingPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.iegui.controller.LoadingViewController">
+            fx:controller="com.example.iegui.controller.LoadingViewController" stylesheets="@views.css">
     <center>
         <TextArea fx:id="textarea">
 
         </TextArea>
     </center>
+    <bottom>
+        <HBox fx:id="loadingBox">
+
+        </HBox>
+    </bottom>
 </BorderPane>
 

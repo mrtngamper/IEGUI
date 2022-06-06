@@ -6,46 +6,75 @@ from pathlib import Path
 
 import shutil
 import zipfile
+from sys import platform
 
 import requests
 import yaml
 
 release_tag = "v0.1"
 
+jarname = "iegui_win.jar"
+if platform == "linux" or platform == "linux2":
+    jarname= "iegui_lin.jar"
+elif platform == "darwin":
+    jarname= "iegui_mac.jar"
+elif platform == "win32":
+    jarname= "iegui_win.jar"
 
 def update_progress(progress):
     print("\r [{0}] {1}%".format(str('#' * (int(progress * 100) // 2)).ljust(50), "{:.2f}".format(progress * 100)),
           end='')
 
 
-def download_models():
-    models = ["mixedillWB2_models.zip", "GPEN_models.zip", "LLFlow_models.zip", "NAFNet_models.zip",
+def download():
+    models = [ "EnhanceMethod.zip","Environments.zip","mixedillWB2_models.zip", "GPEN_models.zip", "LLFlow_models.zip", "NAFNet_models.zip",
               "SwinIR_models.zip"]
 
+
+    if(source==False):
+        download_and_extract_zip(jarname,False)
+
     for model in models:
-        url = "https://github.com/mrtngamper/IEGUI/releases/download/" + release_tag + "/" + model
+            download_and_extract_zip(model ,True)
 
-        print("Installing " + model[:-4] + " from " + url + "...")
 
-        info = requests.head(url, allow_redirects=True)
-        size = int(info.headers.get('content-length', 0))
-        print('{}: {:.2f} MB'.format('FILE SIZE', int(size) / float(1 << 20)))
 
-        with requests.get(url, stream=True) as r:
-            r.raise_for_status()
-            with open(model[:-4] + ".installing", "wb") as f:
-                for chunk in r.iter_content(chunk_size=8192):
-                    f.write(chunk)
-                    update_progress(f.tell() / size)
 
+def download_and_extract_zip(model, unzip):
+    url = "https://github.com/mrtngamper/IEGUI/releases/download/" + release_tag + "/" + model
+
+    if(os.path.isdir(os.path.join(directory,model[:-4]))):
+        print("Directory: "+model+" already exists")
+        return
+    if(os.path.isfile(os.path.join(directory,model))):
+        print("File: "+model+" already exists")
+        return
+
+    print("Installing " + model[:-4] + " from " + url + "...")
+
+    info = requests.head(url, allow_redirects=True)
+    size = int(info.headers.get('content-length', 0))
+    print('{}: {:.2f} MB'.format('FILE SIZE', int(size) / float(1 << 20)))
+
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(model[:-4] + ".installing", "wb") as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+                update_progress(f.tell() / size)
+
+    if(unzip):
         with open(model[:-4] + ".installing", "rb") as f:
             z = zipfile.ZipFile(io.BytesIO(f.read()))
             os.makedirs(directory, exist_ok=True)
             z.extractall(directory)
+    else:
+        os.makedirs(directory, exist_ok=True)
+        shutil.copyfile(model[:-4]+".installing",os.path.join(directory,model))
 
-        os.remove(model[:-4] + ".installing")
+    os.remove(model[:-4] + ".installing")
 
-        print("\n")
+    print("\n")
 
 
 def normalize(raw_path):
@@ -55,18 +84,19 @@ def normalize(raw_path):
 parser = argparse.ArgumentParser()
 
 
-parser.add_argument("--zip", type=str, default=None)
-
-parser.add_argument("--installation", type=str, default=".\\temp")
-parser.add_argument("--model", type=str, default="model")
-parser.add_argument("--source", type=str, default="./")
+parser.add_argument("--zip", type=str, default=None, help = "Create zip after installation (Experimental)")
+parser.add_argument("--installation", type=str, default=normalize("./temp"), help="Set installation directory")
+parser.add_argument("--dl_cache", type=str, default="dl_cache", help = "Set download cache directory")
+parser.add_argument("--source", action='store_true', help="Select if you want to compile from source. You need to be in the source directory")
+parser.add_argument("--noclean",action='store_true', help="Select if you dont want to clean the cache (Debugging)")
+parser.add_argument("--fromcache",action='store_true', help="Select if you want to install from cache directory (Experimental)")
 
 args = parser.parse_args()
 
-directory = normalize(args.model)
-source = normalize(args.source)
+directory = normalize(args.dl_cache)
+source = args.source
 
-tempdir = source + "/tempInstallationDir"
+tempdir = normalize("/tempInstallationDir")
 
 
 def main():
@@ -75,27 +105,26 @@ def main():
         tempdir = normalize(args.installation)
 
     if args.zip is not None or args.installation is not None:
+        os.makedirs(tempdir, exist_ok=True)
+        if(args.source==True):
+            os.system("mvn install")
+            try:
+                os.makedirs(tempdir)
+            except:
+                print("Temp dir exists")
 
-        os.system("mvn install")
-        try:
-            os.makedirs(tempdir)
-        except:
-            print("Temp dir exists")
-        print("copying jar")
-        shutil.copyfile(source+"/target/IEGUI-0.1-shaded.jar",tempdir+"/iegui.jar")
+            print("copying jar")
+            shutil.copyfile(normalize("./target/IEGUI-0.1-shaded.jar"),normalize(tempdir+"/IEGUI.jar"))
+        else:
+            print("copying jar")
+            shutil.copyfile((normalize(directory+"/"+jarname), normalize(tempdir + "/IEGUI.jar")))
+
         print("copying EnhanceMethod")
-        shutil.copytree(source+"/EnhanceMethod/", tempdir+"/EnhanceMethod/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
-        print("copying Settings")
-        shutil.copytree(source+"/Settings/", tempdir+"/Settings/", dirs_exist_ok=True, ignore=shutil.ignore_patterns('*.pth'))
+        shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
-        files = os.listdir(Path(source + "/Environments/"))
-        try:
-            os.makedirs(Path(tempdir + "/Environments"))
-        except:
-            print("Environments dir exists")
-        for fname in files:
-            if not os.path.isdir(Path(source + "/Environments/" + fname)):
-                shutil.copy2(os.path.join(Path(source + "/Environments/", fname)), Path(tempdir + "/Environments/" + fname))
+        shutil.copytree(directory + "/Environments/", tempdir + "/Environments/", dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns('*.pth'))
         print("copying models")
         copyModels(tempdir)
 
@@ -104,9 +133,10 @@ def main():
             shutil.make_archive(os.path.splitext(args.zip)[0], 'zip', tempdir)
             if args.installation is not None:
                 shutil.rmtree(tempdir)
-
+        if not args.noclean:
+            shutil.rmtree(directory, ignore_errors = False)
     else:
-        copyModels(source)
+        copyModels(normalize("./"))
 
 def getTotalSizeOfModels():
     total_size = 0
@@ -120,10 +150,9 @@ def getTotalSizeOfModels():
 
 
 def copyModels(destination):
-    if getTotalSizeOfModels() < 7174020431:
-        # TODO download only models that doesn't exist in the directory
-        download_models()
-        
+   # if getTotalSizeOfModels() < 7174020431:
+         # TODO download only models that doesn't exist in the directory
+
     if not os.path.isdir(directory):
         print("Model directory not found: " + directory)
         exit(-1)
@@ -151,6 +180,6 @@ def copyModels(destination):
     except Exception as e:
         print(e)
 
-
+if(not args.fromcache):
+    download()
 main()
-# download_models()

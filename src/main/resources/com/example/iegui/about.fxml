@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="pane" stylesheets="@views.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.AboutViewController">
+<BorderPane fx:id="aboutPane" stylesheets="@views.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.iegui.controller.AboutViewController">
     <top>
         <HBox alignment="CENTER">
             <Text fx:id="header" style="-fx-font-weight: bold; -fx-font-family: Arial; -fx-font-size: 30" text="About" />
@@ -13,7 +13,7 @@
     </top>
     <center>
         <VBox fx:id="imageBox" alignment="CENTER">
-                <ImageView VBox.vgrow="ALWAYS"  fx:id="imageView" fitWidth="400"  preserveRatio="true"/>
+
         </VBox>
     </center>
     <bottom>

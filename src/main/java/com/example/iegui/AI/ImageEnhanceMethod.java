@@ -19,7 +19,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -42,6 +44,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * An ImageEnhanceMethod Object contains Info about a Method (e.g. SwinIR).
@@ -161,6 +164,8 @@ public abstract class ImageEnhanceMethod {
         this.settingWindow = settingWindow;
     }
 
+    private Thread workingThread;
+
     /**
      * Start Method gets executed, when an enhancement should be performed. It is given an input string and an output
      * string, which should correspond to the filenames. During the operation a loading screen is being displayed
@@ -170,7 +175,7 @@ public abstract class ImageEnhanceMethod {
      */
     public void start(String inputfile, String outputfile) {
 
-        new Thread(new Runnable() {
+        workingThread=new Thread(new Runnable() {
             @Override
             public void run() {
                 LoadingView loadingView = new LoadingView();
@@ -225,9 +230,7 @@ public abstract class ImageEnhanceMethod {
                                         break;
                                     }
                                 }
-
-                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/input"));
-                                recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/output"));
+                                cleanUp();
 
                                 System.out.println(context.getTextName("success").getValue());
                                 loadingView.close();
@@ -252,9 +255,14 @@ public abstract class ImageEnhanceMethod {
                 }
                 loadingView.close();
             }
-        }).start();
+        });
+        workingThread.start();
     }
 
+    private void cleanUp(){
+        recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/input"));
+        recursiveDelete(new File(context.getTempdir().toFile().getAbsolutePath()+"/output"));
+    }
 
 
     /**
@@ -489,6 +497,26 @@ public abstract class ImageEnhanceMethod {
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent windowEvent) {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setHeaderText(context.getTextName("abort").getValue()+"?");
+                                alert.setTitle("WARNING");
+                                Optional<ButtonType> ret = alert.showAndWait();
+                                if(ButtonType.OK.equals(ret.get())){
+                                    workingThread.stop();
+                                    cleanUp();
+                                    recursiveDelete( new File("Environments"+"/"+getEnvironment()));
+                                    try {
+                                        Files.delete(new File("Environments"+"/"+getEnvironment()).toPath());
+                                    } catch (IOException e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                    stage.close();
+                                }
+                            }
+                        });
                         windowEvent.consume();
                     }
                 });

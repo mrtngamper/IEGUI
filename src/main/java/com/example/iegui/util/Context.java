@@ -45,7 +45,7 @@ public class Context {
     /**
      * If WelcomeView should be shown again
      */
-    private SimpleBooleanProperty openWelcomeView= new SimpleBooleanProperty();
+    private SimpleBooleanProperty openWelcomeView= new SimpleBooleanProperty(true);
 
     /**
      * Current language
@@ -170,14 +170,20 @@ public class Context {
      * Loads settings contained in a context.
      */
     public void loadSettings(){
+        File file = new File(settings_file_name);
+        if(!file.exists()){
+            storeSettings();
+        }
+
         Yaml yaml = new Yaml();
         try {
             InputStream inputStream = new FileInputStream(settings_file_name);
             Map<String, Object> map = yaml.load(inputStream);
 
             // Add properties if necessary
-            if(map.containsKey("language")){
-                lang.setValue((String)map.get("language"));
+            if(map.containsKey("Language")){
+                lang.setValue((String)map.get("Language"));
+                System.out.println((String) map.get("Language"));
             }
 
             if(map.containsKey("OpenWelcomeView")){
@@ -188,7 +194,7 @@ public class Context {
                 }
             }
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            Alerts.Error(e.getMessage());
         }
     }
 

@@ -6,18 +6,15 @@ By [Kilian Kier](https://github.com/kilian-kier), [Martin Gamper](https://github
 
 TFO Fallmerayer
 
----
-*Still under developement*! :warning:
-
----
 
 
 ### Contents
 1. [About IEGUI](#about-iegui)
     - [Methods](#list-of-integrated-methods)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [Documentation](#documentation)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Build](#build)
+5. [Documentation](#documentation)
 
 
 ## About IEGUI
@@ -47,16 +44,68 @@ repositories and may have the following changes:
 - Test images may have been removed to save storage space.
 
 
+## Requirements
+
+### Execution
+
+#### Python3
+```
+pyyaml
+requests
+argparse
+shutil
+```
+
+#### Java
+```
+Java JRE 17
+```
+
+### Build
+
+```
+Java JDK 17
+Maven
+```
+
 ## Installation
+To install IEGUI
+python3 installation 
+and a java runtime environment are required.
 
-[//]: # (TODO Description)
-TODO when finished
+
+Download install.py from the [release](https://github.com/mrtngamper/IEGUI/releases/tag/v0.1). And then run the following
+it in a command line.
+
+```
+python3 install.py --installation [location] --dl_cache downloads  
+```
+
+This script will now download the executable and all necessary resources.
+
+## Build
+:warning: This process requires a java jre and maven
+
+To build IEGUI you can clone the repository, and then excute the install.py script.
+
+```
+git clone https://github.com/mrtngamper/IEGUI
+cd IEGUI
+python3 install.py --installation [location] --dl_cache downloads --source
+```
+
+If you only want to build the jar file you can run
+
+```
+mvn install
+```
 
 
-## Usage
+in the source directory.
+This will create an executable jar in the target directory, which his called IEGUI...shaded.jar
+this can then be copied into the source directory.
 
-[//]: # (TODO Description)
-TODO when finished
+
 
 ## Documentation
 [Documentation](Documentation/README.md)

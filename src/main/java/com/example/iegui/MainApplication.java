@@ -93,7 +93,7 @@ public class MainApplication extends Application {
             System.setProperty("user.home", workingDir);
         }
 
-        Context context = new Context(stage, "Settings/settings.yml");
+        Context context = new Context(stage, "settings.yml");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 768, 500);
