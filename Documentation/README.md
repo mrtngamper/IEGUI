@@ -36,6 +36,7 @@ TFO Fallmerayer 2022
     - [What did not](#what-did-not)
     - [Prospect](#prospect)
 6. [Resume](#resume)
+7. [JavaDoc](../JavaDoc)
 
 
 ## Participants
@@ -470,4 +471,7 @@ Everyone who had time and was motivated could move a task from to-do to doing an
 made  the development process  much easier.
 
 All -in all the team is very satisfied with the final product.
+
+## Code documentation
+[JavaDoc](../JavaDoc)
 

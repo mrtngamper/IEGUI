@@ -20,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Controller for the About View
+ */
 public class AboutViewController extends Controller {
     @FXML
     Button ok;

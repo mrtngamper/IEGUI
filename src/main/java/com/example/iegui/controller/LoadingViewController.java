@@ -20,6 +20,9 @@ import java.io.PrintStream;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 
+/**
+ * Controller for loading view
+ */
 public class LoadingViewController extends Controller {
 
     @FXML
