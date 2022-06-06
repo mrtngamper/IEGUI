@@ -443,7 +443,7 @@ First version of the display of all available methods with title and short descr
 - Languages and images were moved into the resource folder
 - A first release was published on GitHub
 
-## Temporary resume 
+## Temporary resume (May 28th 2022)
 #### What worked
 Up until May 28th, one week from the deadline, the development team was able
 to create basic implementations of the different views wich were previously specified.

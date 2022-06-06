@@ -50,10 +50,9 @@ repositories and may have the following changes:
 
 #### Python3
 ```
-pyyaml
-requests
-argparse
-shutil
+pip install pyyaml
+pip install requests
+pip install argparse
 ```
 
 #### Java
