@@ -85,11 +85,11 @@ parser = argparse.ArgumentParser()
 
 
 parser.add_argument("--zip", type=str, default=None, help = "Create zip after installation (Experimental)")
-
 parser.add_argument("--installation", type=str, default=normalize("./temp"), help="Set installation directory")
 parser.add_argument("--dl_cache", type=str, default="dl_cache", help = "Set download cache directory")
 parser.add_argument("--source", action='store_true', help="Select if you want to compile from source. You need to be in the source directory")
 parser.add_argument("--noclean",action='store_true', help="Select if you dont want to clean the cache (Debugging)")
+parser.add_argument("--fromcache",action='store_true', help="Select if you want to install from cache directory (Experimental)")
 
 args = parser.parse_args()
 
@@ -180,5 +180,6 @@ def copyModels(destination):
     except Exception as e:
         print(e)
 
-download()
+if(not args.fromcache):
+    download()
 main()

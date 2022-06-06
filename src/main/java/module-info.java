@@ -1,5 +1,6 @@
 module com.example.iegui {
     requires javafx.controls;
+    requires javafx.base;
     requires javafx.fxml;
     requires org.yaml.snakeyaml;
     requires java.desktop;
