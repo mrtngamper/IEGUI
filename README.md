@@ -6,10 +6,6 @@ By [Kilian Kier](https://github.com/kilian-kier), [Martin Gamper](https://github
 
 TFO Fallmerayer
 
----
-*Still under developement*! :warning:
-
----
 
 
 ### Contents
@@ -54,7 +50,10 @@ repositories and may have the following changes:
 
 #### Python3
 ```
-fdsa
+pyyaml
+requests
+argparse
+shutil
 ```
 
 #### Java
@@ -70,17 +69,37 @@ Maven
 ```
 
 ## Installation
+To install IEGUI
+python3 installation 
+and a java runtime environment are required.
 
-[//]: # (TODO Description)
-TODO when finished
 
+Download install.py from the [release](https://github.com/mrtngamper/IEGUI/releases/tag/v0.1). And then run the following
+it in a command line.
+
+```
+python3 install.py --installation [location] --dl_cache downloads  
+```
+
+This script will now download the executable and all necessary resources.
 
 ## Build
-To build IEGUI you can run
+:warning: This process requires a java jre and maven
 
-``
+To build IEGUI you can clone the repository, and then excute the install.py script.
+
+```
+git clone https://github.com/mrtngamper/IEGUI
+cd IEGUI
+python3 install.py --installation [location] --dl_cache downloads --source
+```
+
+If you only want to build the jar file you can run
+
+```
 mvn install
-``
+```
+
 
 in the source directory.
 This will create an executable jar in the target directory, which his called IEGUI...shaded.jar
