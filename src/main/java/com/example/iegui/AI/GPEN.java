@@ -51,9 +51,9 @@ public class GPEN extends ImageEnhanceMethod {
                         "--in_size",
                         String.valueOf(inputResolution),
                         "--indir",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--outdir",
-                        context.getTempdir()+"/output",
+                        Context.independent(context.getTempdir()+"/output"),
                 };
             case "face-colorization":
                 return new String[]{
@@ -68,9 +68,9 @@ public class GPEN extends ImageEnhanceMethod {
                         "--in_size",
                         "1024",
                         "--indir",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--outdir",
-                        context.getTempdir()+"/output",
+                        Context.independent(context.getTempdir()+"/output"),
                 };
             case "face-inpainting":
                 return new String[]{
@@ -85,9 +85,9 @@ public class GPEN extends ImageEnhanceMethod {
                         "--in_size",
                         "1024",
                         "--indir",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--outdir",
-                        context.getTempdir()+"/output",
+                        Context.independent(context.getTempdir()+"/output"),
                 };
             default:
                 return null;

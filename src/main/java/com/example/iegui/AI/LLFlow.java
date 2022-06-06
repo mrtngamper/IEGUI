@@ -31,38 +31,38 @@ public class LLFlow extends ImageEnhanceMethod{
         switch(task.getValue()) {
             case "v1":
                 return new String[]{
-                        environment + "/bin/python",
+                        Context.independent(environment + "/bin/python"),
                         "test_unpaired.py",
                         "--opt",
-                        "confs/LOL-pc.yml",
+                        Context.independent("confs/LOL-pc.yml"),
                         "--input",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--output",
-                        context.getTempdir()+"/output"
+                        Context.independent(context.getTempdir()+"/output")
                         // "python test_unpaired.py --opt confs/LOLv2-pc.yml -n result"
                 };
             case "v2":
                 return new String[]{
-                        environment + "/bin/python",
+                        Context.independent(environment + "/bin/python"),
                         "test_unpaired.py",
                         "--opt",
-                        "confs/LOLv2-pc.yml",
+                        Context.independent("confs/LOLv2-pc.yml"),
                         "--input",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--output",
-                        context.getTempdir()+"/output"
+                        Context.independent(context.getTempdir()+"/output")
                         // "python test_unpaired.py --opt confs/LOLv2-pc.yml -n result"
                 };
             case "small-net":
                 return new String[]{
-                        environment + "/bin/python",
+                        Context.independent(environment + "/bin/python"),
                         "test_unpaired.py",
                         "--opt",
-                        "confs/LOL_smallNet.yml",
+                        Context.independent("confs/LOL_smallNet.yml"),
                         "--input",
-                        context.getTempdir()+"/input",
+                        Context.independent(context.getTempdir()+"/input"),
                         "--output",
-                        context.getTempdir()+"/output"
+                        Context.independent(context.getTempdir()+"/output")
                         // "python test_unpaired.py --opt confs/LOLv2-pc.yml -n result"
                 };
             default:
