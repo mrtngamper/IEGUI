@@ -156,7 +156,7 @@ def copy_models(destination):
         print("Model directory not found: " + directory)
         exit(-1)
 
-    r = requests.get("https://raw.githubusercontent.com/mrtngamper/IEGUI/main/location.yml")
+    r = requests.get("https://github.com/mrtngamper/IEGUI/releases/download/v0.1/location.yml")
 
     with open(directory + '/location.yml', 'wb') as file:
         file.write(r.content)
