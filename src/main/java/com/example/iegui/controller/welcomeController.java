@@ -28,6 +28,9 @@ import javafx.util.Callback;
 
 import java.io.*;
 
+/**
+ * Controller for welcome view
+ */
 public class welcomeController extends Controller  {
 
     @FXML

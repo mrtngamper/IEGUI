@@ -102,8 +102,8 @@ mvn install
 
 
 in the source directory.
-This will create an executable jar in the target directory, which his called IEGUI...shaded.jar
-this can then be copied into the source directory.
+This will create an executable jar in the target directory, which is called IEGUI...shaded.jar
+this file can then be copied into the source directory, but it may need additional resources.
 
 
 

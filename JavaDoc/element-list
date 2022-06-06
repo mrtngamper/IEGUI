@@ -1,0 +1,7 @@
+module:com.example.iegui
+com.example.iegui
+com.example.iegui.AI
+com.example.iegui.controller
+com.example.iegui.CustomNodes
+com.example.iegui.Exceptions
+com.example.iegui.util

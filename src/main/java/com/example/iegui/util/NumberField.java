@@ -16,7 +16,9 @@ import java.text.ParsePosition;
 import java.util.function.UnaryOperator;
 
 
-
+/**
+ *  Custom  TextField which only enables number input
+ */
 public class NumberField extends HBox {
     private TextField numberField= new TextField();
     private int maxValue;
