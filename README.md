@@ -73,7 +73,7 @@ python3 installation
 and a java runtime environment are required.
 
 
-Download install.py from the [release](https://github.com/mrtngamper/IEGUI/releases/tag/v0.1). And then run the following
+Download install.py from the [release](https://github.com/mrtngamper/IEGUI/releases/tag/v0.1) ([direct download](https://github.com/mrtngamper/IEGUI/releases/download/v0.1/install.py)). And then run the following
 it in a command line.
 
 ```
