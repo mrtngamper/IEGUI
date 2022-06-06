@@ -168,55 +168,38 @@ public class MainViewController extends Controller implements Initializable {
 
         imageName.setFont(Font.font(20));
         imageName.textProperty().bind(context.getTextName("browse2"));
-        bP.setOnDragDropped(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
-                File f = db.getFiles().get(0);
-                imageFile.setValue(f.getAbsolutePath());
+        bP.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            File f = db.getFiles().get(0);
+            imageFile.setValue(f.getAbsolutePath());
+        });
+
+        imageFile.addListener((observableValue, s, t1) -> {
+            try {
+                if(t1.equals("")){
+                    throw new Exception();
+                }
+                bP.setCenter(imageLoaded);
+                imageLoaded.setNewImage(new File(t1),context);
+            } catch (Exception e) {
+                imageFile.setValue("");
+                bP.setCenter(dragAndDrop);
             }
         });
 
-        imageFile.addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                try {
-                    if(t1.equals("")){
-                        throw new Exception();
-                    }
-                    bP.setCenter(imageLoaded);
-                    imageLoaded.setNewImage(new File(t1),context);
-                } catch (Exception e) {
-                    imageFile.setValue("");
-                    bP.setCenter(dragAndDrop);
-                }
+        bP.setOnDragOver(event -> {
+            if (event.getGestureSource() != browse && event.getDragboard().hasFiles()) {
+                event.acceptTransferModes(TransferMode.ANY);
             }
-        });
-
-        bP.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getGestureSource() != browse && event.getDragboard().hasFiles()) {
-                    event.acceptTransferModes(TransferMode.ANY);
-                }
-                event.consume();
-            }
+            event.consume();
         });
 
         final String[] oldStyle = {""};
-        bP.setOnDragEntered(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent dragEvent) {
-                oldStyle[0] =bP.getStyle();
-                bP.setStyle("-fx-background-color: #d4ffd1 ");
-            }
+        bP.setOnDragEntered(dragEvent -> {
+            oldStyle[0] =bP.getStyle();
+            bP.setStyle("-fx-background-color: #d4ffd1 ");
         });
-        bP.setOnDragExited(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent dragEvent) {
-                bP.setStyle(oldStyle[0]);
-            }
-        });
+        bP.setOnDragExited(dragEvent -> bP.setStyle(oldStyle[0]));
 
 
         list =  new EnhanceMethodListView(context, subBorderPane, imageFile);
@@ -259,8 +242,7 @@ public class MainViewController extends Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/iegui/about.fxml"));
 
 
-            Parent root = null;
-            root = loader.load();
+            Parent root = loader.load();
             Scene scene =new Scene(root, 500, 300);
             Controller controller = loader.getController();
             controller.setContext(context);
@@ -268,7 +250,10 @@ public class MainViewController extends Controller implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
 
+            stage.titleProperty().bind(context.getTextName("ieguiTeam"));
+
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(context.getStage());
             stage.show();
             stage.getIcons().add(context.getIcon());
         } catch (IOException e) {

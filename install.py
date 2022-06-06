@@ -30,7 +30,7 @@ def download():
               "NAFNet_models.zip",
               "SwinIR_models.zip"]
 
-    if (source == False):
+    if not source:
         download_and_extract_zip(jarname, False)
 
     for model in models:
@@ -40,10 +40,10 @@ def download():
 def download_and_extract_zip(model, unzip):
     url = "https://github.com/mrtngamper/IEGUI/releases/download/" + release_tag + "/" + model
 
-    if (os.path.isdir(os.path.join(directory, model[:-4]))):
+    if os.path.isdir(os.path.join(directory, model[:-4])):
         print("Directory: " + model + " already exists")
         return
-    if (os.path.isfile(os.path.join(directory, model))):
+    if os.path.isfile(os.path.join(directory, model)):
         print("File: " + model + " already exists")
         return
 
@@ -60,7 +60,7 @@ def download_and_extract_zip(model, unzip):
                 f.write(chunk)
                 update_progress(f.tell() / size)
 
-    if (unzip):
+    if unzip:
         with open(model[:-4] + ".installing", "rb") as f:
             z = zipfile.ZipFile(io.BytesIO(f.read()))
             os.makedirs(directory, exist_ok=True)
@@ -81,7 +81,8 @@ def normalize(raw_path):
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--zip", type=str, default=None, help="Create zip after installation (Experimental)")
-parser.add_argument("--installation", type=str, default=normalize("./installation_output"), help="Set installation directory")
+parser.add_argument("--installation", type=str, default=normalize("./installation_output"),
+                    help="Set installation directory")
 parser.add_argument("--dl_cache", type=str, default="dl_cache", help="Set download cache directory")
 parser.add_argument("--source", action='store_true',
                     help="Select if you want to compile from source. You need to be in the source directory")
@@ -104,7 +105,7 @@ def main():
 
     if args.zip is not None or args.installation is not None:
         os.makedirs(tempdir, exist_ok=True)
-        if (args.source == True):
+        if args.source:
             os.system("mvn install")
             try:
                 os.makedirs(tempdir)
