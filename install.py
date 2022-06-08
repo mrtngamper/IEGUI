@@ -119,10 +119,10 @@ def main():
             shutil.copyfile((normalize(directory + "/" + jarname)), normalize(tempdir + "/IEGUI.jar"))
 
         print("copying EnhanceMethod")
-        shutil.copytree(directory + "/EnhanceMethod/", tempdir + "/EnhanceMethod/", dirs_exist_ok=True,
+        shutil.copytree(normalize(directory + "/EnhanceMethod/"), normalize(tempdir + "/EnhanceMethod/"), dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('*.pth'))
         print("copying Environments")
-        shutil.copytree(directory + "/Environments/", tempdir + "/Environments/", dirs_exist_ok=True,
+        shutil.copytree(normalize(directory + "/Environments/"),normalize( tempdir + "/Environments/"), dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns('*.pth'))
         print("copying models")
         copy_models(tempdir)
@@ -159,11 +159,11 @@ def copy_models(destination):
 
     r = requests.get("https://github.com/mrtngamper/IEGUI/releases/download/v0.1/location.yml")
 
-    with open(directory + '/location.yml', 'wb') as file:
+    with open(normalize(directory + '/location.yml'), 'wb') as file:
         file.write(r.content)
 
     try:
-        with open(directory + '/location.yml', 'r') as file:
+        with open(normalize(directory + '/location.yml'), 'r') as file:
             yml = yaml.safe_load(file)
             for i in yml:
                 try:
